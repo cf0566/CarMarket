@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/login_bg"
+    android:orientation="vertical" >
+    
+     <RelativeLayout
+        style="@style/title_style"
+        android:gravity="center_vertical" >
+
+        <TextView
+            android:id="@+id/activity_login_tv"
+            style="@style/title_tv_center"
+            android:text="欢迎" />
+
+    </RelativeLayout>
+    
+     <ImageView 
+         android:id="@+id/activity_login_iv_logo" 
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_marginTop="40dp"
+         android:src="@drawable/ic_launcher"
+         android:layout_gravity="center_horizontal"
+         />
+       <TextView
+        style="@style/my_divide_line"
+        android:layout_marginTop="30dp" />
+      
+      	<EditText 
+   	    android:id="@+id/activity_login_et_acount"
+   	    android:layout_width="match_parent"
+   	    android:layout_height="wrap_content"
+   	    android:hint="请输入账号"
+   	    android:textSize="15sp"
+   	    android:drawableLeft="@drawable/pinggurenxingming"
+   	    android:drawablePadding="10dp"
+   	    android:background="#FFF"
+   	    android:paddingLeft="20dp"
+   	    android:textColorHint="#D8D8D8"
+   	    android:paddingTop="5dp"
+   	    android:paddingBottom="5dp"
+   	    />
+   	<TextView 
+       style="@style/my_divide_line"
+       android:layout_marginLeft="15dp"
+       android:layout_marginRight="15dp"
+       />
+   	
+   	<EditText 
+   	    android:id="@+id/activity_login_et_psd"
+   	    android:layout_width="match_parent"
+   	    android:layout_height="wrap_content"
+   	    android:hint="请输入密码"
+   	    android:textSize="15sp"
+   	    android:drawableLeft="@drawable/mima"
+   	    android:drawablePadding="10dp"
+   	    android:background="#FFF"
+   	    android:password="true"
+   	    android:paddingLeft="20dp"
+   	    android:paddingTop="5dp"
+   	    android:textColorHint="#D8D8D8"
+   	    android:paddingBottom="5dp"
+   	    />
+   <TextView 
+       style="@style/my_divide_line"
+       android:layout_marginBottom="15dp"
+       />
+     <Button 
+       android:id="@+id/activity_login_btn_login"
+       android:layout_width="match_parent"
+       android:layout_height="35dp"
+       android:text="登   陆"
+       android:layout_marginLeft="20dp"
+       android:layout_marginRight="20dp"
+       android:textColor="#FFF"
+       android:background="@drawable/login"
+       /> 
+    <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginLeft="15dp"
+        >
+        <CheckBox 
+            android:id="@+id/activity_login_cbox_agree"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="我已阅读并同意"
+            android:textSize="13sp"
+            android:textColor="#A9A9A9"
+            />
+        <TextView 
+             android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="《汽车后市场商家协议》"
+            android:textSize="13sp"
+            android:textColor="#0B83D1"
+            />
+    </LinearLayout>
+	<TextView 
+	    android:layout_width="match_parent"
+	    android:layout_height="0dp"
+	    android:layout_weight="1"
+	    />
+    <LinearLayout 
+       android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_margin="15dp"
+        >
+         <TextView 
+            android:id="@+id/activity_login_tv_request"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="申请入驻"
+            android:textSize="13sp"
+            android:textColor="#77FF0000"
+            />
+           <TextView 
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+           android:layout_weight="1"
+            />
+         <TextView 
+            android:id="@+id/activity_login_tv_forget"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="忘记密码？"
+            android:textSize="13sp"
+            android:textColor="#A9A9A9"
+            android:gravity="left"
+            />
+        
+        
+    </LinearLayout>
+	
+
+</LinearLayout>
