@@ -4,16 +4,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     >
-     <RelativeLayout
-        style="@style/black_title_style"
-        android:gravity="center_vertical" >
-
-        <TextView
-            android:id="@+id/activity_login_tv"
-            style="@style/black_title_tv_center"
-            android:text="我的问答" />
-
-    </RelativeLayout>
     <FrameLayout 
         android:id="@+id/activity_main_framlayout"
         android:layout_width="match_parent"

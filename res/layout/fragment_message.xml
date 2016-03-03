@@ -4,6 +4,15 @@
     android:layout_height="match_parent"
     android:background="#50F0"
     android:orientation="vertical" >
-    
+      <RelativeLayout
+        style="@style/black_title_style"
+        android:gravity="center_vertical" >
+
+        <TextView
+            android:id="@+id/fragment_msg_tv"
+            style="@style/black_title_tv_center"
+            android:text="消息" />
+
+    </RelativeLayout>
 
 </LinearLayout>

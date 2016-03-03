@@ -3,6 +3,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
+     <RelativeLayout
+        style="@style/black_title_style"
+        android:gravity="center_vertical" >
+
+        <TextView
+            android:id="@+id/fragment_answer_tv"
+            style="@style/black_title_tv_center"
+            android:text="我的问答" />
+
+    </RelativeLayout>
     <com.handmark.pulltorefresh.library.PullToRefreshListView
         android:id="@+id/fragment_answer_plv"
         android:layout_width="match_parent"

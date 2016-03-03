@@ -4,6 +4,15 @@
     android:layout_height="match_parent"
     android:background="#500F"
     android:orientation="vertical" >
-    
+     <RelativeLayout
+        style="@style/black_title_style"
+        android:gravity="center_vertical" >
+
+        <TextView
+            android:id="@+id/fragment_form_tv"
+            style="@style/black_title_tv_center"
+            android:text="订单管理" />
+
+    </RelativeLayout>
 
 </LinearLayout>
