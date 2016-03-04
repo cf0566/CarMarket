@@ -6,12 +6,8 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.Bitmap.Config;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -33,8 +29,6 @@ import com.cpic.carmarket.view.MyListView;
 import com.lidroid.xutils.BitmapUtils;
 import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.bitmap.BitmapDisplayConfig;
-import com.lidroid.xutils.bitmap.callback.BitmapLoadCallBack;
-import com.lidroid.xutils.bitmap.callback.BitmapLoadFrom;
 import com.lidroid.xutils.exception.HttpException;
 import com.lidroid.xutils.http.RequestParams;
 import com.lidroid.xutils.http.ResponseInfo;
@@ -45,7 +39,7 @@ public class AnswerDetailsActivity extends BaseActivity{
 	
 	private AnswerDetails details;
 	private TextView tvContent,tvCar,tvOrderTime,tvCheck,tvCompany,tvScore,tvTime,tvAnswer;
-	private ImageView ivQuestion1,ivQuestion2,ivIcon;
+	private ImageView ivQuestion1,ivQuestion2,ivIcon,ivBack;
 	private MyListView mlv;
 	private Button btnAnswer,btnOnline;
 	
@@ -61,9 +55,10 @@ public class AnswerDetailsActivity extends BaseActivity{
 	private Dialog dialog;
 	private RatingBar rBar;
 	
-	private String question_id,question_url1,question_url2,iv_icon_url;
+	private String question_id ,iv_icon_url;
 	
 	private Intent intent;
+	private BitmapDisplayConfig config;
 	@Override
 	protected void getIntentData(Bundle savedInstanceState) {
 		question_id = getIntent().getStringExtra("id");
@@ -90,6 +85,15 @@ public class AnswerDetailsActivity extends BaseActivity{
 				startActivity(intent);
 			}
 		});
+		
+		ivBack.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				onBackPressed();
+			}
+		});
+		
 	}
 	@Override
 	protected void initData() {
@@ -99,91 +103,35 @@ public class AnswerDetailsActivity extends BaseActivity{
 	 * 下载用户头像
 	 * @param img_url
 	 */
-	private void loadUserIcon(String img_url) {
-		utils = new BitmapUtils(AnswerDetailsActivity.this);
-		//设置是否支持本地缓存
-		utils.configDiskCacheEnabled(true);
-		//设置是否支持内存缓存
-		utils.configMemoryCacheEnabled(true);
-		//设置图片的最大宽高
-		utils.configDefaultBitmapMaxSize(200, 200);
-		//设置图片的默认颜色处理方式
-		utils.configDefaultBitmapConfig(Config.ARGB_8888);
-		//设置缓存的有效期
-		utils.configDefaultCacheExpiry(10000);
-		//设置联网读取图片的超时时间
-		utils.configDefaultConnectTimeout(10000);
-		utils.display(ivIcon, img_url, new BitmapLoadCallBack<View>() {
-
-			@Override
-			public void onLoadCompleted(View arg0, String arg1, Bitmap arg2,BitmapDisplayConfig arg3, BitmapLoadFrom arg4) {
-				ivIcon.setImageBitmap(arg2);
-			}
-			@Override
-			public void onLoadFailed(View arg0, String arg1, Drawable arg2) {
-				ivIcon.setImageResource(R.drawable.touxiang);
-			}
-		});
+	private void loadUserIcon(String ivUrl) {
+		config = new BitmapDisplayConfig();
+		 utils = new BitmapUtils(AnswerDetailsActivity.this);
+		config.setLoadingDrawable(getResources().getDrawable(R.drawable.empty_photo));
+		config.setLoadFailedDrawable(getResources().getDrawable(R.drawable.empty_photo));
+		utils.display(ivIcon, ivUrl, config);
+		
 	}
 	/**
 	 * 下载问题1
 	 * @param img_url
 	 */
 	private void loadQuestion1(String img_url) {
-		utils = new BitmapUtils(AnswerDetailsActivity.this);
-		//设置是否支持本地缓存
-		utils.configDiskCacheEnabled(true);
-		//设置是否支持内存缓存
-		utils.configMemoryCacheEnabled(true);
-		//设置图片的最大宽高
-		utils.configDefaultBitmapMaxSize(200, 200);
-		//设置图片的默认颜色处理方式
-		utils.configDefaultBitmapConfig(Config.ARGB_8888);
-		//设置缓存的有效期
-		utils.configDefaultCacheExpiry(10000);
-		//设置联网读取图片的超时时间
-		utils.configDefaultConnectTimeout(10000);
-		utils.display(ivQuestion1, img_url, new BitmapLoadCallBack<View>() {
-
-			@Override
-			public void onLoadCompleted(View arg0, String arg1, Bitmap arg2,BitmapDisplayConfig arg3, BitmapLoadFrom arg4) {
-				ivQuestion1.setImageBitmap(arg2);
-			}
-			@Override
-			public void onLoadFailed(View arg0, String arg1, Drawable arg2) {
-				ivQuestion1.setImageResource(R.drawable.touxiang);
-			}
-		});
+		config = new BitmapDisplayConfig();
+		 utils = new BitmapUtils(AnswerDetailsActivity.this);
+		config.setLoadingDrawable(getResources().getDrawable(R.drawable.empty_photo));
+		config.setLoadFailedDrawable(getResources().getDrawable(R.drawable.empty_photo));
+		utils.display(ivQuestion1, img_url, config);
 	}
 	/**
 	 * 下载问题2
 	 * @param img_url
 	 */
 	private void loadQuestion2(String img_url) {
-		utils = new BitmapUtils(AnswerDetailsActivity.this);
-		//设置是否支持本地缓存
-		utils.configDiskCacheEnabled(true);
-		//设置是否支持内存缓存
-		utils.configMemoryCacheEnabled(true);
-		//设置图片的最大宽高
-		utils.configDefaultBitmapMaxSize(200, 200);
-		//设置图片的默认颜色处理方式
-		utils.configDefaultBitmapConfig(Config.ARGB_8888);
-		//设置缓存的有效期
-		utils.configDefaultCacheExpiry(10000);
-		//设置联网读取图片的超时时间
-		utils.configDefaultConnectTimeout(10000);
-		utils.display(ivQuestion2, img_url, new BitmapLoadCallBack<View>() {
-			
-			@Override
-			public void onLoadCompleted(View arg0, String arg1, Bitmap arg2,BitmapDisplayConfig arg3, BitmapLoadFrom arg4) {
-				ivQuestion2.setImageBitmap(arg2);
-			}
-			@Override
-			public void onLoadFailed(View arg0, String arg1, Drawable arg2) {
-				ivQuestion2.setImageResource(R.drawable.touxiang);
-			}
-		});
+		config = new BitmapDisplayConfig();
+		 utils = new BitmapUtils(AnswerDetailsActivity.this);
+		config.setLoadingDrawable(getResources().getDrawable(R.drawable.empty_photo));
+		config.setLoadFailedDrawable(getResources().getDrawable(R.drawable.empty_photo));
+		utils.display(ivQuestion2, img_url, config);
 	}
 
 	/**

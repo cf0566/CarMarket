@@ -61,6 +61,41 @@
         <item name="android:textSize">20sp</item>
         <item name="android:textColor">#FFF</item>
 	</style>
+	  
+	<style name="black_title_tv_msg">
+	    <item name="android:layout_width">wrap_content</item>
+	    <item name="android:layout_height">wrap_content</item>
+	    <item name="android:layout_alignParentLeft">true</item>
+	    <item name="android:layout_centerVertical">true</item>
+	    <item name="android:text">消息</item>
+	    <item name="android:textSize">15sp</item>
+	    <item name="android:textColor">#FFF</item>
+	    <item name="android:paddingLeft">5dp</item>
+	    <item name="android:paddingRight">20dp</item>
+	    <item name="android:paddingTop">3dp</item>
+	    <item name="android:paddingBottom">3dp</item>
+	</style>
+	<style name="black_title_iv_back">
+	    <item name="android:layout_width">wrap_content</item>
+	    <item name="android:layout_height">wrap_content</item>
+	    <item name="android:layout_alignParentLeft">true</item>
+	     <item name="android:layout_centerVertical">true</item>
+	     <item name="android:paddingRight">20dp</item>
+	     <item name="android:paddingLeft">5dp</item>
+	     <item name="android:paddingTop">3dp</item>
+	     <item name="android:paddingBottom">3dp</item>
+	</style>
+	
+	<style name="form_rbtn">
+	    <item name="android:layout_width">0dp</item>
+	    <item name="android:layout_height">wrap_content</item>
+	     <item name="android:textSize">15sp</item>
+	     <item name="android:textColor">@drawable/form_select</item>
+	     <item name="android:layout_weight">1</item>
+	     <item name="android:button">@null</item>
+	     <item name="android:gravity">center_horizontal</item>
+	</style>
+	
 	
 	<style name="progress_dialog" parent="@android:style/Theme.Dialog">
         <item name="android:windowIsFloating">true</item>

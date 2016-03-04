@@ -61,6 +61,8 @@
    		<activity android:name="com.cpic.carmarket.activity.VoiceCallActivity"></activity>
    		<activity android:name="com.cpic.carmarket.activity.AnswerDetailsActivity"></activity>
        <activity android:name="com.cpic.carmarket.activity.AnswerOnlineResponseActivity"></activity>
+   		<activity android:name="com.cpic.carmarket.activity.NewMessageActivity"></activity>
+   		<activity android:name="com.cpic.carmarket.activity.MessageDetailsActivity"></activity>
    		<meta-data android:name="EASEMOB_APPKEY"  android:value="yunxiyou#carmarkettest" />
     	<!-- 声明sdk所需的service SDK核心功能-->
     	<service android:name="com.easemob.chat.EMChatService" />

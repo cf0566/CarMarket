@@ -7,6 +7,11 @@
         style="@style/black_title_style"
         android:gravity="center_vertical" >
 
+          <TextView
+            android:id="@+id/fragment_answer_msg_tv"
+           style="@style/black_title_tv_msg"
+            />
+          
         <TextView
             android:id="@+id/fragment_answer_tv"
             style="@style/black_title_tv_center"

@@ -2,17 +2,59 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#500F"
+    android:background="@color/main_bg"
     android:orientation="vertical" >
      <RelativeLayout
         style="@style/black_title_style"
         android:gravity="center_vertical" >
 
+          <TextView
+            android:id="@+id/fragment_form_msg_tv"
+           	style="@style/black_title_tv_msg"
+            />
         <TextView
             android:id="@+id/fragment_form_tv"
             style="@style/black_title_tv_center"
             android:text="订单管理" />
-
     </RelativeLayout>
+    <RadioGroup 
+        android:id="@+id/fragment_form_rgroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="#FFF"
+        android:padding="10dp"
+        >
+        <RadioButton 
+            android:id="@+id/fragment_form_rbtn_wait_service"
+            android:text="待服务"
+            android:checked="true"
+            style="@style/form_rbtn"
+            />
+        <RadioButton 
+            android:id="@+id/fragment_form_rbtn_on_service"
+            android:text="服务中"
+            style="@style/form_rbtn"
+            />
+        <RadioButton 
+            android:id="@+id/fragment_form_rbtn_after_service"
+            android:text="退款/售后"
+            style="@style/form_rbtn"
+            />
+        <RadioButton 
+            android:id="@+id/fragment_form_rbtn_wait_query"
+            android:text="待评价"
+            style="@style/form_rbtn"
+            />
+    </RadioGroup>
+     
+    <FrameLayout 
+        android:id="@+id/form_framlayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="10dp"
+        android:background="#FFF"
+        ></FrameLayout>
+     
 
 </LinearLayout>

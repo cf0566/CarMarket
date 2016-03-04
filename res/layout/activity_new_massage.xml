@@ -2,26 +2,26 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/login_bg"
     android:orientation="vertical" >
-
-    <RelativeLayout
+    
+     <RelativeLayout
         style="@style/black_title_style"
         android:gravity="center_vertical" >
 
-        <TextView
-            android:id="@+id/fragment_massage_msg_tv"
-            style="@style/black_title_tv_msg" 
+          <ImageView
+            android:id="@+id/activity_newmsg_iv_back"
+           style="@style/black_title_iv_back"
+           android:src="@drawable/back"
             />
-
+          
         <TextView
-            android:id="@+id/fragment_msg_tv"
+            android:id="@+id/fragment_answer_tv"
             style="@style/black_title_tv_center"
-            android:text="消息" />
+            android:text="联系人" />
+
     </RelativeLayout>
-    
      <com.handmark.pulltorefresh.library.PullToRefreshListView
-        android:id="@+id/fragment_message_plv"
+        android:id="@+id/activity_newmsg_plv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         >
