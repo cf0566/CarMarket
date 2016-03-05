@@ -21,7 +21,7 @@
          android:layout_width="wrap_content"
          android:layout_height="wrap_content"
          android:layout_marginTop="40dp"
-         android:src="@drawable/ic_launcher"
+         android:src="@drawable/huanying_logo"
          android:layout_gravity="center_horizontal"
          />
        <TextView
@@ -34,7 +34,7 @@
    	    android:layout_height="wrap_content"
    	    android:hint="请输入账号"
    	    android:textSize="15sp"
-   	    android:drawableLeft="@drawable/pinggurenxingming"
+   	    android:drawableLeft="@drawable/dl_shoujihao"
    	    android:drawablePadding="10dp"
    	    android:background="#FFF"
    	    android:paddingLeft="20dp"
@@ -54,7 +54,7 @@
    	    android:layout_height="wrap_content"
    	    android:hint="请输入密码"
    	    android:textSize="15sp"
-   	    android:drawableLeft="@drawable/mima"
+   	    android:drawableLeft="@drawable/dl_mima"
    	    android:drawablePadding="10dp"
    	    android:background="#FFF"
    	    android:password="true"
@@ -82,13 +82,16 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_marginLeft="15dp"
+        android:layout_marginTop="10dp"
         >
         <CheckBox 
             android:id="@+id/activity_login_cbox_agree"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="我已阅读并同意"
+            android:button="@drawable/login_check"
             android:textSize="13sp"
+            android:paddingLeft="5dp"
             android:textColor="#A9A9A9"
             />
         <TextView 

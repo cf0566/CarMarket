@@ -23,6 +23,13 @@ public class UrlUtils {
 	public static final String path_messageDetail="messageDetail";
 	//订单列表
 	public static final String path_orderList="orderList";
+	//订单状态
+	public static final String STATUS_WAIT = "1";
+	public static final String STATUS_ON = "2";
+	public static final String STATUS_AFTER = "3";
+	public static final String STATUS_QUERY = "4";
+	public static final String STATUS_CLOSE = "5";
+	
 	//订单详情接口
 	public static final String path_orderDetail="orderDetail";
 	//订单状态变更接口
@@ -51,5 +58,8 @@ public class UrlUtils {
 	public static final String path_merchantInfo="merchantInfo";
 	//更改商家信息
 	public static final String path_modifyInfo="modifyInfo";
+	
+	//获取数据失败Toast
+	public static final String loading_failure = "数据获取失败,请检查网络状况！";
 	
 }

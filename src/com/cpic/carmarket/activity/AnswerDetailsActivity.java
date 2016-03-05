@@ -38,10 +38,10 @@ import com.lidroid.xutils.http.client.HttpRequest.HttpMethod;
 public class AnswerDetailsActivity extends BaseActivity{
 	
 	private AnswerDetails details;
-	private TextView tvContent,tvCar,tvOrderTime,tvCheck,tvCompany,tvScore,tvTime,tvAnswer;
+	private TextView tvContent,tvCar,tvOrderTime,tvCheck,tvCompany,tvScore,tvTime,tvAnswer,tvLiuyan;
 	private ImageView ivQuestion1,ivQuestion2,ivIcon,ivBack;
 	private MyListView mlv;
-	private Button btnAnswer,btnOnline;
+	private Button btnOnline;
 	
 	private ArrayList<AnswerDetailsListInfo> questionData;
 	private AnswerDetailsData data;
@@ -71,7 +71,7 @@ public class AnswerDetailsActivity extends BaseActivity{
 
 	@Override
 	protected void registerListener() {
-		btnAnswer.setOnClickListener(new OnClickListener() {
+		tvLiuyan.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
@@ -218,10 +218,13 @@ public class AnswerDetailsActivity extends BaseActivity{
 		ivQuestion2 = (ImageView) findViewById(R.id.activity_answer_iv_question02);
 		ivIcon = (ImageView) findViewById(R.id.activity_answer_iv_icon);
 		mlv = (MyListView) findViewById(R.id.activity_answer_lv_question);
-		btnAnswer = (Button) findViewById(R.id.activity_answer_btn_answer);
+		tvLiuyan = (TextView) findViewById(R.id.activity_answer_btn_answer);
 		btnOnline = (Button) findViewById(R.id.activity_answer_btn_online_talk);
 		dialog = ProgressDialogHandle.getProgressDialog(this, null);
 		rBar = (RatingBar) findViewById(R.id.activity_answer_rbar);
+		ivBack = (ImageView)findViewById(R.id.activity_answer_details_iv_back);
+		
+		
 	}
 	
 	public class MyAdapter extends BaseAdapter{

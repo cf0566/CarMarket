@@ -15,7 +15,8 @@
 
         <ImageView
             android:id="@+id/activity_setpsd_iv_back"
-            style="@style/title_iv_back" />
+            style="@style/title_iv_back" 
+            />
     </RelativeLayout>
 
       <TextView
@@ -28,7 +29,7 @@
    	    android:layout_height="wrap_content"
    	    android:hint="请重新输入密码"
    	    android:textSize="15sp"
-   	    android:drawableLeft="@drawable/mima"
+   	    android:drawableLeft="@drawable/chongzhimima"
    	    android:drawablePadding="10dp"
    	    android:background="#FFF"
    	    android:password="true"
@@ -49,7 +50,7 @@
    	    android:layout_height="wrap_content"
    	    android:hint="请再次输入密码"
    	    android:textSize="15sp"
-   	    android:drawableLeft="@drawable/mima"
+   	    android:drawableLeft="@drawable/chongzhimima"
    	    android:drawablePadding="10dp"
    	    android:background="#FFF"
    	    android:password="true"

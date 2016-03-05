@@ -257,7 +257,6 @@ public class AnswerFragment extends Fragment {
 			} else {
 				holder = (ViewHolder) convertView.getTag();
 			}
-			sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
 			holder.tvUserName.setText(datas.get(position).getUser_name());
 			holder.tvCarType.setText(datas.get(position).getCar_name());
 			holder.tvQuestion.setText(datas.get(position).getContent());

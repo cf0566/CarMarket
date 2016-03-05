@@ -43,7 +43,7 @@
         <item name="android:layout_centerVertical">true</item>
         <item name="android:paddingLeft">5dp</item>
         <item name="android:paddingRight">5dp</item>
-        <item name="android:src">@drawable/mima</item>
+        <item name="android:src">@drawable/dingbu_fanhui2</item>
     </style>
 	<style name="title_tv_center">
 	     <item name="android:layout_width">wrap_content</item>
@@ -84,6 +84,17 @@
 	     <item name="android:paddingLeft">5dp</item>
 	     <item name="android:paddingTop">3dp</item>
 	     <item name="android:paddingBottom">3dp</item>
+	</style>
+	
+	<style name="form_tv_service">
+	     <item name="android:layout_width">wrap_content</item>
+	    <item name="android:layout_height">wrap_content</item>
+	     <item name="android:background">@drawable/massage_to_answer</item> 
+	     <item name="android:textColor">#CD2E2D</item> 
+	     <item name="android:textSize">13sp</item> 
+	     <item name="android:layout_marginTop">5dp</item> 
+	     <item name="android:layout_marginBottom">5dp</item> 
+	     <item name="android:layout_marginRight">20dp</item> 
 	</style>
 	
 	<style name="form_rbtn">

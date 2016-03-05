@@ -56,7 +56,6 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/massage_to_answer"
                 android:gravity="center"
-                android:layout_gravity="center_vertical"
                 android:text="我来解答"
                 android:textColor="#CD2E2D"
                 android:textSize="12sp" />
