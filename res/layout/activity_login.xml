@@ -81,7 +81,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginLeft="15dp"
+        android:layout_marginLeft="20dp"
         android:layout_marginTop="10dp"
         >
         <CheckBox 
@@ -135,9 +135,6 @@
             android:textColor="#A9A9A9"
             android:gravity="left"
             />
-        
-        
     </LinearLayout>
-	
 
 </LinearLayout>

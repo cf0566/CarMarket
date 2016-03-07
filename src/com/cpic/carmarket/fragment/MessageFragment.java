@@ -230,8 +230,7 @@ public class MessageFragment extends Fragment {
 		public View getView(int position, View convertView, ViewGroup parent) {
 			ViewHolder holder = null;
 			if (convertView == null) {
-				convertView = View.inflate(context,
-						R.layout.item_fragment_massage_list, null);
+				convertView = View.inflate(context,R.layout.item_fragment_massage_list, null);
 				holder = new ViewHolder();
 				holder.tvUserName = (TextView) convertView
 						.findViewById(R.id.item_massage_tv_user_name);

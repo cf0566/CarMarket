@@ -11,27 +11,27 @@
         android:padding="10dp"
         >
         <ImageView 
-            android:id="@+id/item_form_wait_iv_icon"
+            android:id="@+id/item_form_after_service_iv_icon"
             android:layout_width="70dp"
             android:layout_height="70dp"
             android:src="@drawable/empty_photo"
             />
         <TextView 
-             android:id="@+id/item_form_wait_tv_com"
+            android:id="@+id/item_form_after_service_tv_com"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_alignParentTop="true"
-			android:layout_toRightOf="@id/item_form_wait_iv_icon"
+			android:layout_toRightOf="@id/item_form_after_service_iv_icon"
 			android:text="合肥俊辉汽配有限公司"
 			android:textSize="15sp"
 			android:padding="10dp"
             />
         <TextView 
-             android:id="@+id/item_form_wait_tv_price"
+             android:id="@+id/item_form_after_service_tv_price"
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:layout_alignBottom="@id/item_form_wait_iv_icon"
-			android:layout_toRightOf="@id/item_form_wait_iv_icon"
+			android:layout_alignBottom="@id/item_form_after_service_iv_icon"
+			android:layout_toRightOf="@id/item_form_after_service_iv_icon"
 			android:text="$20.00"
 			android:textColor="#E68520"
 			android:textSize="15sp"
@@ -52,9 +52,14 @@
             android:layout_weight="1"
             />
         <TextView 
-            android:id="@+id/item_form_frag_tv_start_service"
+            android:id="@+id/item_form_after_service_tv_notagree"
+           	style="@style/form_tv_not_agree"
+            android:text="不同意退款"
+            />
+        <TextView 
+            android:id="@+id/item_form_after_service_tv_agree"
            	style="@style/form_tv_service"
-            android:text="开始服务"
+            android:text="同意退款"
             />
     </LinearLayout>
     <TextView 

@@ -28,7 +28,12 @@ public class UrlUtils {
 	public static final String STATUS_ON = "2";
 	public static final String STATUS_AFTER = "3";
 	public static final String STATUS_QUERY = "4";
-	public static final String STATUS_CLOSE = "5";
+	public static final String STATUS_AFTER_QUERY = "5";
+	public static final String STATUS_CLOSE = "6";
+	
+	public static final String STATUS_SERVICE = "1";
+	public static final String STATUS_AGREE = "2";
+	public static final String STATUS_NOTAGREE = "3";
 	
 	//订单详情接口
 	public static final String path_orderDetail="orderDetail";
@@ -61,5 +66,7 @@ public class UrlUtils {
 	
 	//获取数据失败Toast
 	public static final String loading_failure = "数据获取失败,请检查网络状况！";
+	public static final String update_success = "已是最新数据！";
+	public static final String loading_success = "数据加载成功！";
 	
 }

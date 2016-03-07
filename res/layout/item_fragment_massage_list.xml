@@ -67,6 +67,8 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="奥迪A6L"
+            android:drawableLeft="@drawable/qichexiaotu"
+            android:drawablePadding="5dp"
             android:textColor="#B4B4B4"
             android:textSize="12sp" />
 

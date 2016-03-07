@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 
@@ -15,6 +16,7 @@ import com.cpic.carmarket.R;
 public class FormFragment  extends Fragment{
 
 	private RadioGroup rGroup;
+	private RadioButton rbtnWait;
 	private FragmentManager fm;
 	private FragmentTransaction trans;
 	@Override
@@ -70,5 +72,6 @@ public class FormFragment  extends Fragment{
 	}
 	private void initView(View view) {
 		rGroup = (RadioGroup) view.findViewById(R.id.fragment_form_rgroup);
+		rbtnWait = (RadioButton) view.findViewById(R.id.fragment_form_rbtn_wait_service);
 	}
 }
