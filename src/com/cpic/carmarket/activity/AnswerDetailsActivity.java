@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
@@ -45,6 +46,8 @@ public class AnswerDetailsActivity extends BaseActivity{
 	
 	private ArrayList<AnswerDetailsListInfo> questionData;
 	private AnswerDetailsData data;
+	
+	private LinearLayout ll ;
 	
 	private MyAdapter adapter;
 	private HttpUtils post;
@@ -187,13 +190,17 @@ public class AnswerDetailsActivity extends BaseActivity{
 					iv_icon_url = data.getAnswer().getLogo();
 					loadUserIcon(iv_icon_url);
 					if (data.getImg().size() == 1) {
+						ll.setVisibility(View.VISIBLE);
 						ivQuestion1.setVisibility(View.VISIBLE);
 						loadQuestion1(data.getQuestion_img().get(0));
 					}else if (data.getImg().size() >= 2) {
+						ll.setVisibility(View.VISIBLE);
 						ivQuestion1.setVisibility(View.VISIBLE);
 						ivQuestion2.setVisibility(View.VISIBLE);
 						loadQuestion1(data.getQuestion_img().get(0));
 						loadQuestion2(data.getQuestion_img().get(1));
+					}else{
+						ll.setVisibility(View.GONE);
 					}
 					questionData = data.getAnswer().getList();
 					adapter = new MyAdapter(AnswerDetailsActivity.this);
@@ -224,7 +231,7 @@ public class AnswerDetailsActivity extends BaseActivity{
 		rBar = (RatingBar) findViewById(R.id.activity_answer_rbar);
 		ivBack = (ImageView)findViewById(R.id.activity_answer_details_iv_back);
 		
-		
+		ll = (LinearLayout) findViewById(R.id.activity_answer_ll);
 	}
 	
 	public class MyAdapter extends BaseAdapter{

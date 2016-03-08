@@ -8,39 +8,52 @@ import android.preference.PreferenceManager;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alibaba.fastjson.JSONObject;
 import com.cpic.carmarket.R;
 import com.cpic.carmarket.base.BaseActivity;
+import com.cpic.carmarket.bean.FormCloseData;
+import com.cpic.carmarket.bean.FormCloseDataInfo;
 import com.cpic.carmarket.bean.FormData2;
 import com.cpic.carmarket.bean.FormDataInfo2;
+import com.cpic.carmarket.fragment.FormWaitServiceFragment.WaitAdapter;
 import com.cpic.carmarket.utils.ProgressDialogHandle;
 import com.cpic.carmarket.utils.UrlUtils;
+import com.lidroid.xutils.BitmapUtils;
 import com.lidroid.xutils.HttpUtils;
+import com.lidroid.xutils.bitmap.BitmapDisplayConfig;
 import com.lidroid.xutils.exception.HttpException;
 import com.lidroid.xutils.http.RequestParams;
 import com.lidroid.xutils.http.ResponseInfo;
 import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest.HttpMethod;
 
-public class FormAfterServiceActivity extends BaseActivity {
+public class FormCloseActivity extends BaseActivity {
 
 	private TextView tvCar, tvUser, tvPhone, tvAddress, tvType, tvPrice,
-			tvTime, tvPay, tvNum, tvCreat, tvAgree,tvNotAgree;
+			tvTime, tvPay, tvNum, tvCreat,tvBackTime,tvNotAgreeTime,tvReason,tvIsAgree;
 	
-	private ImageView ivBack;
+	private LinearLayout ll;
+	
+	private ImageView ivBack,ivReason;
 	
 	private HttpUtils post;
 	private RequestParams params;
 	private SharedPreferences sp;
 	private Dialog dialog;
-	private FormDataInfo2 data;
-	private FormData2 obj;
-	private String order_id;
+	private FormCloseDataInfo data;
+	
+	private String order_id,url;
+
+	private BitmapDisplayConfig config;
+
+	private BitmapUtils utils;
 	
 	private Intent intent;
+	
 	@Override
 	protected void getIntentData(Bundle savedInstanceState) {
 		order_id = getIntent().getStringExtra("order_id");
@@ -48,30 +61,34 @@ public class FormAfterServiceActivity extends BaseActivity {
 
 	@Override
 	protected void loadXml() {
-		setContentView(R.layout.activity_form_after_service);
+		setContentView(R.layout.activity_form_close);
 	}
 	
 	@Override
 	protected void initView() {
-		tvCar = (TextView) findViewById(R.id.activity_form_after_service_tv_car);
-		tvUser = (TextView) findViewById(R.id.activity_form_after_service_tv_user);
-		tvPhone = (TextView) findViewById(R.id.activity_form_after_service_tv_phone);
-		tvAddress = (TextView) findViewById(R.id.activity_form_after_service_tv_address);
-		tvType = (TextView) findViewById(R.id.activity_form_after_service_tv_type);
-		tvPrice = (TextView) findViewById(R.id.activity_form_after_service_tv_price);
-		tvTime = (TextView) findViewById(R.id.activity_form_after_service_tv_time);
-		tvPay = (TextView) findViewById(R.id.activity_form_after_service_tv_pay);
-		tvNum = (TextView) findViewById(R.id.activity_form_after_service_tv_num);
-		tvCreat = (TextView) findViewById(R.id.activity_form_after_service_tv_creat_time);
-		tvAgree = (TextView) findViewById(R.id.activity_form_after_service_tv_agree);
-		tvNotAgree = (TextView) findViewById(R.id.activity_form_after_service_tv_notagree);
-		ivBack = (ImageView) findViewById(R.id.activity_form_after_service_iv_back);
+		tvCar = (TextView) findViewById(R.id.activity_form_close_tv_car);
+		tvUser = (TextView) findViewById(R.id.activity_form_close_tv_user);
+		tvPhone = (TextView) findViewById(R.id.activity_form_close_tv_phone);
+		tvAddress = (TextView) findViewById(R.id.activity_form_close_tv_address);
+		tvType = (TextView) findViewById(R.id.activity_form_close_tv_type);
+		tvPrice = (TextView) findViewById(R.id.activity_form_close_tv_price);
+		tvTime = (TextView) findViewById(R.id.activity_form_close_tv_time);
+		tvPay = (TextView) findViewById(R.id.activity_form_close_tv_pay);
+		tvNum = (TextView) findViewById(R.id.activity_form_close_tv_num);
+		tvCreat = (TextView) findViewById(R.id.activity_form_close_tv_creat_time);
+		
+		tvBackTime = (TextView) findViewById(R.id.activity_form_close_tv_back_time);
+		tvNotAgreeTime = (TextView) findViewById(R.id.activity_form_close_tv_not_agree_time);
+		tvReason = (TextView) findViewById(R.id.activity_form_close_tv_reason);
+		tvIsAgree =  (TextView) findViewById(R.id.activity_form_close_tv_isagree);
+		ll = (LinearLayout) findViewById(R.id.activity_form_close_ll);
+		ivReason = (ImageView) findViewById(R.id.activity_form_close_iv_reason);
+		ivBack = (ImageView) findViewById(R.id.activity_form_close_iv_back);
 		dialog = ProgressDialogHandle.getProgressDialog(this, null);
 	}
 
 	@Override
 	protected void registerListener() {
-		
 		ivBack.setOnClickListener(new OnClickListener() {
 			
 			@Override
@@ -80,71 +97,20 @@ public class FormAfterServiceActivity extends BaseActivity {
 			}
 		});
 		
-		tvAgree.setOnClickListener(new OnClickListener() {
+		ivReason.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
-				agreePay();
-			}
-		});
-		
-		tvNotAgree.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				intent = new Intent(FormAfterServiceActivity.this, NotAgreeActivity.class);
-				intent.putExtra("order_id", order_id);
+				intent = new Intent(FormCloseActivity.this, PicturePreviewActivity.class);
+				intent.putExtra("url", url);
 				startActivity(intent);
-				FormAfterServiceActivity.this.finish();
-			}
-		});
-	}
-	private void agreePay() {
-		sp = PreferenceManager.getDefaultSharedPreferences(FormAfterServiceActivity.this);
-		String token = sp.getString("token", "");
-		post = new HttpUtils();
-		params = new RequestParams();
-		params.addBodyParameter("token", token);
-		params.addBodyParameter("order_id", order_id);
-		params.addBodyParameter("status", UrlUtils.STATUS_AGREE);
-		String url = UrlUtils.postUrl+UrlUtils.path_orderAction;
-		post.send(HttpMethod.POST, url, params, new RequestCallBack<String>() {
-
-			@Override
-			public void onStart() {
-				super.onStart();
-				if (dialog != null) {
-					dialog.show();
-				}
-			}
-			@Override
-			public void onFailure(HttpException arg0, String arg1) {
-				Toast.makeText(FormAfterServiceActivity.this, "请检查网络连接，提交失败", 0).show();
-				if (dialog != null) {
-					dialog.dismiss();
-				}
-			}
-
-			@Override
-			public void onSuccess(ResponseInfo<String> arg0) {
-				if (dialog != null) {
-					dialog.dismiss();
-				}
-				JSONObject obj = JSONObject.parseObject(arg0.result);
-				int code = obj.getIntValue("code");
-				if (code == 1) {
-					Toast.makeText(FormAfterServiceActivity.this, "同意退款成功", 0).show();
-					onBackPressed();
-				}else{
-					Toast.makeText(FormAfterServiceActivity.this, "提交失败"+code+"", 0).show();
-				}
 			}
 		});
 	}
 	
 	@Override
 	protected void initData() {
-		sp = PreferenceManager.getDefaultSharedPreferences(FormAfterServiceActivity.this);
+		sp = PreferenceManager.getDefaultSharedPreferences(FormCloseActivity.this);
 		String token = sp.getString("token", "");
 		post = new HttpUtils();
 		params = new RequestParams();
@@ -173,7 +139,7 @@ public class FormAfterServiceActivity extends BaseActivity {
 				if (dialog != null) {
 					dialog.dismiss();
 				}
-				obj = JSONObject.parseObject(arg0.result, FormData2.class);
+				FormCloseData obj = JSONObject.parseObject(arg0.result, FormCloseData.class);
 				int code= obj.getCode();
 				if (code == 1) {
 					data = obj.getData();
@@ -182,6 +148,7 @@ public class FormAfterServiceActivity extends BaseActivity {
 					showShortToast("获取数据失败"+code);
 				}
 			}
+
 		});
 	}
 	private void loadDatas() {
@@ -198,7 +165,30 @@ public class FormAfterServiceActivity extends BaseActivity {
 			tvPay.setText("微信支付");
 		}
 		tvNum.setText(data.getOrder_sn());
-		tvCreat .setText(data.getCreate_date());
+		tvCreat.setText(data.getCreate_date());
+		if ("1".equals(data.getBack().getBack_status())) {
+			ll.setVisibility(View.INVISIBLE);
+			tvBackTime.setText(data.getBack().getMerchant_time());
+		}else if ("2".equals(data.getBack().getBack_status())){
+			tvBackTime.setVisibility(View.GONE);
+			ll.setVisibility(View.VISIBLE);
+			tvIsAgree.setText("商家不同意退款原因");
+			tvNotAgreeTime.setText(data.getBack().getMerchant_time());
+			tvReason.setText(data.getBack().getMerchant_reason());
+			url = data.getBack().getMerchant_img().get(0);
+			if (!"".equals(data.getBack().getMerchant_img().get(0))) {
+				loadUserIcon(url);
+			}
+		}
+	}
+	
+	private void loadUserIcon(String ivUrl) {
+		config = new BitmapDisplayConfig();
+		 utils = new BitmapUtils(FormCloseActivity.this);
+		config.setLoadingDrawable(getResources().getDrawable(R.drawable.empty_photo));
+		config.setLoadFailedDrawable(getResources().getDrawable(R.drawable.empty_photo));
+		utils.display(ivReason, ivUrl, config);
+		
 	}
 
 }

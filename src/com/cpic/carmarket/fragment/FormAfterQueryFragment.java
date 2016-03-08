@@ -2,13 +2,33 @@ package com.cpic.carmarket.fragment;
 
 import java.util.ArrayList;
 
+import android.app.Dialog;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.BaseAdapter;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
+import android.widget.AdapterView.OnItemClickListener;
+
 import com.alibaba.fastjson.JSONObject;
 import com.cpic.carmarket.R;
+import com.cpic.carmarket.activity.FormAfterQueryActivity;
 import com.cpic.carmarket.activity.FormOnServiceActivity;
+import com.cpic.carmarket.activity.FormWaitServiceActivity;
 import com.cpic.carmarket.bean.FormData;
 import com.cpic.carmarket.bean.FormDataInfo;
-import com.cpic.carmarket.fragment.FormOnServiceFragment.OnAdapter;
-import com.cpic.carmarket.fragment.FormOnServiceFragment.OnAdapter.ViewHolder;
+import com.cpic.carmarket.fragment.FormAfterServiceFragment.AfterAdapter;
+import com.cpic.carmarket.fragment.FormWaitServiceFragment.WaitAdapter;
 import com.cpic.carmarket.utils.ProgressDialogHandle;
 import com.cpic.carmarket.utils.UrlUtils;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
@@ -22,61 +42,32 @@ import com.lidroid.xutils.http.ResponseInfo;
 import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest.HttpMethod;
 
-import android.app.Dialog;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.os.Bundle;
-import android.preference.PreferenceManager;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.BaseAdapter;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
-import android.widget.AdapterView.OnItemClickListener;
-
-public class FormWaitQueryFragment extends Fragment {
-
+public class FormAfterQueryFragment extends Fragment{
+	
 	private PullToRefreshListView plv;
 	private ArrayList<FormDataInfo> datas;
 	private HttpUtils post;
 	private RequestParams params;
 	private SharedPreferences sp;
-	private QueryAdapter adapter;
+	private OnAdapter adapter;
 	private Dialog dialog;
-
+	
 	private Intent intent;
-
+	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		View view = inflater.inflate(R.layout.fragment_form_wait_query, null);
-
+		View view = inflater.inflate(R.layout.fragment_form_on_service, null);
+		
 		initView(view);
-
+		
 		initDatas();
-
+		
 		registerListener();
 		return view;
 	}
-
+	
 	private void registerListener() {
-		
-		plv.setOnItemClickListener(new OnItemClickListener() {
-
-			@Override
-			public void onItemClick(AdapterView<?> parent, View view,
-					int position, long id) {
-				intent = new Intent(getActivity(), FormOnServiceActivity.class);
-				intent.putExtra("order_id", datas.get(position-1).getOrder_id());
-				startActivity(intent);
-			}
-		});
-		
-		
 		plv.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2() {
 
 			@Override
@@ -86,7 +77,7 @@ public class FormWaitQueryFragment extends Fragment {
 				post = new HttpUtils();
 				params = new RequestParams();
 				params.addBodyParameter("token", token);
-				params.addBodyParameter("status", UrlUtils.STATUS_QUERY);
+				params.addBodyParameter("status", UrlUtils.STATUS_AFTER_QUERY);
 				post.send(HttpMethod.POST, UrlUtils.postUrl + UrlUtils.path_orderList,params,new RequestCallBack<String>() {
 
 					@Override
@@ -113,7 +104,7 @@ public class FormWaitQueryFragment extends Fragment {
 						int code = obj.getIntValue("code");
 						if (code == 1) {
 							datas = JSONObject.parseObject(arg0.result, FormData.class).getData();
-							adapter = new QueryAdapter();
+							adapter = new OnAdapter();
 							adapter.setDatas(datas);
 							plv.setAdapter(adapter);
 							Toast.makeText(getActivity(), UrlUtils.update_success, 0).show();
@@ -129,72 +120,82 @@ public class FormWaitQueryFragment extends Fragment {
 			public void onPullUpToRefresh(PullToRefreshBase refreshView) {
 			}
 		});
-	}
+		
+		plv.setOnItemClickListener(new OnItemClickListener() {
 
-	private void initView(View view) {
-		plv = (PullToRefreshListView) view.findViewById(R.id.fragment_form_wait_query_plv);
-		dialog = ProgressDialogHandle.getProgressDialog(getActivity(), null);
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				intent = new Intent(getActivity(), FormAfterQueryActivity.class);
+				intent.putExtra("order_id", datas.get(position-1).getOrder_id());
+				startActivity(intent);
+			}
+		});
+		
 	}
-
 	private void initDatas() {
 		sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
 		String token = sp.getString("token", "");
 		post = new HttpUtils();
 		params = new RequestParams();
 		params.addBodyParameter("token", token);
-		params.addBodyParameter("status", UrlUtils.STATUS_QUERY);
-		post.send(HttpMethod.POST, UrlUtils.postUrl + UrlUtils.path_orderList,
-				params, new RequestCallBack<String>() {
+		params.addBodyParameter("status", UrlUtils.STATUS_AFTER_QUERY);
+		post.send(HttpMethod.POST, UrlUtils.postUrl + UrlUtils.path_orderList,params,new RequestCallBack<String>() {
 
-					@Override
-					public void onStart() {
-						super.onStart();
-						if (dialog != null) {
-							dialog.show();
-						}
-					}
+			@Override
+			public void onStart() {
+				super.onStart();
+				if (dialog != null) {
+					dialog.show();
+				}
+			}
+			@Override
+			public void onFailure(HttpException arg0, String arg1) {
+				Toast.makeText(getActivity(), UrlUtils.loading_failure, 0).show();
+				if (dialog != null) {
+					dialog.dismiss();
+				}
+			}
 
-					@Override
-					public void onFailure(HttpException arg0, String arg1) {
-						Toast.makeText(getActivity(), UrlUtils.loading_failure,0).show();
-						if (dialog != null) {
-							dialog.dismiss();
-						}
-					}
-
-					@Override
-					public void onSuccess(ResponseInfo<String> arg0) {
-						if (dialog != null) {
-							dialog.dismiss();
-						}
-						JSONObject obj = JSONObject.parseObject(arg0.result);
-						int code = obj.getIntValue("code");
-						if (code == 1) {
-							datas = JSONObject.parseObject(arg0.result,
-									FormData.class).getData();
-							adapter = new QueryAdapter();
-							adapter.setDatas(datas);
-							plv.setAdapter(adapter);
-						} else {
-							Toast.makeText(getActivity(), "数据获取失败", 0).show();
-						}
-					}
-				});
+			@Override
+			public void onSuccess(ResponseInfo<String> arg0) {
+				if (dialog != null) {
+					dialog.dismiss();
+				}
+				JSONObject obj = JSONObject.parseObject(arg0.result);
+				int code = obj.getIntValue("code");
+				if (code == 1) {
+					datas = JSONObject.parseObject(arg0.result, FormData.class).getData();
+					adapter = new OnAdapter();
+					adapter.setDatas(datas);
+					plv.setAdapter(adapter);
+				}else{
+					Toast.makeText(getActivity(), "数据获取失败", 0).show();
+				}
+			}
+		});
 	}
-
-	public class QueryAdapter extends BaseAdapter {
+	
+	private void initView(View view) {
+		plv= (PullToRefreshListView) view.findViewById(R.id.fragment_form_on_service_plv);
+		dialog = ProgressDialogHandle.getProgressDialog(getActivity(), null);
+	}
+	
+	
+	public class OnAdapter extends BaseAdapter{
 
 		private ArrayList<FormDataInfo> datas;
 		private BitmapDisplayConfig config;
 		private BitmapUtils utils;
-
-		public void setDatas(ArrayList<FormDataInfo> datas) {
+		
+		
+		public void setDatas(ArrayList<FormDataInfo> datas){
 			this.datas = datas;
 		}
-
+		
 		@Override
 		public int getCount() {
-			return datas == null ? 0 : datas.size();
+			return datas == null ?0 :datas.size();
 		}
 
 		@Override
@@ -211,41 +212,33 @@ public class FormWaitQueryFragment extends Fragment {
 		public View getView(int position, View convertView, ViewGroup parent) {
 			ViewHolder holder = null;
 			if (convertView == null) {
-				convertView = View.inflate(getActivity(),
-						R.layout.item_form_frag_on_service_list, null);
+				convertView = View.inflate(getActivity(), R.layout.item_form_frag_on_service_list,null);
 				holder = new ViewHolder();
-				holder.ivIcon = (ImageView) convertView
-						.findViewById(R.id.item_form_on_service_iv_icon);
-				holder.tvCom = (TextView) convertView
-						.findViewById(R.id.item_form_on_service_tv_com);
-				holder.tvPrice = (TextView) convertView
-						.findViewById(R.id.item_form_on_service_tv_price);
+				holder.ivIcon = (ImageView) convertView.findViewById(R.id.item_form_on_service_iv_icon);
+				holder.tvCom = (TextView) convertView.findViewById(R.id.item_form_on_service_tv_com);
+				holder.tvPrice = (TextView) convertView.findViewById(R.id.item_form_on_service_tv_price);
 				convertView.setTag(holder);
-			} else {
+			}else{
 				holder = (ViewHolder) convertView.getTag();
 			}
 			holder.tvCom.setText(datas.get(position).getCompany_name());
-			holder.tvPrice.setText("¥" + datas.get(position).getOrder_amount());
-
+			holder.tvPrice.setText("¥"+datas.get(position).getOrder_amount());
+			
 			loadBitmap(holder, datas.get(position).getCompany_logo());
-
+			
 			return convertView;
 		}
-
-		private void loadBitmap(final ViewHolder holder, String ivUrl) {
+		private void loadBitmap(final ViewHolder holder ,String ivUrl) {
 			config = new BitmapDisplayConfig();
 			utils = new BitmapUtils(getActivity());
-			config.setLoadingDrawable(getResources().getDrawable(
-					R.drawable.empty_photo));
-			config.setLoadFailedDrawable(getResources().getDrawable(
-					R.drawable.empty_photo));
+			config.setLoadingDrawable(getResources().getDrawable(R.drawable.empty_photo));
+			config.setLoadFailedDrawable(getResources().getDrawable(R.drawable.empty_photo));
 			utils.display(holder.ivIcon, ivUrl, config);
 		}
-
-		class ViewHolder {
+		class ViewHolder{
 			ImageView ivIcon;
-			TextView tvCom, tvPrice;
+			TextView tvCom,tvPrice;
 		}
 	}
-
+	
 }

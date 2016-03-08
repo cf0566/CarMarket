@@ -2,15 +2,31 @@ package com.cpic.carmarket.fragment;
 
 import java.util.ArrayList;
 
+import android.app.Dialog;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.BaseAdapter;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
+
 import com.alibaba.fastjson.JSONObject;
 import com.cpic.carmarket.R;
 import com.cpic.carmarket.activity.FormAfterServiceActivity;
-import com.cpic.carmarket.activity.FormOnServiceActivity;
+import com.cpic.carmarket.activity.NotAgreeActivity;
 import com.cpic.carmarket.bean.FormData;
+import com.cpic.carmarket.bean.FormData3;
 import com.cpic.carmarket.bean.FormDataInfo;
-import com.cpic.carmarket.fragment.FormOnServiceFragment.OnAdapter;
-import com.cpic.carmarket.fragment.FormWaitServiceFragment.WaitAdapter;
-import com.cpic.carmarket.fragment.FormWaitServiceFragment.WaitAdapter.ViewHolder;
+import com.cpic.carmarket.bean.FormDataInfo3;
 import com.cpic.carmarket.utils.ProgressDialogHandle;
 import com.cpic.carmarket.utils.UrlUtils;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
@@ -24,26 +40,9 @@ import com.lidroid.xutils.http.ResponseInfo;
 import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest.HttpMethod;
 
-import android.app.Dialog;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.os.Bundle;
-import android.preference.PreferenceManager;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.View.OnClickListener;
-import android.widget.AdapterView;
-import android.widget.BaseAdapter;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
-import android.widget.AdapterView.OnItemClickListener;
-
 public class FormAfterServiceFragment extends Fragment {
 	private PullToRefreshListView plv;
-	private ArrayList<FormDataInfo> datas;
+	private ArrayList<FormDataInfo3> datas;
 	private HttpUtils post;
 	private RequestParams params;
 	private SharedPreferences sp;
@@ -100,7 +99,7 @@ public class FormAfterServiceFragment extends Fragment {
 						JSONObject obj = JSONObject.parseObject(arg0.result);
 						int code = obj.getIntValue("code");
 						if (code == 1) {
-							datas = JSONObject.parseObject(arg0.result, FormData.class).getData();
+							datas = JSONObject.parseObject(arg0.result, FormData3.class).getData();
 							adapter = new AfterAdapter();
 							adapter.setDatas(datas);
 							plv.setAdapter(adapter);
@@ -169,7 +168,7 @@ public class FormAfterServiceFragment extends Fragment {
 				JSONObject obj = JSONObject.parseObject(arg0.result);
 				int code = obj.getIntValue("code");
 				if (code == 1) {
-					datas = JSONObject.parseObject(arg0.result, FormData.class).getData();
+					datas = JSONObject.parseObject(arg0.result, FormData3.class).getData();
 					adapter = new AfterAdapter();
 					adapter.setDatas(datas);
 					plv.setAdapter(adapter);
@@ -186,11 +185,11 @@ public class FormAfterServiceFragment extends Fragment {
 
 	public class AfterAdapter extends BaseAdapter {
 
-		private ArrayList<FormDataInfo> datas;
+		private ArrayList<FormDataInfo3> datas;
 		private BitmapDisplayConfig config;
 		private BitmapUtils utils;
 
-		public void setDatas(ArrayList<FormDataInfo> datas) {
+		public void setDatas(ArrayList<FormDataInfo3> datas) {
 			this.datas = datas;
 		}
 
@@ -247,7 +246,9 @@ public class FormAfterServiceFragment extends Fragment {
 				
 				@Override
 				public void onClick(View v) {
-					
+					intent = new Intent(getActivity(), NotAgreeActivity.class);
+					intent.putExtra("order_id", datas.get(position).getOrder_id());
+					getActivity().startActivity(intent);
 				}
 			});
 

@@ -64,6 +64,18 @@ public class FormFragment  extends Fragment{
 					trans.replace(R.id.form_framlayout,new FormWaitQueryFragment());
 					trans.commit();
 					break;
+				case R.id.fragment_form_rbtn_after_query:
+					fm = getChildFragmentManager();
+					trans = fm.beginTransaction();
+					trans.replace(R.id.form_framlayout,new FormAfterQueryFragment());
+					trans.commit();
+					break;
+				case R.id.fragment_form_rbtn_off:
+					fm = getChildFragmentManager();
+					trans = fm.beginTransaction();
+					trans.replace(R.id.form_framlayout,new FormCloseFragment());
+					trans.commit();
+					break;
 				default:
 					break;
 				}

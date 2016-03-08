@@ -1,10 +1,9 @@
 package com.cpic.carmarket.bean;
 
-
-public class FormData2 {
+public class FormData4 {
 	private int code;
 	private String msg;
-	private FormDataInfo2 data;
+	private FormDataInfo4 data;
 	public int getCode() {
 		return code;
 	}
@@ -17,20 +16,20 @@ public class FormData2 {
 	public void setMsg(String msg) {
 		this.msg = msg;
 	}
-	public FormData2() {
+	public FormData4(int code, String msg, FormDataInfo4 data) {
+		super();
+		this.code = code;
+		this.msg = msg;
+		this.data = data;
+	}
+	public FormDataInfo4 getData() {
+		return data;
+	}
+	public void setData(FormDataInfo4 data) {
+		this.data = data;
+	}
+	public FormData4() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public FormDataInfo2 getData() {
-		return data;
-	}
-	public void setData(FormDataInfo2 data) {
-		this.data = data;
-	}
-	@Override
-	public String toString() {
-		return "FormData2 [code=" + code + ", msg=" + msg + ", data=" + data
-				+ "]";
-	}
-	
 }

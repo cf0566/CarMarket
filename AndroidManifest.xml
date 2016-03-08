@@ -67,6 +67,11 @@
    		<activity android:name="com.cpic.carmarket.activity.FormOnServiceActivity"></activity>
    		<activity android:name="com.cpic.carmarket.activity.FormAfterServiceActivity"></activity>
    		<activity android:name="com.cpic.carmarket.activity.NotAgreeActivity"></activity>
+   		<activity android:name="com.cpic.carmarket.activity.FormAfterQueryActivity"></activity>
+   		<activity android:name="com.cpic.carmarket.activity.FormCloseActivity"></activity>
+   		<activity android:name="com.cpic.carmarket.activity.PicturePreviewActivity"></activity>
+   		
+   		
    		<meta-data android:name="EASEMOB_APPKEY"  android:value="yunxiyou#carmarkettest" />
     	<!-- 声明sdk所需的service SDK核心功能-->
     	<service android:name="com.easemob.chat.EMChatService" />

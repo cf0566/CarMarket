@@ -25,51 +25,54 @@
         android:textSize="15sp"
         android:padding="20dp"
         />
-     <RelativeLayout
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:layout_marginRight="20dp"
         android:layout_marginLeft="20dp"
-        android:background="@drawable/remark_backgroud">
+        android:layout_marginRight="20dp"
+        android:background="@drawable/remark_backgroud" >
 
         <EditText
             android:id="@+id/activity_not_agree_et_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="top"
-            android:hint="最多输入500字"
-            android:background="@null"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
-            android:textSize="15sp"
-            android:padding="10dp" />
-        
-        <ImageView 
+            android:background="@null"
+            android:gravity="top"
+            android:hint="最多输入500字"
+            android:padding="10dp"
+            android:textSize="15sp" />
+
+        <ImageView
             android:id="@+id/activity_not_agree_iv_add"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/tianjiazhapian"
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
             android:padding="20dp"
-            />
-       <ImageView 
-           android:id="@+id/activity_not_agree_iv_pic"
-           android:layout_width="60dp"
-           android:layout_height="60dp"
-           android:layout_alignParentBottom="true"
-           android:layout_toRightOf="@id/activity_not_agree_iv_add"
-           android:layout_margin="10dp"
-           />
-       <ImageView 
-           android:id="@+id/activity_not_agree_iv_delete"
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:src="@drawable/shanchu"
-           android:layout_above="@id/activity_not_agree_iv_pic"
-           android:layout_alignRight="@id/activity_not_agree_iv_pic"
-           android:visibility="gone"
-           />
+            android:src="@drawable/tianjiazhapian" />
+
+        <ImageView
+            android:id="@+id/activity_not_agree_iv_pic"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_alignParentBottom="true"
+            android:layout_toRightOf="@id/activity_not_agree_iv_add"
+            android:src="@drawable/ceshi_pic" 
+            android:visibility="gone"
+            android:layout_margin="10dp"/>
+
+        <ImageView
+            android:id="@+id/activity_not_agree_iv_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/activity_not_agree_iv_pic"
+            android:layout_alignRight="@+id/activity_not_agree_iv_pic"
+            android:src="@drawable/shanchu" 
+            android:visibility="gone"/>
+
     </RelativeLayout>
      
      <Button 

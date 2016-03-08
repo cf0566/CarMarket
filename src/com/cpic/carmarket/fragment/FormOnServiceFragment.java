@@ -179,6 +179,8 @@ public class FormOnServiceFragment extends Fragment{
 		plv= (PullToRefreshListView) view.findViewById(R.id.fragment_form_on_service_plv);
 		dialog = ProgressDialogHandle.getProgressDialog(getActivity(), null);
 	}
+	
+	
 	public class OnAdapter extends BaseAdapter{
 
 		private ArrayList<FormDataInfo> datas;

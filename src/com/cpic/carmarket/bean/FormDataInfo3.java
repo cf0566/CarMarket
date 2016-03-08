@@ -1,7 +1,6 @@
 package com.cpic.carmarket.bean;
 
-import java.util.ArrayList;
-public class FormDataInfo {
+public class FormDataInfo3 {
 	
 	private String car_name;
 	private String order_id;
@@ -18,7 +17,7 @@ public class FormDataInfo {
 	private String order_sn;
 	private String create_date;
 	private String merchant_date;
-	private ArrayList<String> back;
+	private FormDataInfoDetails back;
 	public String getCar_name() {
 		return car_name;
 	}
@@ -109,19 +108,19 @@ public class FormDataInfo {
 	public void setMerchant_date(String merchant_date) {
 		this.merchant_date = merchant_date;
 	}
-	public FormDataInfo() {
+	public FormDataInfo3() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public ArrayList<String> getBack() {
+	public FormDataInfoDetails getBack() {
 		return back;
 	}
-	public void setBack(ArrayList<String> back) {
+	public void setBack(FormDataInfoDetails back) {
 		this.back = back;
 	}
 	@Override
 	public String toString() {
-		return "FormDataInfo [car_name=" + car_name + ", order_id=" + order_id
+		return "FormDataInfo3 [car_name=" + car_name + ", order_id=" + order_id
 				+ ", order_amount=" + order_amount + ", pay_id=" + pay_id
 				+ ", pay_status=" + pay_status + ", order_content="
 				+ order_content + ", order_date=" + order_date

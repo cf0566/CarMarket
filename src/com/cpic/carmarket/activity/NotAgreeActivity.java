@@ -18,6 +18,7 @@ import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -45,11 +46,10 @@ import com.lidroid.xutils.http.client.HttpRequest.HttpMethod;
 
 public class NotAgreeActivity extends BaseActivity {
 
-	private RelativeLayout relShow;
 	private PopupWindow pw;
 	private int screenWidth;
 	private TextView tvCamera, tvPhoto, tvBack;
-	private ImageView ivAdd,ivPic,ivDelete;
+	private ImageView ivAdd,ivPic,ivDelete,ivBack;
 
 	private EditText etContent;
 	private HttpUtils post;
@@ -68,7 +68,7 @@ public class NotAgreeActivity extends BaseActivity {
 	
 	private String path,order_id;
 	
-	private boolean isDelete = false;
+	private boolean isDelete = true;
 	
 	@Override
 	protected void getIntentData(Bundle savedInstanceState) {
@@ -91,6 +91,7 @@ public class NotAgreeActivity extends BaseActivity {
 		dialog = ProgressDialogHandle.getProgressDialog(NotAgreeActivity.this, null);
 		etContent = (EditText) findViewById(R.id.activity_not_agree_et_content);
 		btnSubmit = (Button) findViewById(R.id.activity_not_agree_btn_submit);
+		ivBack = (ImageView) findViewById(R.id.activity_not_agree_iv_back);
 	}
 
 	@Override
@@ -104,6 +105,14 @@ public class NotAgreeActivity extends BaseActivity {
 
 		});
 		
+		ivBack.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				onBackPressed();
+			}
+		});
+		
 		ivDelete.setOnClickListener(new OnClickListener() {
 			
 			@Override
@@ -111,6 +120,7 @@ public class NotAgreeActivity extends BaseActivity {
 				isDelete = true;
 				ivDelete.setVisibility(View.GONE);
 				ivPic.setVisibility(View.GONE);
+				cameraPic.delete();
 			}
 		});
 		
@@ -121,12 +131,12 @@ public class NotAgreeActivity extends BaseActivity {
 				if ("".equals(etContent.getText().toString())) {
 					showShortToast("请填写不同意退款原因！");
 				}else{
-					 upLoadUserIcon(new File(path));
+					 upLoadUserIcon();
 				}
 			}
 		});
 	}
-	private void upLoadUserIcon(File file)  {
+	private void upLoadUserIcon()  {
 		post = new HttpUtils();
 		params = new RequestParams();
 		sp = PreferenceManager.getDefaultSharedPreferences(NotAgreeActivity.this);
@@ -135,11 +145,12 @@ public class NotAgreeActivity extends BaseActivity {
 		params.addBodyParameter("order_id", order_id);
 		params.addBodyParameter("status", UrlUtils.STATUS_NOTAGREE);
 		params.addBodyParameter("content", etContent.getText().toString());
-		params.addBodyParameter("count", "1");
-		params.addBodyParameter("poster0", file);
+		if (!isDelete) {
+			params.addBodyParameter("count", "1");
+			params.addBodyParameter("poster0", new File(path));
+		}
 		String url = UrlUtils.postUrl+ UrlUtils.path_orderAction;
 		post.send(HttpMethod.POST, url , params, new RequestCallBack<String>() {
-
 			@Override
 			public void onStart() {
 				super.onStart();
@@ -158,7 +169,7 @@ public class NotAgreeActivity extends BaseActivity {
 			@Override
 			public void onSuccess(ResponseInfo<String> arg0) {
 				if (dialog != null) {
-					dialog.dismiss();;
+					dialog.dismiss();
 				}
 				JSONObject obj = JSONObject.parseObject(arg0.result);
 				int code = obj.getInteger("code");
@@ -166,6 +177,7 @@ public class NotAgreeActivity extends BaseActivity {
 					showShortToast("提交失败,请重试");
 				}else if (code == 1) {
 					showShortToast("提交成功");
+					finish();
 				}
 			}
 		});
@@ -258,6 +270,7 @@ public class NotAgreeActivity extends BaseActivity {
 			ivPic.setImageBitmap(bitmap);
 			ivPic.setVisibility(View.VISIBLE);
 			ivDelete.setVisibility(View.VISIBLE);
+			isDelete = false;
 //			upLoadUserIcon(new File(Environment.getExternalStorageDirectory()
 //					.getAbsolutePath() + "/usericon.PNG"));
 		} else if (requestCode == PHOTO) {
@@ -274,6 +287,7 @@ public class NotAgreeActivity extends BaseActivity {
 					ivPic.setImageBitmap(bitmap);
 					ivPic.setVisibility(View.VISIBLE);
 					ivDelete.setVisibility(View.VISIBLE);
+					isDelete = false;
 					//这里开始的第二部分，获取图片的路径：
 					String[] proj = {MediaStore.Images.Media.DATA};
 					//好像是android多媒体数据库的封装接口，具体的看Android文档
