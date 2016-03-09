@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_bg"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        style="@style/title_style"
+        android:gravity="center_vertical" >
+
+        <TextView
+            android:id="@+id/activity_wash_car_type_tv"
+            style="@style/title_tv_center"
+            android:text="服务类型" />
+
+        <ImageView
+            android:id="@+id/activity_wash_car_type_iv_back"
+            style="@style/title_iv_back" />
+    </RelativeLayout>
+
+    <TextView
+        style="@style/my_divide_line"
+        android:layout_marginTop="15dp" />
+
+    <RadioGroup
+        android:id="@+id/activity_wash_car_type_rgroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#FFF"
+        android:orientation="vertical"
+         >
+
+        <RadioButton
+            android:id="@+id/activity_wash_car_type_rbtn_in"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:button="@null"
+            android:checked="true"
+            android:drawableRight="@drawable/wash_check_bg"
+            android:text="到店洗车"
+            android:padding="10dp"
+            android:gravity="center_vertical"
+            android:textSize="15sp" />
+
+        <TextView style="@style/my_divide_line" />
+        <RadioButton
+            android:id="@+id/activity_wash_car_type_rbtn_out"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:button="@null"
+            android:padding="10dp"
+            android:drawableRight="@drawable/wash_check_bg"
+            android:text="上门洗车"
+            android:gravity="center_vertical"
+            android:textSize="15sp" />
+    </RadioGroup>
+    
+    <TextView 
+        android:id="@+id/activity_wash_car_tv_next"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:text="下一步"
+        android:textColor="#FFF"
+        android:gravity="center"
+        android:textSize="15sp"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/next_stop_bg"
+        />
+
+</LinearLayout>

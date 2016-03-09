@@ -2,9 +2,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#5F00"
+    android:background="@color/main_bg"
     android:orientation="vertical" >
-     <RelativeLayout
+
+    <RelativeLayout
         style="@style/black_title_style"
         android:gravity="center_vertical" >
 
@@ -12,7 +13,172 @@
             android:id="@+id/fragment_mine_tv"
             style="@style/black_title_tv_center"
             android:text="我的" />
-
     </RelativeLayout>
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/mine_info_bg"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:paddingBottom="20dp"
+                android:paddingTop="20dp" >
+
+                <com.cpic.carmarket.view.CircleImageView
+                    android:id="@+id/fragment_mine_iv_icon"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/touxiang" />
+
+                <TextView
+                    android:id="@+id/fragment_mine_tv_user_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:text="商家名称"
+                    android:textColor="#FFF"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/fragment_mine_tv_user_acount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="账号：40030003333"
+                    android:textColor="#FFF"
+                    android:textSize="15sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/fragment_mine_ll_com_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#FFF"
+                android:orientation="horizontal"
+                android:paddingBottom="5dp"
+                android:paddingLeft="15dp"
+                android:paddingTop="5dp" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/gerenzhongxin_shangjiaxinxi"
+                    android:drawablePadding="10dp"
+                    android:gravity="center_vertical"
+                    android:text="商家信息"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/fragment_mine_tv_isagree"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/agree_pass"
+                    android:drawablePadding="10dp"
+                    android:gravity="center"
+                    android:text="已通过"
+                    android:textColor="#FFF"
+                    android:textSize="12sp" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:src="@drawable/cllick_jinru" />
+            </LinearLayout>
+
+            <TextView style="@style/my_divide_line" />
+
+            <TextView
+                android:id="@+id/fragment_mine_tv_wash"
+                style="@style/mine_layout"
+                android:drawableLeft="@drawable/gerenzhongxin_xiche"
+                android:text="洗车服务及报价" />
+
+            <TextView
+                android:id="@+id/fragment_mine_tv_count"
+                style="@style/mine_layout"
+                android:layout_marginTop="5dp"
+                android:drawableLeft="@drawable/gerenzhongxin_caiwu"
+                android:text="财务管理" />
+
+            <TextView style="@style/my_divide_line" />
+
+            <TextView
+                android:id="@+id/fragment_mine_tv_money"
+                style="@style/mine_layout"
+                android:drawableLeft="@drawable/gerenzhongxin_baozhengjin"
+                android:text="交纳保证金" />
+            
+			<TextView style="@style/my_divide_line" />
+			
+            <LinearLayout
+                android:id="@+id/fragment_mine_ll_call"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#FFF"
+                android:orientation="horizontal"
+                android:paddingBottom="5dp"
+                android:paddingLeft="15dp"
+                android:paddingTop="5dp" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/gerenzhongxin_rexian"
+                    android:drawablePadding="10dp"
+                    android:gravity="center_vertical"
+                    android:text="平台热线"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/fragment_mine_tv_phone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="10dp"
+                    android:drawableRight="@drawable/cllick_jinru"
+                    android:gravity="center"
+                    android:text="400-000-0000"
+                    android:textColor="#AAAAA9"
+                    android:textSize="12sp" />
+            </LinearLayout>
+            
+            <TextView style="@style/my_divide_line" />
+             <TextView
+                android:id="@+id/fragment_mine_tv_advice"
+                style="@style/mine_layout"
+                android:drawableLeft="@drawable/gerenzhongxin_baozhengjin"
+                android:text="意见反馈" />
+            
+            <TextView 
+                android:id="@+id/mine_fragment_tv_back_login"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/back_login"
+                android:text="退出登录"
+                android:textSize="16sp"
+                android:textColor="#FFF"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="15dp"
+                />
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>

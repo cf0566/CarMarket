@@ -174,6 +174,7 @@ public class LoginActivity extends BaseActivity {
 					editor.putString("merchant_id", res.getData().getMerchant_id());
 					editor.putString("tel", res.getData().getTel());
 					editor.putString("user_id", res.getData().getUser_id());
+					editor.putString("is_approve", res.getData().getIs_approve());
 					editor.apply();
 					EMChatManager.getInstance().login(res.getData().getEase_user(), 
 							res.getData().getEase_pwd(), new EMCallBack() {

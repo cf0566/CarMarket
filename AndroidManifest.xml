@@ -70,7 +70,10 @@
    		<activity android:name="com.cpic.carmarket.activity.FormAfterQueryActivity"></activity>
    		<activity android:name="com.cpic.carmarket.activity.FormCloseActivity"></activity>
    		<activity android:name="com.cpic.carmarket.activity.PicturePreviewActivity"></activity>
-   		
+   		<activity android:name="com.cpic.carmarket.activity.WashCarTypeActivity"></activity>
+   		<activity android:name="com.cpic.carmarket.activity.WashListActivity"></activity>
+   		<activity android:name="com.cpic.carmarket.activity.WashAddActivity"></activity>
+   		<activity android:name="com.cpic.carmarket.activity.WashDeleteManagerActivity"></activity>
    		
    		<meta-data android:name="EASEMOB_APPKEY"  android:value="yunxiyou#carmarkettest" />
     	<!-- 声明sdk所需的service SDK核心功能-->

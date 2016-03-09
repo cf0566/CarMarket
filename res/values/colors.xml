@@ -42,4 +42,5 @@
     <color name="btn_answer_pressed">#4ebcd3</color>
     <color name="btn_answer_normal">#2dafa3</color>
     <color name="main_bg">#E6E6E6</color>
+    <color name="mine_info_bg">#1687B3</color>
 </resources>

@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_bg"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        style="@style/title_style"
+        android:gravity="center_vertical" >
+
+        <TextView
+            android:id="@+id/activity_wash_add_tv"
+            style="@style/title_tv_center"
+            android:text="添加洗车服务" />
+
+        <ImageView
+            android:id="@+id/activity_wash_add_iv_back"
+            style="@style/title_iv_back" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="#FFF"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="10dp" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="金额"
+                android:textColor="#9F9F9F"
+                android:textSize="15sp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="8dp"
+                android:text="请输入金额"
+                android:textColor="#CDCDCD" />
+
+            <LinearLayout
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/add_wash_service_shape"
+                android:orientation="horizontal" >
+
+                <EditText
+                    android:id="@+id/activity_add_wash_service_et_money"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:paddingLeft="5dp"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:numeric="integer" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="3dp"
+                    android:text="元"
+                    android:textSize="15sp"
+                    android:textColor="#CDCDCD" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <TextView style="@style/my_divide_line" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="10dp" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="洗车方式"
+                android:textColor="#9F9F9F"
+                android:textSize="15sp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <LinearLayout
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/add_wash_service_shape"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:id="@+id/activity_add_wash_tv_select"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="3dp"
+                    android:text="请选择"
+                    android:textSize="15sp"
+                    android:drawableRight="@drawable/up"
+                    android:gravity="center_vertical"
+                    android:textColor="#CDCDCD" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+    
+    <TextView 
+        android:id="@+id/activity_add_wash_tv_add"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:background="@drawable/login"
+        android:layout_marginTop="20dp"
+        android:text="确认添加"
+        android:textSize="15sp"
+        android:textColor="#FFF"
+        android:gravity="center"
+        android:layout_marginLeft="15sp"
+        android:layout_marginRight="15sp"
+        />
+
+</LinearLayout>

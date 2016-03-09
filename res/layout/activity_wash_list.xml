@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_bg"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        style="@style/title_style"
+        android:gravity="center_vertical" >
+
+        <TextView
+            android:id="@+id/activity_wash_list_tv"
+            style="@style/title_tv_center"
+            android:text="洗车服务" />
+
+        <ImageView
+            android:id="@+id/activity_wash_list_iv_back"
+            style="@style/title_iv_back" />
+        
+        <TextView
+            android:id="@+id/activity_wash_list_tv_manager"
+            style="@style/title_tv_right"
+            android:text="管理" />
+    </RelativeLayout>
+    
+    <ListView 
+        android:id="@+id/activity_wash_list_lv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:listSelector="#00000000"
+        android:background="#FFF"
+        android:layout_marginTop="15dp"
+        ></ListView>
+    
+    <TextView
+        android:id="@+id/activity_wash_list_tv_add_service"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="添加洗车服务"
+        android:background="@drawable/tianjiashouhuoren"
+        android:gravity="center"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="30dp"
+        android:textSize="15sp"
+        android:paddingLeft="30dp"
+        />
+</LinearLayout>
