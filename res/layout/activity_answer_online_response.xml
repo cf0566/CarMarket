@@ -12,7 +12,7 @@
         <TextView
             android:id="@+id/activity_answer_online_response_tv"
             style="@style/title_tv_center"
-            android:text="忘记密码" />
+            android:text="在线留言" />
 
         <ImageView
             android:id="@+id/activity_answer_online_response_iv_back"

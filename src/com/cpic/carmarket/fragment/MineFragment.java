@@ -17,6 +17,8 @@ import android.widget.TextView;
 
 import com.cpic.carmarket.R;
 import com.cpic.carmarket.activity.AnswerDetailsActivity;
+import com.cpic.carmarket.activity.MoneyManagerActivity;
+import com.cpic.carmarket.activity.PayProtectMoneyActivity;
 import com.cpic.carmarket.activity.WashCarTypeActivity;
 import com.cpic.carmarket.view.CircleImageView;
 import com.lidroid.xutils.BitmapUtils;
@@ -96,7 +98,8 @@ public class MineFragment  extends Fragment{
 			
 			@Override
 			public void onClick(View v) {
-				
+				intent = new Intent(getActivity(), MoneyManagerActivity.class);
+				startActivity(intent);
 			}
 		});
 		/**
@@ -106,7 +109,8 @@ public class MineFragment  extends Fragment{
 			
 			@Override
 			public void onClick(View v) {
-				
+				intent = new Intent(getActivity(), PayProtectMoneyActivity.class);
+				startActivity(intent);
 			}
 		});
 		/**

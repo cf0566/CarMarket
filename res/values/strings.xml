@@ -5,5 +5,9 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="download_failed">下载失败</string>
-
+    <string name="text_service">加入保证金计划后，可享有消保标识与流量支持。
+                当发生维权纠纷需要保证金赔付时，保证金计划可先行垫付赔款，保证店铺经营不受影响。</string>
+    <string name="text_size">最低1000元（最高可达10万元）\n1.保证金金额将直接展示在商家页面，
+        保证金越高越能赢得消费者的信赖\n2.保证金将冻结在您的账户中，如商家申请维权判定成立
+        ，将用保证金先行赔付。\n3.若您申请退出，未使用完的保证金将全数退还给您。</string>
 </resources>

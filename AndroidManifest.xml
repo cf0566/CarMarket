@@ -74,6 +74,10 @@
    		<activity android:name="com.cpic.carmarket.activity.WashListActivity"></activity>
    		<activity android:name="com.cpic.carmarket.activity.WashAddActivity"></activity>
    		<activity android:name="com.cpic.carmarket.activity.WashDeleteManagerActivity"></activity>
+   		<activity android:name="com.cpic.carmarket.activity.MoneyManagerActivity"></activity>
+   		<activity android:name="com.cpic.carmarket.activity.GetMoneyActivity"></activity>
+   		<activity android:name="com.cpic.carmarket.activity.GetMoneyFromActivity"></activity>
+   		<activity android:name="com.cpic.carmarket.activity.PayProtectMoneyActivity"></activity>
    		
    		<meta-data android:name="EASEMOB_APPKEY"  android:value="yunxiyou#carmarkettest" />
     	<!-- 声明sdk所需的service SDK核心功能-->

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_bg"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        style="@style/title_style"
+        android:gravity="center_vertical" >
+
+        <TextView
+            android:id="@+id/activity_money_manager_tv"
+            style="@style/title_tv_center"
+            android:text="财务管理" />
+
+        <ImageView
+            android:id="@+id/activity_money_manager_iv_back"
+            style="@style/title_iv_back" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#FF002A"
+        android:orientation="horizontal"
+        android:padding="30dp" >
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="账户余额"
+                android:textColor="#FFF"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/activity_money_manager_tv_money"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="¥30.00"
+                android:textColor="#FFF"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/activity_money_manager_btn_get_money"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/get_money_bg"
+            android:text="提现"
+            android:textColor="#FFF" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/activity_money_manager_tv_list"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="交易记录"
+        android:padding="10dp"
+        android:textSize="15sp" />
+    
+    <ListView 
+        android:id="@+id/activity_money_manager_lv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:listSelector="#00000000"
+        android:background="#FCFCFE"
+        ></ListView>
+
+</LinearLayout>

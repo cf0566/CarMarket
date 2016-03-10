@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_bg"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        style="@style/title_style"
+        android:gravity="center_vertical" >
+
+        <TextView
+            android:id="@+id/activity_get_money_tv"
+            style="@style/title_tv_center"
+            android:text="提现" />
+
+        <ImageView
+            android:id="@+id/activity_get_money_iv_back"
+            style="@style/title_iv_back" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="#FFF"
+         android:layout_marginTop="10dp" >
+
+        <TextView style="@style/my_divide_line" />
+        
+        <LinearLayout 
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="15dp"
+            >
+            <TextView 
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="金额"
+                android:textSize="15sp"
+                android:textColor="#555555"
+                />
+            <EditText 
+                android:id="@+id/activity_get_money_et_money"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:hint="请输入提现金额"
+                android:paddingLeft="10dp"
+                android:textSize="15sp"
+                android:numeric="integer"
+                />
+        </LinearLayout>
+        <TextView style="@style/my_divide_line" 
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"/>
+         <LinearLayout 
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="15dp"
+            >
+            <TextView 
+                 android:id="@+id/activity_get_money_tv_select"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="添加提现账户"
+                android:drawableRight="@drawable/go"
+                android:textSize="15sp"
+                android:gravity="center_vertical"
+                android:textColor="#555555"
+                />
+        </LinearLayout>
+        
+    </LinearLayout>
+    
+    <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="10dp"
+        >
+        <TextView 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="可提现余额"
+            android:textSize="15sp"
+            />
+        <TextView 
+            android:id="@+id/activity_get_money_tv_money"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1.3"
+            android:textColor="#D0153D"
+            android:textSize="15sp"
+            />
+         <TextView 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="元"
+            android:textSize="15sp"
+            />
+        
+    </LinearLayout>
+    
+    <Button 
+        android:id="@+id/activity_get_money_btn_get"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/online_answer"
+        android:textColor="#FFF"
+        android:text="确认提现"
+        android:layout_margin="10dp"
+        />
+    
+
+</LinearLayout>

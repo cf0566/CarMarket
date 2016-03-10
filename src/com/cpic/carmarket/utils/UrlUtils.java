@@ -51,6 +51,9 @@ public class UrlUtils {
 	public static final String path_marginSubmit="marginSubmit";
 	//提现记录
 	public static final String path_deposit="deposit";
+	public static final String PAY_ALI = "1";
+	public static final String PAY_TEN = "2";
+	public static final String PAY_CAR = "3";
 	//意见反馈接口
 	public static final String path_advise="advise";
 	//根据环信用户账号获取用户信息

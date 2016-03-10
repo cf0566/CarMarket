@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_bg"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        style="@style/title_style"
+        android:gravity="center_vertical" >
+
+        <TextView
+            android:id="@+id/activity_agree_pay_tv"
+            style="@style/title_tv_center"
+            android:text="交纳保证金" />
+
+        <ImageView
+            android:id="@+id/activity_agree_pay_iv_back"
+            style="@style/title_iv_back" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="#FFF"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="10dp" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="保证金额"
+            android:textColor="#2790D3"
+            android:textSize="15sp" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/et_backgroud" >
+
+            <EditText
+                android:id="@+id/activity_agree_pay_cash_et_money"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:hint="请输入金额"
+                android:padding="5dp"
+                android:textColorHint="#CDCDCD"
+                android:textSize="15sp" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="元"
+            android:textSize="15sp"
+            android:layout_marginLeft="5dp"
+            android:textColor="#CDCDCD" />
+    </LinearLayout>
+    
+    <TextView 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:textColor="#2790D3"
+        android:textSize="15sp"
+        android:text="支付方式"
+        android:background="#FFF"
+        android:layout_marginTop="10dp"
+        />
+    <TextView style="@style/my_divide_line"/>
+    
+    <RadioGroup 
+        android:id="@+id/activity_agree_pay_cash_rgroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="#FFF"
+        android:gravity="center_vertical"
+        >
+        <RadioButton 
+             android:id="@+id/activity_agree_pay_cash_rbtn_zhifubao"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="支付宝支付"
+            android:drawableLeft="@drawable/zhifubao"
+            android:button="@null"
+            android:checked="true"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginLeft="15dp"
+            android:drawablePadding="5dp"
+            android:textColor="#626262"
+            android:drawableRight="@drawable/wash_check_bg"
+            />
+        <TextView style="@style/my_divide_line"/>
+        
+         <RadioButton 
+             android:id="@+id/activity_agree_pay_cash_rbtn_weixin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="微信支付"
+            android:drawableLeft="@drawable/weixin"
+            android:button="@null"
+             android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginLeft="15dp"
+            android:drawablePadding="5dp"
+            android:textColor="#626262"
+            android:drawableRight="@drawable/wash_check_bg"
+            />
+    </RadioGroup>
+    
+    <Button 
+        android:id="@+id/activity_agree_pay_cash_btn_ensure"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="确认支付"
+        android:textColor="#FFF"
+        android:background="@drawable/login"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        />
+    
+    
+
+</LinearLayout>
