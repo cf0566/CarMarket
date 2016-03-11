@@ -17,6 +17,7 @@
         <ImageView
             android:id="@+id/activity_pay_protect_iv_back"
             style="@style/title_iv_back" />
+        
     </RelativeLayout>
 
     <ScrollView

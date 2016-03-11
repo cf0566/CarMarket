@@ -107,7 +107,7 @@ public class LoginActivity extends BaseActivity {
 				if (acount == null || psd == null) {
 					showShortToast("用户名或密码不得为空");
 				}else if (!cBoxAgree.isChecked()) {
-					showShortToast("请同意协议");
+					showShortToast("请同意汽车后市场商家协议");
 				}else{
 					login();
 				}
@@ -165,7 +165,7 @@ public class LoginActivity extends BaseActivity {
 				if (code == 0) {
 					showLongToast("用户不存在或密码错误");
 				}else if (code == 1) {
-					showLongToast("登录成功");
+					
 					editor.putString("token", res.getData().getToken());
 					editor.putString("on_time", res.getData().getOn_time());
 					editor.putString("logo", res.getData().getLogo());
@@ -176,6 +176,7 @@ public class LoginActivity extends BaseActivity {
 					editor.putString("user_id", res.getData().getUser_id());
 					editor.putString("is_approve", res.getData().getIs_approve());
 					editor.apply();
+					showLongToast("登录成功");
 					EMChatManager.getInstance().login(res.getData().getEase_user(), 
 							res.getData().getEase_pwd(), new EMCallBack() {
 								

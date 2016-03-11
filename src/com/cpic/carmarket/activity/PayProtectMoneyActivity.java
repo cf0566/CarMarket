@@ -1,5 +1,6 @@
 package com.cpic.carmarket.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -13,6 +14,8 @@ public class PayProtectMoneyActivity extends BaseActivity {
 
 	private ImageView ivBack;
 	private Button btnAgree;
+	private Intent intent;
+	
 	@Override
 	protected void getIntentData(Bundle savedInstanceState) {
 
@@ -31,6 +34,7 @@ public class PayProtectMoneyActivity extends BaseActivity {
 
 	@Override
 	protected void registerListener() {
+		
 		/**
 		 * 返回监听
 		 */
@@ -49,14 +53,13 @@ public class PayProtectMoneyActivity extends BaseActivity {
 			
 			@Override
 			public void onClick(View v) {
-				
+				intent = new Intent(PayProtectMoneyActivity.this, AgreePayCashActivity.class);
+				startActivity(intent);
 			}
 		});
 	}
 
 	@Override
 	protected void initData() {
-
 	}
-
 }

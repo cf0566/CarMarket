@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_bg"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        style="@style/title_style"
+        android:gravity="center_vertical" >
+
+        <TextView
+            android:id="@+id/activity_merchant_tv"
+            style="@style/title_tv_center"
+            android:text="商家信息" />
+
+        <ImageView
+            android:id="@+id/activity_merchant_iv_back"
+            style="@style/title_iv_back" />
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" 
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:id="@+id/activity_merchant_ll_icon"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:background="#FFF"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="10dp" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="门面"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+                <com.cpic.carmarket.view.CircleImageView
+                    android:id="@+id/activity_merchant_iv_icon"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/empty_photo" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/cllick_jinru" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#FFF"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="10dp" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="公司名称"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/activity_merchant_tv_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:hint="合肥君越汽车有限公司"
+                     android:textSize="15sp"
+                    android:textColor="#AEAEAE"
+                    android:padding="2dp" />
+            </LinearLayout>
+
+            <TextView style="@style/my_divide_line" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#FFF"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="10dp" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="50dp"
+                    android:text="电话"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/et_backgroud"
+                    android:orientation="horizontal" >
+
+                    <EditText
+                        android:id="@+id/activity_merchant_et_tel"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:gravity="right"
+                        android:hint="18119607268"
+                        android:textSize="15sp"
+                        android:textColor="#AEAEAE"
+                        android:numeric="integer"
+                        android:padding="2dp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <TextView style="@style/my_divide_line" />
+
+            <LinearLayout
+                android:id="@+id/activity_merchant_ll_address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#FFF"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="10dp" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="50dp"
+                    android:text="详细地址"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/activity_merchant_tv_address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableRight="@drawable/cllick_jinru"
+                    android:gravity="center_vertical"
+                    android:text="青阳路"
+                    android:textSize="15sp"
+                    android:textColor="#AEAEAE" />
+            </LinearLayout>
+
+            <TextView style="@style/my_divide_line" />
+
+            <LinearLayout
+                android:id="@+id/activity_merchant_ll_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#FFF"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="10dp" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="50dp"
+                    android:text="营业时间"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/activity_merchant_tv_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableRight="@drawable/cllick_jinru"
+                    android:gravity="center_vertical"
+                    android:text="8:30-23:20"
+                    android:textSize="15sp"
+                    android:textColor="#AEAEAE" />
+            </LinearLayout>
+
+            <TextView style="@style/my_divide_line" />
+
+            <LinearLayout
+                 android:id="@+id/activity_merchant_ll_change"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#FFF"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="10dp" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="50dp"
+                    android:text="业务范围及服务车型"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/activity_merchant_tv_change"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableRight="@drawable/cllick_jinru"
+                    android:gravity="center_vertical"
+                    android:text="更改"
+                    android:textColor="#AEAEAE"
+                    android:textSize="15sp" />
+            </LinearLayout>
+            <com.cpic.carmarket.view.MyListView 
+               android:id="@+id/activity_merchant_mlv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                ></com.cpic.carmarket.view.MyListView>
+
+            <TextView style="@style/my_divide_line" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#FFF"
+                android:orientation="horizontal"
+                android:padding="10dp" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="50dp"
+                    android:text="门店介绍"
+                    android:textSize="15sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/et_backgroud"
+                    android:orientation="horizontal" >
+
+                    <EditText
+                        android:id="@+id/activity_merchant_et_store_intro"
+                        android:layout_width="match_parent"
+                        android:layout_height="70dp"
+                        android:background="@null"
+                        android:gravity="top"
+                        android:hint="18119607268"
+                        android:padding="5dp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <TextView style="@style/my_divide_line" />
+
+            <Button
+                android:id="@+id/activity_merchant_btn_submit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="30dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/login"
+                android:text="提交审核"
+                android:textColor="#FFF" />
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

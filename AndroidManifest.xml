@@ -15,7 +15,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_MOCK_LOCATION" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>  
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.GET_TASKS" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
@@ -23,68 +23,132 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/car_market"
         android:label="@string/app_name"
-        android:theme="@android:style/Theme.Holo.Light.NoActionBar"  >
-       
-        
+        android:theme="@android:style/Theme.Holo.Light.NoActionBar" >
         <activity
             android:name=".activity.MainActivity"
             android:label="@string/app_name" >
         </activity>
-          <activity android:name="com.cpic.carmarket.activity.LoginActivity">
+        <activity android:name="com.cpic.carmarket.activity.LoginActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.cpic.carmarket.activity.ForgetPsdActivity"></activity>
-        <activity android:name="com.cpic.carmarket.activity.SetPsdActivity"></activity>
-        <activity android:name="com.cpic.carmarket.activity.CallActivity"></activity>
-        <activity android:name="com.cpic.carmarket.activity.ChatActivity"></activity>
-        <activity android:name="com.cpic.carmarket.activity.ChatRoomDetailsActivity"></activity>
-        <activity android:name="com.cpic.carmarket.activity.EditActivity"></activity>
-        <activity android:name="com.cpic.carmarket.activity.ExitGroupDialog"></activity>
-        <activity android:name="com.cpic.carmarket.activity.ForwardMessageActivity"></activity>
-        <activity android:name="com.cpic.carmarket.activity.GroupBlacklistActivity"></activity>
-        <activity android:name="com.cpic.carmarket.activity.GroupDetailsActivity"></activity>
-        <activity android:name="com.cpic.carmarket.activity.GroupPickContactsActivity"></activity>
-        <activity android:name="com.cpic.carmarket.activity.ImageGridActivity"></activity>
-        <activity android:name="com.cpic.carmarket.activity.PickContactNoCheckboxActivity"></activity>
-   		<activity android:name="com.cpic.carmarket.activity.RecorderVideoActivity"></activity>
-        <activity android:name="com.cpic.carmarket.activity.ShowBigImage"></activity>
-   		<activity android:name="com.cpic.carmarket.activity.ShowNormalFileActivity"></activity>
-   		<activity android:name="com.cpic.carmarket.activity.VideoCallActivity"></activity>
-   		<activity android:name="com.cpic.carmarket.activity.VoiceCallActivity"></activity>
-   		<activity android:name="com.cpic.carmarket.activity.AnswerDetailsActivity"></activity>
-       <activity android:name="com.cpic.carmarket.activity.AnswerOnlineResponseActivity"></activity>
-   		<activity android:name="com.cpic.carmarket.activity.NewMessageActivity"></activity>
-   		<activity android:name="com.cpic.carmarket.activity.MessageDetailsActivity"></activity>
-   		<activity android:name="com.cpic.carmarket.activity.FormWaitServiceActivity"></activity>
-   		<activity android:name="com.cpic.carmarket.activity.FormOnServiceActivity"></activity>
-   		<activity android:name="com.cpic.carmarket.activity.FormAfterServiceActivity"></activity>
-   		<activity android:name="com.cpic.carmarket.activity.NotAgreeActivity"></activity>
-   		<activity android:name="com.cpic.carmarket.activity.FormAfterQueryActivity"></activity>
-   		<activity android:name="com.cpic.carmarket.activity.FormCloseActivity"></activity>
-   		<activity android:name="com.cpic.carmarket.activity.PicturePreviewActivity"></activity>
-   		<activity android:name="com.cpic.carmarket.activity.WashCarTypeActivity"></activity>
-   		<activity android:name="com.cpic.carmarket.activity.WashListActivity"></activity>
-   		<activity android:name="com.cpic.carmarket.activity.WashAddActivity"></activity>
-   		<activity android:name="com.cpic.carmarket.activity.WashDeleteManagerActivity"></activity>
-   		<activity android:name="com.cpic.carmarket.activity.MoneyManagerActivity"></activity>
-   		<activity android:name="com.cpic.carmarket.activity.GetMoneyActivity"></activity>
-   		<activity android:name="com.cpic.carmarket.activity.GetMoneyFromActivity"></activity>
-   		<activity android:name="com.cpic.carmarket.activity.PayProtectMoneyActivity"></activity>
-   		
-   		<meta-data android:name="EASEMOB_APPKEY"  android:value="yunxiyou#carmarkettest" />
-    	<!-- 声明sdk所需的service SDK核心功能-->
-    	<service android:name="com.easemob.chat.EMChatService" />
-   		
-   		</application>
+        <activity android:name="com.cpic.carmarket.activity.ForgetPsdActivity" >
+        </activity>
+        <activity android:name="com.cpic.carmarket.activity.SetPsdActivity" >
+        </activity>
+        <activity android:name="com.cpic.carmarket.activity.CallActivity" >
+        </activity>
+        <activity android:name="com.cpic.carmarket.activity.ChatActivity" >
+        </activity>
+        <activity android:name="com.cpic.carmarket.activity.ChatRoomDetailsActivity" >
+        </activity>
+        <activity android:name="com.cpic.carmarket.activity.EditActivity" >
+        </activity>
+        <activity android:name="com.cpic.carmarket.activity.ExitGroupDialog" >
+        </activity>
+        <activity android:name="com.cpic.carmarket.activity.ForwardMessageActivity" >
+        </activity>
+        <activity android:name="com.cpic.carmarket.activity.GroupBlacklistActivity" >
+        </activity>
+        <activity android:name="com.cpic.carmarket.activity.GroupDetailsActivity" >
+        </activity>
+        <activity android:name="com.cpic.carmarket.activity.GroupPickContactsActivity" >
+        </activity>
+        <activity android:name="com.cpic.carmarket.activity.ImageGridActivity" >
+        </activity>
+        <activity android:name="com.cpic.carmarket.activity.PickContactNoCheckboxActivity" >
+        </activity>
+        <activity android:name="com.cpic.carmarket.activity.RecorderVideoActivity" >
+        </activity>
+        <activity android:name="com.cpic.carmarket.activity.ShowBigImage" >
+        </activity>
+        <activity android:name="com.cpic.carmarket.activity.ShowNormalFileActivity" >
+        </activity>
+        <activity android:name="com.cpic.carmarket.activity.VideoCallActivity" >
+        </activity>
+        <activity android:name="com.cpic.carmarket.activity.VoiceCallActivity" >
+        </activity>
+        <activity android:name="com.cpic.carmarket.activity.AnswerDetailsActivity" >
+        </activity>
+        <activity android:name="com.cpic.carmarket.activity.AnswerOnlineResponseActivity" >
+        </activity>
+        <activity android:name="com.cpic.carmarket.activity.NewMessageActivity" >
+        </activity>
+        <activity android:name="com.cpic.carmarket.activity.MessageDetailsActivity" >
+        </activity>
+        <activity android:name="com.cpic.carmarket.activity.FormWaitServiceActivity" >
+        </activity>
+        <activity android:name="com.cpic.carmarket.activity.FormOnServiceActivity" >
+        </activity>
+        <activity android:name="com.cpic.carmarket.activity.FormAfterServiceActivity" >
+        </activity>
+        <activity android:name="com.cpic.carmarket.activity.NotAgreeActivity" >
+        </activity>
+        <activity android:name="com.cpic.carmarket.activity.FormAfterQueryActivity" >
+        </activity>
+        <activity android:name="com.cpic.carmarket.activity.FormCloseActivity" >
+        </activity>
+        <activity android:name="com.cpic.carmarket.activity.PicturePreviewActivity" >
+        </activity>
+        <activity android:name="com.cpic.carmarket.activity.WashCarTypeActivity" >
+        </activity>
+        <activity android:name="com.cpic.carmarket.activity.WashListActivity" >
+        </activity>
+        <activity android:name="com.cpic.carmarket.activity.WashAddActivity" >
+        </activity>
+        <activity android:name="com.cpic.carmarket.activity.WashDeleteManagerActivity" >
+        </activity>
+        <activity android:name="com.cpic.carmarket.activity.MoneyManagerActivity" >
+        </activity>
+        <activity android:name="com.cpic.carmarket.activity.GetMoneyActivity" >
+        </activity>
+        <activity android:name="com.cpic.carmarket.activity.GetMoneyFromActivity" >
+        </activity>
+        <activity android:name="com.cpic.carmarket.activity.PayProtectMoneyActivity" >
+        </activity>
+        <activity android:name="com.cpic.carmarket.activity.AgreePayCashActivity" >
+        </activity>
+        <activity android:name="com.cpic.carmarket.activity.AdviceActivity"></activity>
+        <activity android:name="com.cpic.carmarket.activity.MerchantInfoActivity"></activity>
+        <activity
+            android:name="com.pingplusplus.android.PaymentActivity"
+            android:configChanges="orientation|screenSize"
+            android:launchMode="singleTop"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
 
-    
-    
+        <!-- 微信支付 -->
+        <activity-alias
+            android:name=".wxapi.WXPayEntryActivity"
+            android:exported="true"
+            android:targetActivity="com.pingplusplus.android.PaymentActivity" />
+
+        <!-- 支付宝 -->
+        <activity
+            android:name="com.alipay.sdk.app.H5PayActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:exported="false"
+            android:screenOrientation="behind" >
+        </activity>
+        <activity
+            android:name="com.alipay.sdk.auth.AuthActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:exported="false"
+            android:screenOrientation="behind" >
+        </activity>
+
+        <meta-data
+            android:name="EASEMOB_APPKEY"
+            android:value="yunxiyou#carmarkettest" />
+        <!-- 声明sdk所需的service SDK核心功能 -->
+        <service android:name="com.easemob.chat.EMChatService" />
+    </application>
+
 </manifest>
