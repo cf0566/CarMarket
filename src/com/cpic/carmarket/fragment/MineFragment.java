@@ -128,8 +128,9 @@ public class MineFragment extends Fragment {
 
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
-						Intent intent = new Intent(Intent.ACTION_CALL, Uri
-								.parse("tel:400-000-000"));
+						Intent intent = new Intent(Intent.ACTION_DIAL,
+								Uri.parse("tel:400-000-000"));
+						intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 						startActivity(intent);
 					}
 				});

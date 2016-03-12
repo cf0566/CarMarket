@@ -3,6 +3,8 @@ package com.cpic.carmarket.utils;
 public class UrlUtils {
 	//请求头
 	public static final String postUrl="http://jk1.cpioc.com/index.php?m=Admin&c=merchantApi&a=";
+	//客户版请求头
+	public final static  String postUserUrl="http://jk1.cpioc.com/index.php?m=Admin&c=userApi&a=";
 	//登录接口:
 	public static final String path_login="login";
 	//获取验证码
@@ -66,6 +68,8 @@ public class UrlUtils {
 	public static final String path_merchantInfo="merchantInfo";
 	//更改商家信息
 	public static final String path_modifyInfo="modifyInfo";
+	//商家入驻
+	public static final String path_applyIn="applyIn";
 	
 	//获取数据失败Toast
 	public static final String loading_failure = "数据获取失败,请检查网络状况！";

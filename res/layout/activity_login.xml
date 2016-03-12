@@ -95,6 +95,7 @@
             android:textColor="#A9A9A9"
             />
         <TextView 
+            android:id="@+id/activity_login_tv_text"
              android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="《汽车后市场商家协议》"
@@ -117,9 +118,9 @@
             android:id="@+id/activity_login_tv_request"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="申请入驻"
+            android:text="@string/shenqing"
             android:textSize="13sp"
-            android:textColor="#77FF0000"
+            android:textColor="#D63D5D"
             />
            <TextView 
             android:layout_width="0dp"

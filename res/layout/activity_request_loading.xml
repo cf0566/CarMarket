@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F9F9F9"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        style="@style/title_loading_style"
+        android:gravity="center_vertical" >
+
+        <TextView
+            android:id="@+id/activity_loading_tv"
+            style="@style/black_title_tv_center"
+            android:text="我要入驻" />
+
+        <ImageView
+            android:id="@+id/activity_loading_iv_back"
+            style="@style/black_title_iv_back"
+            android:src="@drawable/back" />
+
+        <ImageView
+            android:id="@+id/activity_loading_iv_kefu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/dingbu_zaixiankefu" />
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="15dp"
+                android:text="@string/text_ruzhu"
+                android:textColor="#999999"
+                android:textSize="15sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/shenqing_bg"
+                android:padding="10dp" >
+
+                <TextView
+                    android:id="@+id/activity_request_tv_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="姓名:"
+                    android:textColor="#6C6C6C"
+                    android:textSize="15sp" />
+
+                <EditText
+                    android:id="@+id/activity_request_et_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:background="@null"
+                    android:hint="请填写真实姓名"
+                    android:textSize="15sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/shenqing_bg"
+                android:padding="10dp" >
+
+                <TextView
+                    android:id="@+id/activity_request_tv_tel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="联系方式:"
+                    android:textColor="#6C6C6C"
+                    android:textSize="15sp" />
+
+                <EditText
+                    android:id="@+id/activity_request_et_tel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:background="@null"
+                    android:numeric="integer"
+                    android:phoneNumber="true"
+                    android:hint="请输入联系方式"
+                    android:textSize="15sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/shenqing_bg"
+                android:padding="10dp" >
+
+                <TextView
+                    android:id="@+id/activity_request_tv_comname"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="公司名称:"
+                    android:textColor="#6C6C6C"
+                    android:textSize="15sp" />
+
+                <EditText
+                    android:id="@+id/activity_request_et_comname"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:background="@null"
+                    android:hint="请输入完整的公司名称"
+                    android:textSize="15sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/shenqing_bg"
+                android:padding="10dp" >
+
+                <TextView
+                    android:id="@+id/activity_request_tv_comaddress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="公司地址:"
+                    android:textColor="#6C6C6C"
+                    android:textSize="15sp" />
+
+                <EditText
+                    android:id="@+id/activity_request_et_comaddress"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:background="@null"
+                    android:hint="请输入完整的公司详细地址"
+                    android:textSize="15sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/shenqing_bg"
+                android:padding="10dp" >
+
+                <EditText
+                    android:id="@+id/activity_request_et_tis"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:background="@null"
+                    android:hint="备注：最多输入500字"
+                    android:textSize="15sp" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/activity_request_btn_submit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp"
+                android:background="@drawable/login"
+                android:text="提交申请入驻"
+                android:textColor="#FFF" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:orientation="horizontal" >
+
+                <CheckBox
+                    android:id="@+id/activity_request_cbox_agree"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:button="@drawable/login_check"
+                    android:paddingLeft="5dp"
+                    android:text="我已阅读并同意"
+                    android:textColor="#A9A9A9"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:id="@+id/activity_request_tv_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="《爱车通商家入驻协议》"
+                    android:textColor="#0B83D1"
+                    android:textSize="13sp" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

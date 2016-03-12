@@ -3,6 +3,7 @@ package com.cpic.carmarket.activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.text.Editable;
@@ -34,7 +35,7 @@ public class LoginActivity extends BaseActivity {
 	private EditText etAcount, etPsd;
 	private Button btnLogin;
 	private CheckBox cBoxAgree;
-	private TextView tvRequest, tvForget;
+	private TextView tvRequest, tvForget , tvText;
 	private String acount, psd;
 	private HttpUtils post;
 	private RequestParams params;
@@ -59,6 +60,7 @@ public class LoginActivity extends BaseActivity {
 		tvRequest = (TextView) findViewById(R.id.activity_login_tv_request);
 		tvForget = (TextView) findViewById(R.id.activity_login_tv_forget);
 		dialog = ProgressDialogHandle.getProgressDialog(this, null);
+		tvText = (TextView) findViewById(R.id.activity_login_tv_text);
 	}
 
 	@Override
@@ -117,6 +119,8 @@ public class LoginActivity extends BaseActivity {
 			
 			@Override
 			public void onClick(View v) {
+				intent = new Intent(LoginActivity.this, RequestLoadingActivity.class);
+				startActivity(intent);
 			}
 		});
 		tvForget.setOnClickListener(new OnClickListener() {
@@ -127,6 +131,20 @@ public class LoginActivity extends BaseActivity {
 				startActivity(intent);
 			}
 		});
+		
+		/**
+		 * 协议监听
+		 */
+		tvText.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				intent = new Intent(LoginActivity.this, WebAgreeActivity.class);
+				startActivity(intent);
+			}
+		});
+		
+		
 	}
 	private void login() {
 		final SharedPreferences sharedPref=PreferenceManager.getDefaultSharedPreferences(LoginActivity.this);
@@ -204,6 +222,9 @@ public class LoginActivity extends BaseActivity {
 	}
 	@Override
 	protected void initData() {
+		//使申请入驻待下划线显示
+		tvRequest.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);//下划线
+		
 	}
 	@Override
 	protected void onResume(){

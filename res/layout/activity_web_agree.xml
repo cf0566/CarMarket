@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_bg"
+    android:orientation="vertical" >
+    <RelativeLayout
+        style="@style/title_style"
+        android:gravity="center_vertical" >
+
+        <TextView
+            android:id="@+id/activity_web_tv"
+            style="@style/title_tv_center"
+            android:text="协议" />
+
+        <ImageView
+            android:id="@+id/activity_web_back"
+            style="@style/title_iv_back" />
+    </RelativeLayout>
+    
+    <TextView style="@style/my_divide_line"/>
+    <WebView 
+        android:id="@+id/activity_web_agree"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
+
+</LinearLayout>

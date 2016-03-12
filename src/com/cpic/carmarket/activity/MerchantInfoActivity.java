@@ -134,17 +134,10 @@ public class MerchantInfoActivity extends BaseActivity {
 			}
 		});
 		
-		ivIcon.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-			}
-		});
 	}
 
 	@Override
 	protected void initData() {
-	
 		loadDatas();
 	}
 
@@ -192,7 +185,6 @@ public class MerchantInfoActivity extends BaseActivity {
 					tvTime.setText(info.getData().getOn_time());
 					String img_url = info.getData().getStore_img();
 					loadIvIcon(img_url);
-					
 				} else {
 					showShortToast("获取数据失败");
 				}
