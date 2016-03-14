@@ -70,6 +70,8 @@ public class UrlUtils {
 	public static final String path_modifyInfo="modifyInfo";
 	//商家入驻
 	public static final String path_applyIn="applyIn";
+	//汽车列表
+	public static final String path_carCategories="carCategories";
 	
 	//获取数据失败Toast
 	public static final String loading_failure = "数据获取失败,请检查网络状况！";

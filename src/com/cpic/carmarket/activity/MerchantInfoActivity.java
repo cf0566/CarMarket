@@ -24,6 +24,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -31,6 +32,7 @@ import android.widget.LinearLayout.LayoutParams;
 import android.widget.PopupWindow;
 import android.widget.PopupWindow.OnDismissListener;
 import android.widget.TextView;
+import android.widget.TimePicker;
 
 import com.alibaba.fastjson.JSONObject;
 import com.cpic.carmarket.R;
@@ -59,9 +61,9 @@ public class MerchantInfoActivity extends BaseActivity {
 	private ImageView ivBack;
 	private LinearLayout llIcon, llAddress, llTime, llChange;
 
-	private EditText etName, etTel;
+	private EditText  etTel;
 
-	private TextView tvAddress, tvTime, tvname, tvTel;
+	private TextView tvAddress, tvTime, tvname ;
 
 	private ArrayList<MerchantInfoDataInfo> datas;
 
@@ -79,6 +81,7 @@ public class MerchantInfoActivity extends BaseActivity {
 	private TextView tvCamera, tvPhoto, tvBack;
 	
 	private static final int CAMERA = 1;
+	private static final int ADDRESS = 2;
 	private static final int PHOTO = 0;
 
 	private Uri cameraUri;
@@ -87,7 +90,11 @@ public class MerchantInfoActivity extends BaseActivity {
 	private PopupWindow pw;
 	private int screenWidth;
 	private String path;//图片路径
+	
+	private String address;
 
+	private TimePicker tpAm,tpPm;
+	private Button submitTime;
 	@Override
 	protected void getIntentData(Bundle savedInstanceState) {
 		DisplayMetrics metrics = new DisplayMetrics();
@@ -133,14 +140,101 @@ public class MerchantInfoActivity extends BaseActivity {
 				showPopupWindow(v);
 			}
 		});
+		/**
+		 * 地址
+		 */
+		llAddress.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				intent = new Intent(MerchantInfoActivity.this, DetailAddressActivity.class);
+				startActivityForResult(intent, ADDRESS);;
+			}
+		});
+		llTime.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				showTimePop(v);
+			}
+		});
+		/**
+		 * 更改服务车型
+		 */
+		llChange.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				intent = new Intent(MerchantInfoActivity.this, ServiceCarTypeActivity.class);
+				startActivity(intent);
+			}
+		});
 		
 	}
+	private void showTimePop(View v) {
+		View view = View.inflate(MerchantInfoActivity.this, R.layout.popupwindow_time_pick,null);
+		tpAm = (TimePicker) view.findViewById(R.id.popupwindow_time_am);
+		tpPm = (TimePicker) view.findViewById(R.id.popupwindow_time_pm);
+		submitTime =  (Button) view.findViewById(R.id.popupwindow_time_btn_ensure);
+		tpAm.setIs24HourView(true);
+		tpPm.setIs24HourView(true);
+		
+		submitTime.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				if (tpAm.getCurrentHour() > tpPm.getCurrentHour()) {
+					showShortToast("开始时间不得大于结束时间");
+					return;
+				}
+				if (tpAm.getCurrentHour() == tpPm.getCurrentHour()) {
+					if (tpAm.getCurrentMinute() >= tpPm.getCurrentMinute()) {
+						showShortToast("开始时间不得大于结束时间");
+						return;
+					}
+				}
+				StringBuilder sb = new StringBuilder();
+				sb.append(tpAm.getCurrentHour()+":");
+				sb.append(tpAm.getCurrentMinute()+"~");
+				sb.append(tpPm.getCurrentHour()+":");
+				sb.append(tpPm.getCurrentMinute());
+				tvTime.setText(sb.toString());
+				pw.dismiss();
+				
+			}
+		});
+		
+		pw = new PopupWindow(view, screenWidth,LayoutParams.WRAP_CONTENT);
+		pw.setFocusable(true);
+		WindowManager.LayoutParams params = MerchantInfoActivity.this.getWindow()
+				.getAttributes();
+		params.alpha = 0.7f;
+		MerchantInfoActivity.this.getWindow().setAttributes(params);
 
+		pw.setBackgroundDrawable(new ColorDrawable());
+		pw.setOutsideTouchable(true);
+
+		pw.setAnimationStyle(R.style.pw_anim_style);
+
+		pw.showAtLocation(v, Gravity.BOTTOM | Gravity.CENTER_HORIZONTAL, 0, 0);
+
+		pw.setOnDismissListener(new OnDismissListener() {
+
+			@Override
+			public void onDismiss() {
+				WindowManager.LayoutParams params = MerchantInfoActivity.this.getWindow().getAttributes();
+				params.alpha = 1f;
+				MerchantInfoActivity.this.getWindow().setAttributes(params);
+			}
+		});
+		
+	}
+	
 	@Override
 	protected void initData() {
 		loadDatas();
 	}
-
+	
 	private void loadDatas() {
 		sp = PreferenceManager.getDefaultSharedPreferences(MerchantInfoActivity.this);
 		String token = sp.getString("token", "");
@@ -328,6 +422,14 @@ public class MerchantInfoActivity extends BaseActivity {
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
+		
+		if (requestCode == ADDRESS) {
+			if (data != null) {
+				address = data.getStringExtra("address");
+				tvAddress.setText(address);
+			}
+		}
+		
 		if (requestCode == CAMERA) {
 			path = Environment.getExternalStorageDirectory().getAbsolutePath()+ "/store.jpg";
 			if (!cameraUri.getPath().isEmpty()) {
@@ -372,6 +474,7 @@ public class MerchantInfoActivity extends BaseActivity {
 			}
 		}
 	}
+
 
 	public Bitmap big(Bitmap b, float x, float y) {
 		int w = b.getWidth();

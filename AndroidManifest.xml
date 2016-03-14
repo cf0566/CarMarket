@@ -122,6 +122,9 @@
         
         <activity android:name="com.cpic.carmarket.activity.WebAgreeActivity"></activity>
         <activity android:name="com.cpic.carmarket.activity.RequestLoadingActivity"></activity>
+        <activity android:name="com.cpic.carmarket.activity.DetailAddressActivity"></activity>
+        <activity android:name="com.cpic.carmarket.activity.ServiceCarTypeActivity"></activity>
+        <activity android:name="com.cpic.carmarket.activity.CarListActivity"></activity>
         <activity
             android:name="com.pingplusplus.android.PaymentActivity"
             android:configChanges="orientation|screenSize"

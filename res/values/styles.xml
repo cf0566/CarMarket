@@ -47,6 +47,13 @@
         <item name="android:layout_height">5dp</item>
         <item name="android:background">#DADADA</item>
     </style>
+      <style name="my_check_box">
+        <item name="android:layout_width">90dp</item>
+        <item name="android:layout_height">55dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">@drawable/cbox_checked_select</item>
+        <item name="android:button">@null</item>
+    </style>
     
       <style name="mine_layout">
         <item name="android:layout_width">match_parent</item>

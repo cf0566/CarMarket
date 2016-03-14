@@ -155,18 +155,16 @@
                     android:text="详细地址"
                     android:textSize="15sp" />
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" />
 
                 <TextView
                     android:id="@+id/activity_merchant_tv_address"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:drawableRight="@drawable/cllick_jinru"
-                    android:gravity="center_vertical"
+                    android:gravity="center_vertical|right"
                     android:text="青阳路"
+                    android:singleLine="true"
+                    android:ellipsize="end"
                     android:textSize="15sp"
                     android:textColor="#AEAEAE" />
             </LinearLayout>
@@ -189,17 +187,13 @@
                     android:text="营业时间"
                     android:textSize="15sp" />
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" />
 
                 <TextView
                     android:id="@+id/activity_merchant_tv_time"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:drawableRight="@drawable/cllick_jinru"
-                    android:gravity="center_vertical"
+                    android:gravity="center_vertical|right"
                     android:text="8:30-23:20"
                     android:textSize="15sp"
                     android:textColor="#AEAEAE" />
@@ -272,7 +266,7 @@
                         android:layout_height="70dp"
                         android:background="@null"
                         android:gravity="top"
-                        android:hint="18119607268"
+                        android:hint="请输入内容......"
                         android:padding="5dp" />
                 </LinearLayout>
             </LinearLayout>

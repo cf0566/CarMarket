@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/main_bg" >
+
+     <RelativeLayout
+        style="@style/title_style"
+        android:gravity="center_vertical" >
+
+        <TextView
+            android:id="@+id/activity_address_tv"
+            style="@style/title_tv_center"
+            android:text="商家地址" />
+
+        <ImageView
+            android:id="@+id/activity_address_iv_back"
+            style="@style/title_iv_back" />
+    </RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="@drawable/et_backgroud"
+        android:layout_margin="10dp" >
+
+        <EditText
+            android:id="@+id/activity_details_address_et"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@null" 
+            android:hint="请您输入详细地址"
+            android:textSize="15dp"
+            android:textColor="#9E9E9E"
+            android:padding="5dp"/>
+    </LinearLayout>
+    
+    <Button 
+        android:id="@+id/activity_details_address_btn_submit"
+        android:layout_width="wrap_content"
+        android:layout_height="35dp"
+        android:background="@drawable/login"
+        android:layout_gravity="right"
+        android:layout_margin="10dp"
+        android:text="提交"
+        android:textColor="#FFF"
+        />
+    
+
+</LinearLayout>

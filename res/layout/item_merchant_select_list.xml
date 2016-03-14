@@ -20,19 +20,16 @@
             android:text="钣喷"
             android:textColor="#3598D6" />
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
 
         <TextView
             android:id="@+id/item_merchant_tv_car"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:singleLine="true"
+            android:layout_marginLeft="5dp"
             android:text="奥迪"
-            android:textColor="#CBCBCB" />
+            android:textColor="#9E9E9E" />
     </LinearLayout>
 	<TextView style="@style/my_divide_line"/>
 </LinearLayout>
