@@ -15,7 +15,8 @@ import com.alibaba.fastjson.JSONObject;
 import com.cpic.carmarket.R;
 import com.cpic.carmarket.base.BaseActivity;
 import com.cpic.carmarket.bean.FormData2;
-import com.cpic.carmarket.bean.FormDataInfo2;
+import com.cpic.carmarket.bean.FormData5;
+import com.cpic.carmarket.bean.FormDataInfo5;
 import com.cpic.carmarket.utils.ProgressDialogHandle;
 import com.cpic.carmarket.utils.UrlUtils;
 import com.lidroid.xutils.HttpUtils;
@@ -36,8 +37,8 @@ public class FormAfterServiceActivity extends BaseActivity {
 	private RequestParams params;
 	private SharedPreferences sp;
 	private Dialog dialog;
-	private FormDataInfo2 data;
-	private FormData2 obj;
+	private FormDataInfo5 data;
+	private FormData5 obj;
 	private String order_id;
 	
 	private Intent intent;
@@ -173,7 +174,7 @@ public class FormAfterServiceActivity extends BaseActivity {
 				if (dialog != null) {
 					dialog.dismiss();
 				}
-				obj = JSONObject.parseObject(arg0.result, FormData2.class);
+				obj = JSONObject.parseObject(arg0.result,FormData5.class);
 				int code= obj.getCode();
 				if (code == 1) {
 					data = obj.getData();

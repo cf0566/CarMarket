@@ -148,7 +148,6 @@ public class FormCloseActivity extends BaseActivity {
 					showShortToast("获取数据失败"+code);
 				}
 			}
-
 		});
 	}
 	private void loadDatas() {

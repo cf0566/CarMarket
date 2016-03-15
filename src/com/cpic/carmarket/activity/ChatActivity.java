@@ -21,7 +21,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -72,6 +71,8 @@ import com.cpic.carmarket.adapter.ExpressionAdapter;
 import com.cpic.carmarket.adapter.ExpressionPagerAdapter;
 import com.cpic.carmarket.adapter.MessageAdapter;
 import com.cpic.carmarket.adapter.VoicePlayClickListener;
+import com.cpic.carmarket.base.BaseActivity2;
+import com.cpic.carmarket.base.MyApplication;
 import com.cpic.carmarket.utils.CommonUtils;
 import com.cpic.carmarket.utils.ImageUtils;
 import com.cpic.carmarket.utils.SmileUtils;
@@ -98,7 +99,6 @@ import com.easemob.chat.NormalFileMessageBody;
 import com.easemob.chat.TextMessageBody;
 import com.easemob.chat.VideoMessageBody;
 import com.easemob.chat.VoiceMessageBody;
-import com.easemob.chatuidemo.DemoApplication;
 import com.easemob.chatuidemo.DemoHXSDKHelper;
 import com.easemob.chatuidemo.domain.RobotUser;
 import com.easemob.chatuidemo.widget.ExpandGridView;
@@ -112,7 +112,7 @@ import com.easemob.util.VoiceRecorder;
  * 聊天页面
  * 
  */
-public class ChatActivity extends Activity implements OnClickListener, EMEventListener{
+public class ChatActivity extends BaseActivity2 implements OnClickListener, EMEventListener{
 	private static final String TAG = "ChatActivity";
 	private static final int REQUEST_CODE_EMPTY_HISTORY = 2;
 	public static final int REQUEST_CODE_CONTEXT_MENU = 3;
@@ -393,7 +393,9 @@ public class ChatActivity extends Activity implements OnClickListener, EMEventLi
 					((TextView) findViewById(R.id.name)).setText(toChatUsername);
 				}
 			}else{
-				UserUtils.setUserNick(toChatUsername, (TextView) findViewById(R.id.name));
+				TextView tv = (TextView) findViewById(R.id.name);
+				tv.setText(toChatUsername); 
+//				UserUtils.setUserNick(toChatUsername, (TextView) findViewById(R.id.name));
 			}
 		} else {
 			// 群聊
@@ -718,7 +720,7 @@ public class ChatActivity extends Activity implements OnClickListener, EMEventLi
 			selectPicFromCamera();// 点击照相图标
 		} else if (id == R.id.btn_picture) {
 			selectPicFromLocal(); // 点击图片图标
-//		} else if (id == R.id.btn_location) { // 位置
+		} else if (id == R.id.btn_location) { // 位置
 //			startActivityForResult(new Intent(this, BaiduMapActivity.class), REQUEST_CODE_MAP);
 		} else if (id == R.id.iv_emoticons_normal) { // 点击显示表情框
 			more.setVisibility(View.VISIBLE);
@@ -858,7 +860,7 @@ public class ChatActivity extends Activity implements OnClickListener, EMEventLi
 			return;
 		}
 
-		cameraFile = new File(PathUtil.getInstance().getImagePath(), DemoApplication.getInstance().getUserName()
+		cameraFile = new File(PathUtil.getInstance().getImagePath(), MyApplication.getInstance().getUserName()
 				+ System.currentTimeMillis() + ".jpg");
 		cameraFile.getParentFile().mkdirs();
 		startActivityForResult(

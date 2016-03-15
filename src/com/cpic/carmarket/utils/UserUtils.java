@@ -22,7 +22,6 @@ public class UserUtils {
         if(user == null){
             user = new User(username);
         }
-            
         if(user != null){
             //demo没有这些数据，临时填充
         	if(TextUtils.isEmpty(user.getNick()))

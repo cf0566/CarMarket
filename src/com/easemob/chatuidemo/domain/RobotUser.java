@@ -44,6 +44,25 @@ public class RobotUser extends EMContact{
 	public void setAvatar(String avatar) {
 		this.avatar = avatar;
 	}
+	public RobotUser(String username, String nick, String header, String avatar) {
+		super();
+		this.username = username;
+		this.nick = nick;
+		this.header = header;
+		this.avatar = avatar;
+	}
+	public RobotUser() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	public RobotUser(String arg0, String arg1) {
+		super(arg0, arg1);
+		// TODO Auto-generated constructor stub
+	}
+	public RobotUser(String arg0) {
+		super(arg0);
+		// TODO Auto-generated constructor stub
+	}
 	 
 	
 }

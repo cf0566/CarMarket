@@ -2,9 +2,9 @@ package com.cpic.carmarket.utils;
 
 public class UrlUtils {
 	//请求头
-	public static final String postUrl="http://jk1.cpioc.com/index.php?m=Admin&c=merchantApi&a=";
+	public static final String postUrl="http://wx.cpioc.com/cam/index.php?m=Api&c=merchantApi&a=";
 	//客户版请求头
-	public final static  String postUserUrl="http://jk1.cpioc.com/index.php?m=Admin&c=userApi&a=";
+	public final static  String postUserUrl="http://wx.cpioc.com/cam/index.php?m=Api&c=userApi&a=";
 	//登录接口:
 	public static final String path_login="login";
 	//获取验证码

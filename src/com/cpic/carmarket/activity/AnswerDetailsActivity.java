@@ -58,13 +58,14 @@ public class AnswerDetailsActivity extends BaseActivity{
 	private Dialog dialog;
 	private RatingBar rBar;
 	
-	private String question_id ,iv_icon_url;
+	private String question_id ,iv_icon_url,name;
 	
 	private Intent intent;
 	private BitmapDisplayConfig config;
 	@Override
 	protected void getIntentData(Bundle savedInstanceState) {
 		question_id = getIntent().getStringExtra("id");
+		name = getIntent().getStringExtra("name");
 	}
 
 	@Override
@@ -94,6 +95,16 @@ public class AnswerDetailsActivity extends BaseActivity{
 			@Override
 			public void onClick(View v) {
 				onBackPressed();
+			}
+		});
+		btnOnline.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				intent = new Intent(AnswerDetailsActivity.this, ChatActivity.class);
+				intent.putExtra("chatType", 1);
+				intent.putExtra("userId", name);
+				startActivity(intent);
 			}
 		});
 		

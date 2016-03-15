@@ -79,6 +79,8 @@ public class DetailAddressActivity extends BaseActivity {
 			public void onClick(View v) {
 				intent = new Intent();
 				intent.putExtra("address", et.getText().toString());
+				intent.putExtra("Latitude", Latitude);
+				intent.putExtra("Longitude", Longitude);
 				setResult(RESULT_OK,intent);
 				finish();
 			}

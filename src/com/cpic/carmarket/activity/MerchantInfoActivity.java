@@ -2,6 +2,10 @@ package com.cpic.carmarket.activity;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
+
+import org.json.JSONArray;
+import org.json.JSONException;
 
 import android.app.Dialog;
 import android.content.ContentResolver;
@@ -10,6 +14,7 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
@@ -18,6 +23,7 @@ import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -33,6 +39,7 @@ import android.widget.PopupWindow;
 import android.widget.PopupWindow.OnDismissListener;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.alibaba.fastjson.JSONObject;
 import com.cpic.carmarket.R;
@@ -61,9 +68,10 @@ public class MerchantInfoActivity extends BaseActivity {
 	private ImageView ivBack;
 	private LinearLayout llIcon, llAddress, llTime, llChange;
 
-	private EditText  etTel;
+	private EditText etTel,etContent;
 
-	private TextView tvAddress, tvTime, tvname ;
+	private TextView tvAddress, tvTime, tvname;
+	private Button btnSubmit;
 
 	private ArrayList<MerchantInfoDataInfo> datas;
 
@@ -77,11 +85,12 @@ public class MerchantInfoActivity extends BaseActivity {
 	private MercAdapter adapter;
 
 	private BitmapDisplayConfig config;
-	
+
 	private TextView tvCamera, tvPhoto, tvBack;
-	
+
 	private static final int CAMERA = 1;
 	private static final int ADDRESS = 2;
+	private static final int CAR_LIST = 3;
 	private static final int PHOTO = 0;
 
 	private Uri cameraUri;
@@ -89,12 +98,15 @@ public class MerchantInfoActivity extends BaseActivity {
 	private Intent intent;
 	private PopupWindow pw;
 	private int screenWidth;
-	private String path;//图片路径
-	
+	private String path;// 图片路径
+
 	private String address;
 
-	private TimePicker tpAm,tpPm;
+	private TimePicker tpAm, tpPm;
 	private Button submitTime;
+	
+	private String Latitude,Longitude;//上个页面返回的经纬度
+
 	@Override
 	protected void getIntentData(Bundle savedInstanceState) {
 		DisplayMetrics metrics = new DisplayMetrics();
@@ -121,10 +133,13 @@ public class MerchantInfoActivity extends BaseActivity {
 		tvname = (TextView) findViewById(R.id.activity_merchant_tv_name);
 		etTel = (EditText) findViewById(R.id.activity_merchant_et_tel);
 		dialog = ProgressDialogHandle.getProgressDialog(this, null);
+		etContent = (EditText) findViewById(R.id.activity_merchant_et_store_intro);
+		btnSubmit = (Button) findViewById(R.id.activity_merchant_btn_submit);
 	}
 
 	@Override
 	protected void registerListener() {
+		
 		ivBack.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -144,15 +159,17 @@ public class MerchantInfoActivity extends BaseActivity {
 		 * 地址
 		 */
 		llAddress.setOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
-				intent = new Intent(MerchantInfoActivity.this, DetailAddressActivity.class);
-				startActivityForResult(intent, ADDRESS);;
+				intent = new Intent(MerchantInfoActivity.this,
+						DetailAddressActivity.class);
+				startActivityForResult(intent, ADDRESS);
+				;
 			}
 		});
 		llTime.setOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
 				showTimePop(v);
@@ -162,25 +179,120 @@ public class MerchantInfoActivity extends BaseActivity {
 		 * 更改服务车型
 		 */
 		llChange.setOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
-				intent = new Intent(MerchantInfoActivity.this, ServiceCarTypeActivity.class);
-				startActivity(intent);
+				intent = new Intent(MerchantInfoActivity.this,ServiceCarTypeActivity.class);
+				startActivityForResult(intent, CAR_LIST);
 			}
 		});
 		
+		btnSubmit.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				submitDatas();
+			}
+		});
 	}
+	private void submitDatas() {
+		
+		post = new HttpUtils();
+		params = new RequestParams();
+		params.addBodyParameter("address", tvAddress.getText().toString());
+		if (Latitude == null ) {
+			Latitude = "0";
+		}
+		if (Longitude == null) {
+			Longitude = "0";
+		}
+		sp = PreferenceManager.getDefaultSharedPreferences(MerchantInfoActivity.this);
+		String token = sp.getString("token", "");
+		params.addBodyParameter("token", token);
+		params.addBodyParameter("lat", Latitude);
+		params.addBodyParameter("lng", Longitude);
+		params.addBodyParameter("company_desc", etContent.getText().toString());
+		params.addBodyParameter("contact_mobile", etTel.getText().toString());
+		params.addBodyParameter("on_time", tvTime.getText().toString());
+		params.addBodyParameter("business", TasktoJson(datas));
+		Log.i("oye", TasktoJson(datas));
+		String url = UrlUtils.postUrl+UrlUtils.path_modifyInfo;
+		post.send(HttpMethod.POST, url, params, new RequestCallBack<String>() {
+
+			@Override
+			public void onStart() {
+				super.onStart();
+				if (dialog != null) {
+					dialog.show();
+				}
+				
+			}
+			@Override
+			public void onFailure(HttpException arg0, String arg1) {
+				if (dialog != null) {
+					dialog.dismiss();
+				}
+			}
+
+			@Override
+			public void onSuccess(ResponseInfo<String> arg0) {
+				if (dialog != null) {
+					dialog.dismiss();
+				}
+				JSONObject obj = JSONObject.parseObject(arg0.result);
+				int code = obj.getIntValue("code");
+				if (code == 1) {
+					showRegisterSuccess();
+					finish();
+				}
+			}
+		});
+		
+		
+	}
+	
+	private void showRegisterSuccess(){
+		Toast toast = Toast.makeText(MerchantInfoActivity.this , "提交成功，等待平台审核",
+				Toast.LENGTH_SHORT);
+		toast.setGravity(Gravity.CENTER, 0, -100);
+		LinearLayout layout = (LinearLayout) toast.getView();
+		ImageView image = new ImageView(MerchantInfoActivity.this );
+		image.setImageResource(R.drawable.dengdaipingtai);
+		TextView tv = new TextView(MerchantInfoActivity.this );
+		layout.addView(image, 0);
+		toast.show();
+	}
+	/**
+	 * 将数组转化成json字符串
+	 */
+	public String TasktoJson(List<MerchantInfoDataInfo> data) {
+		String jsonresult = "";
+		JSONArray array = new JSONArray();
+		for (int i = 0; i < data.size(); i++) {
+			org.json.JSONObject petobj = new org.json.JSONObject();
+			try {
+				petobj.put("dim_name", data.get(i).getDim_name());
+				petobj.put("car_category",data.get(i).getCar_category());
+				petobj.put("category_name",data.get(i).getCategory_name());
+				array.put(petobj);
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+		}
+		jsonresult = array.toString();
+		return jsonresult;
+	}
+
 	private void showTimePop(View v) {
-		View view = View.inflate(MerchantInfoActivity.this, R.layout.popupwindow_time_pick,null);
+		View view = View.inflate(MerchantInfoActivity.this,R.layout.popupwindow_time_pick, null);
 		tpAm = (TimePicker) view.findViewById(R.id.popupwindow_time_am);
 		tpPm = (TimePicker) view.findViewById(R.id.popupwindow_time_pm);
-		submitTime =  (Button) view.findViewById(R.id.popupwindow_time_btn_ensure);
+		submitTime = (Button) view.findViewById(R.id.popupwindow_time_btn_ensure);
 		tpAm.setIs24HourView(true);
 		tpPm.setIs24HourView(true);
-		
+
 		submitTime.setOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
 				if (tpAm.getCurrentHour() > tpPm.getCurrentHour()) {
@@ -194,20 +306,19 @@ public class MerchantInfoActivity extends BaseActivity {
 					}
 				}
 				StringBuilder sb = new StringBuilder();
-				sb.append(tpAm.getCurrentHour()+":");
-				sb.append(tpAm.getCurrentMinute()+"~");
-				sb.append(tpPm.getCurrentHour()+":");
+				sb.append(tpAm.getCurrentHour() + ":");
+				sb.append(tpAm.getCurrentMinute() + "~");
+				sb.append(tpPm.getCurrentHour() + ":");
 				sb.append(tpPm.getCurrentMinute());
 				tvTime.setText(sb.toString());
 				pw.dismiss();
-				
 			}
 		});
-		
-		pw = new PopupWindow(view, screenWidth,LayoutParams.WRAP_CONTENT);
+
+		pw = new PopupWindow(view, screenWidth, LayoutParams.WRAP_CONTENT);
 		pw.setFocusable(true);
-		WindowManager.LayoutParams params = MerchantInfoActivity.this.getWindow()
-				.getAttributes();
+		WindowManager.LayoutParams params = MerchantInfoActivity.this
+				.getWindow().getAttributes();
 		params.alpha = 0.7f;
 		MerchantInfoActivity.this.getWindow().setAttributes(params);
 
@@ -227,16 +338,17 @@ public class MerchantInfoActivity extends BaseActivity {
 				MerchantInfoActivity.this.getWindow().setAttributes(params);
 			}
 		});
-		
+
 	}
-	
+
 	@Override
 	protected void initData() {
 		loadDatas();
 	}
-	
+
 	private void loadDatas() {
-		sp = PreferenceManager.getDefaultSharedPreferences(MerchantInfoActivity.this);
+		sp = PreferenceManager
+				.getDefaultSharedPreferences(MerchantInfoActivity.this);
 		String token = sp.getString("token", "");
 		post = new HttpUtils();
 		params = new RequestParams();
@@ -277,6 +389,7 @@ public class MerchantInfoActivity extends BaseActivity {
 					tvname.setText(info.getData().getCompany_name());
 					etTel.setText(info.getData().getTel());
 					tvTime.setText(info.getData().getOn_time());
+					etContent.setText(info.getData().getCompany_desc());
 					String img_url = info.getData().getStore_img();
 					loadIvIcon(img_url);
 				} else {
@@ -285,6 +398,7 @@ public class MerchantInfoActivity extends BaseActivity {
 			}
 		});
 	}
+
 	/**
 	 * 下载门面
 	 * 
@@ -299,10 +413,10 @@ public class MerchantInfoActivity extends BaseActivity {
 				R.drawable.empty_photo));
 		utils.display(ivIcon, img_url, config);
 	}
-	
-	
+
 	private void showPopupWindow(View v) {
-		View view = View.inflate(MerchantInfoActivity.this, R.layout.popupwindow_1,null);
+		View view = View.inflate(MerchantInfoActivity.this,
+				R.layout.popupwindow_1, null);
 		tvCamera = (TextView) view.findViewById(R.id.btn_camera);
 		tvPhoto = (TextView) view.findViewById(R.id.btn_photo);
 		tvBack = (TextView) view.findViewById(R.id.btn_back);
@@ -327,10 +441,11 @@ public class MerchantInfoActivity extends BaseActivity {
 			}
 		});
 
-		pw = new PopupWindow(view, screenWidth * 99 / 100,LayoutParams.WRAP_CONTENT);
+		pw = new PopupWindow(view, screenWidth * 99 / 100,
+				LayoutParams.WRAP_CONTENT);
 		pw.setFocusable(true);
-		WindowManager.LayoutParams params = MerchantInfoActivity.this.getWindow()
-				.getAttributes();
+		WindowManager.LayoutParams params = MerchantInfoActivity.this
+				.getWindow().getAttributes();
 		params.alpha = 0.7f;
 		MerchantInfoActivity.this.getWindow().setAttributes(params);
 
@@ -360,7 +475,8 @@ public class MerchantInfoActivity extends BaseActivity {
 	private void getFromCamera() {
 		// 通过Intent调用系统相机
 		intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-		cameraPic = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/store.jpg");
+		cameraPic = new File(Environment.getExternalStorageDirectory()
+				.getAbsolutePath() + "/store.jpg");
 		cameraUri = Uri.fromFile(cameraPic);
 		// 指定照片拍摄后的存储位置
 		intent.putExtra(MediaStore.EXTRA_OUTPUT, cameraUri);
@@ -373,20 +489,22 @@ public class MerchantInfoActivity extends BaseActivity {
 		intent.putExtra("return-data", true);
 		startActivityForResult(intent, PHOTO);
 	}
-	
+
 	/**
 	 * 通过获取文件名上传图片的文件流
+	 * 
 	 * @param file
 	 */
-	private void upLoadUserIcon(File file)  {
+	private void upLoadUserIcon(File file) {
 		post = new HttpUtils();
 		params = new RequestParams();
-		sp = PreferenceManager.getDefaultSharedPreferences(MerchantInfoActivity.this);
+		sp = PreferenceManager
+				.getDefaultSharedPreferences(MerchantInfoActivity.this);
 		String token = sp.getString("token", "");
 		params.addBodyParameter("token", token);
 		params.addBodyParameter("poster", file);
-		String url = UrlUtils.postUrl+UrlUtils.path_uploadStoreImg;
-		post.send(HttpMethod.POST,url, params,new RequestCallBack<String>() {
+		String url = UrlUtils.postUrl + UrlUtils.path_uploadStoreImg;
+		post.send(HttpMethod.POST, url, params, new RequestCallBack<String>() {
 
 			@Override
 			public void onStart() {
@@ -395,6 +513,7 @@ public class MerchantInfoActivity extends BaseActivity {
 					dialog.show();
 				}
 			}
+
 			@Override
 			public void onFailure(HttpException arg0, String arg1) {
 				showShortToast("上传失败,请检查网络状况");
@@ -412,7 +531,7 @@ public class MerchantInfoActivity extends BaseActivity {
 				int code = obj.getInteger("code");
 				if (code == 0) {
 					showShortToast("上传失败,请重试");
-				}else if (code == 1) {
+				} else if (code == 1) {
 					showShortToast("上传成功");
 				}
 			}
@@ -422,23 +541,32 @@ public class MerchantInfoActivity extends BaseActivity {
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
-		
-		if (requestCode == ADDRESS) {
+
+		if (requestCode == ADDRESS && resultCode == RESULT_OK) {
 			if (data != null) {
 				address = data.getStringExtra("address");
 				tvAddress.setText(address);
 			}
 		}
-		
+
+		if (requestCode == CAR_LIST && resultCode == RESULT_OK) {
+			if (data != null) {
+				datas = data.getParcelableArrayListExtra("car_list");
+				adapter.setDatas(datas);
+				adapter.notifyDataSetChanged();
+			}
+		}
+
 		if (requestCode == CAMERA) {
-			path = Environment.getExternalStorageDirectory().getAbsolutePath()+ "/store.jpg";
+			path = Environment.getExternalStorageDirectory().getAbsolutePath()
+					+ "/store.jpg";
 			if (!cameraUri.getPath().isEmpty()) {
 				Bitmap temp = BitmapFactory.decodeFile(cameraUri.getPath());
 				Bitmap bitmap = big(temp, 60, 60);
 				ivIcon.setImageBitmap(bitmap);
 				upLoadUserIcon(new File(path));
 			}
-			
+
 			// upLoadUserIcon(new File(Environment.getExternalStorageDirectory()
 			// .getAbsolutePath() + "/usericon.PNG"));
 		} else if (requestCode == PHOTO) {
@@ -458,7 +586,8 @@ public class MerchantInfoActivity extends BaseActivity {
 					// 好像是android多媒体数据库的封装接口，具体的看Android文档
 					Cursor cursor = managedQuery(uri, proj, null, null, null);
 					// 按我个人理解 这个是获得用户选择的图片的索引值
-					int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+					int column_index = cursor
+							.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
 					// 将光标移至开头 ，这个很重要，不小心很容易引起越界
 					cursor.moveToFirst();
 					// 最后根据索引值获取图片路径
@@ -474,7 +603,6 @@ public class MerchantInfoActivity extends BaseActivity {
 			}
 		}
 	}
-
 
 	public Bitmap big(Bitmap b, float x, float y) {
 		int w = b.getWidth();

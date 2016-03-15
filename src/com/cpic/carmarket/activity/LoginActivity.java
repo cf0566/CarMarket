@@ -24,6 +24,7 @@ import com.cpic.carmarket.utils.UrlUtils;
 import com.easemob.EMCallBack;
 import com.easemob.chat.EMChat;
 import com.easemob.chat.EMChatManager;
+import com.easemob.chat.EMGroupManager;
 import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.exception.HttpException;
 import com.lidroid.xutils.http.RequestParams;
@@ -44,7 +45,7 @@ public class LoginActivity extends BaseActivity {
 
 	@Override
 	protected void getIntentData(Bundle savedInstanceState) {
-		EMChat.getInstance().init(this);
+		
 	}
 
 	@Override
@@ -200,6 +201,8 @@ public class LoginActivity extends BaseActivity {
 								
 								@Override
 								public void onSuccess() {
+									EMGroupManager.getInstance().loadAllGroups();
+									EMChatManager.getInstance().loadAllConversations();
 									intent=new Intent(LoginActivity.this,MainActivity.class);
 									startActivity(intent);
 									finish();

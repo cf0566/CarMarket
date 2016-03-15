@@ -13,11 +13,11 @@
 
         <TextView
             android:id="@+id/item_merchant_tvcheck"
-            android:layout_width="90dp"
+            android:layout_width="80dp"
             android:layout_height="wrap_content"
             android:background="@drawable/merchant_check"
             android:gravity="center"
-            android:text="钣喷"
+            android:text="修复改装"
             android:textColor="#3598D6" />
 
 
