@@ -1,5 +1,10 @@
 package com.cpic.carmarket.activity;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -8,23 +13,32 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.alibaba.fastjson.JSONObject;
 import com.cpic.carmarket.R;
 import com.cpic.carmarket.base.BaseActivity;
+import com.cpic.carmarket.base.MyApplication;
 import com.cpic.carmarket.bean.LoginResult;
 import com.cpic.carmarket.utils.ProgressDialogHandle;
 import com.cpic.carmarket.utils.UrlUtils;
 import com.easemob.EMCallBack;
+import com.easemob.applib.controller.HXSDKHelper;
 import com.easemob.chat.EMChat;
 import com.easemob.chat.EMChatManager;
 import com.easemob.chat.EMGroupManager;
+import com.easemob.chatuidemo.Constant;
+import com.easemob.chatuidemo.DemoApplication;
+import com.easemob.chatuidemo.DemoHXSDKHelper;
+import com.easemob.chatuidemo.db.UserDao;
+import com.easemob.chatuidemo.domain.User;
 import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.exception.HttpException;
 import com.lidroid.xutils.http.RequestParams;
@@ -179,12 +193,57 @@ public class LoginActivity extends BaseActivity {
 				if (dialog != null) {
 					dialog.dismiss();
 				}
-				LoginResult res = JSONObject.parseObject(arg0.result,LoginResult.class);
+				final LoginResult res = JSONObject.parseObject(arg0.result,LoginResult.class);
 				int code = res.getCode();
 				if (code == 0) {
 					showLongToast("用户不存在或密码错误");
 				}else if (code == 1) {
-					
+					showLongToast("登录成功");
+					EMChat.getInstance().setAutoLogin(false);
+					EMChatManager.getInstance().login(res.getData().getEase_user(), res.getData().getEase_pwd(), new EMCallBack() {
+								
+								@Override
+								public void onSuccess() {
+									try {
+										// ** 第一次登录或者之前logout后再登录，加载所有本地群和回话
+										// ** manually load all local groups and
+									    EMGroupManager.getInstance().loadAllGroups();
+										EMChatManager.getInstance().loadAllConversations();
+										// 处理好友和群组
+										initializeContacts();
+									} catch (Exception e) {
+										e.printStackTrace();
+										// 取好友或者群聊失败，不让进入主页面
+										runOnUiThread(new Runnable() {
+											public void run() {
+												dialog.dismiss();
+												DemoHXSDKHelper.getInstance().logout(true,null);
+												Toast.makeText(getApplicationContext(), R.string.login_failure_failed, 1).show();
+											}
+										});
+										return;
+									}
+									boolean updatenick = EMChatManager.getInstance().updateCurrentUserNick(
+											MyApplication.currentUserNick.trim());
+									if (!updatenick) {
+									}
+									if (!LoginActivity.this.isFinishing() && dialog.isShowing()) {
+										dialog.dismiss();
+									}
+									// 进入主页面
+									Intent intent = new Intent(LoginActivity.this,MainActivity.class);
+									startActivity(intent);
+								}
+								
+								@Override
+								public void onProgress(int arg0, String arg1) {
+								}
+								
+								@Override
+								public void onError(int arg0, String arg1) {
+									showShortToast("环信接入失败");
+								}
+							});
 					editor.putString("token", res.getData().getToken());
 					editor.putString("on_time", res.getData().getOn_time());
 					editor.putString("logo", res.getData().getLogo());
@@ -195,39 +254,51 @@ public class LoginActivity extends BaseActivity {
 					editor.putString("user_id", res.getData().getUser_id());
 					editor.putString("is_approve", res.getData().getIs_approve());
 					editor.apply();
-					showLongToast("登录成功");
-					EMChatManager.getInstance().login(res.getData().getEase_user(), 
-							res.getData().getEase_pwd(), new EMCallBack() {
-								
-								@Override
-								public void onSuccess() {
-									EMGroupManager.getInstance().loadAllGroups();
-									EMChatManager.getInstance().loadAllConversations();
-									intent=new Intent(LoginActivity.this,MainActivity.class);
-									startActivity(intent);
-									finish();
-								}
-								
-								@Override
-								public void onProgress(int arg0, String arg1) {
-									
-								}
-								
-								@Override
-								public void onError(int arg0, String arg1) {
-									showShortToast("环信接入失败");
-								}
-							});
+					finish();
 					
 				}
+				
 			}
 		});
+	}
+	
+	
+	private void initializeContacts() {
+		Map<String, User> userlist = new HashMap<String, User>();
+		// 添加user"申请与通知"
+		User newFriends = new User();
+		newFriends.setUsername(Constant.NEW_FRIENDS_USERNAME);
+		String strChat = getResources().getString(R.string.Application_and_notify);
+		newFriends.setNick(strChat);
+
+		userlist.put(Constant.NEW_FRIENDS_USERNAME, newFriends);
+		// 添加"群聊"
+		User groupUser = new User();
+		String strGroup = getResources().getString(R.string.group_chat);
+		groupUser.setUsername(Constant.GROUP_USERNAME);
+		groupUser.setNick(strGroup);
+		groupUser.setHeader("");
+		userlist.put(Constant.GROUP_USERNAME, groupUser);
+		
+		// 添加"Robot"
+		User robotUser = new User();
+		String strRobot = getResources().getString(R.string.robot_chat);
+		robotUser.setUsername(Constant.CHAT_ROBOT);
+		robotUser.setNick(strRobot);
+		robotUser.setHeader("");
+		userlist.put(Constant.CHAT_ROBOT, robotUser);
+		
+		// 存入内存
+		((DemoHXSDKHelper)HXSDKHelper.getInstance()).setContactList(userlist);
+		// 存入db
+		UserDao dao = new UserDao(LoginActivity.this);
+		List<User> users = new ArrayList<User>(userlist.values());
+		dao.saveContactList(users);
 	}
 	@Override
 	protected void initData() {
 		//使申请入驻待下划线显示
 		tvRequest.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);//下划线
-		
 	}
 	@Override
 	protected void onResume(){

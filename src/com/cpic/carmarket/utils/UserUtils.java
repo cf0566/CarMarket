@@ -37,9 +37,9 @@ public class UserUtils {
     public static void setUserAvatar(Context context, String username, ImageView imageView){
     	User user = getUserInfo(username);
         if(user != null && user.getAvatar() != null){
-            Picasso.with(context).load(user.getAvatar()).placeholder(R.drawable.default_avatar).into(imageView);
+        	Picasso.with(context).load(user.getAvatar()).placeholder(R.drawable.empty_photo).into(imageView);
         }else{
-            Picasso.with(context).load(R.drawable.default_avatar).into(imageView);
+        	Picasso.with(context).load(R.drawable.empty_photo).into(imageView);
         }
     }
     
@@ -49,9 +49,9 @@ public class UserUtils {
 	public static void setCurrentUserAvatar(Context context, ImageView imageView) {
 		User user = ((DemoHXSDKHelper)HXSDKHelper.getInstance()).getUserProfileManager().getCurrentUserInfo();
 		if (user != null && user.getAvatar() != null) {
-			Picasso.with(context).load(user.getAvatar()).placeholder(R.drawable.default_avatar).into(imageView);
+			Picasso.with(context).load(user.getAvatar()).placeholder(R.drawable.touxiang).into(imageView);
 		} else {
-			Picasso.with(context).load(R.drawable.default_avatar).into(imageView);
+			Picasso.with(context).load(R.drawable.touxiang).into(imageView);
 		}
 	}
     

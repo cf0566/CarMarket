@@ -76,6 +76,8 @@ public class AnswerFragment extends Fragment {
 				intent = new Intent(getActivity(), AnswerDetailsActivity.class);
 				intent.putExtra("id", datas.get(position - 1).getQuestion_id());
 				intent.putExtra("name", datas.get(position-1).getUser_name());
+				intent.putExtra("ease_name", datas.get(position-1).getEase_name());
+				intent.putExtra("img_url", datas.get(position-1).getUser_img());
 				startActivity(intent);
 			}
 		});

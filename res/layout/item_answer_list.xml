@@ -25,6 +25,7 @@
             android:background="@drawable/new_msg_bg"
             android:text="新消息(9)"
             android:textColor="#FFF"
+            android:visibility="invisible"
             android:textSize="12sp" />
     </LinearLayout>
 

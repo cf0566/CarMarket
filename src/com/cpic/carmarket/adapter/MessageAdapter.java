@@ -401,9 +401,7 @@ public class MessageAdapter extends BaseAdapter{
 					holder.tv_usernick = (TextView) convertView.findViewById(R.id.tv_userid);
 				} catch (Exception e) {
 				}
-
 			}
-
 			convertView.setTag(holder);
 		} else {
 			holder = (ViewHolder) convertView.getTag();
@@ -581,7 +579,6 @@ public class MessageAdapter extends BaseAdapter{
 			}
 		});
 	}
-
 	/**
 	 * 文本消息
 	 * 
@@ -701,7 +698,6 @@ public class MessageAdapter extends BaseAdapter{
 	private void handleCallMessage(EMMessage message, ViewHolder holder, final int position) {
 		TextMessageBody txtBody = (TextMessageBody) message.getBody();
 		holder.tv.setText(txtBody.getMessage());
-
 	}
 
 	/**

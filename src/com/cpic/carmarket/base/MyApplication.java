@@ -2,11 +2,21 @@ package com.cpic.carmarket.base;
 
 import android.app.Application;
 import android.content.Context;
+import android.content.Intent;
 
+import com.cpic.carmarket.activity.ChatActivity;
+import com.cpic.carmarket.activity.MainActivity;
 import com.easemob.EMCallBack;
+import com.easemob.EMConnectionListener;
+import com.easemob.EMError;
 import com.easemob.chat.EMChat;
-import com.easemob.chatuidemo.DemoApplication;
+import com.easemob.chat.EMChatManager;
+import com.easemob.chat.EMChatOptions;
+import com.easemob.chat.EMMessage;
+import com.easemob.chat.EMMessage.ChatType;
+import com.easemob.chat.OnNotificationClickListener;
 import com.easemob.chatuidemo.DemoHXSDKHelper;
+import com.easemob.util.NetUtils;
 
 public class MyApplication extends Application{
 	/**
@@ -51,7 +61,30 @@ public class MyApplication extends Application{
 		 * 在做代码混淆的时候需要设置成false
 		 */
 		EMChat.getInstance().setDebugMode(true);//在做打包混淆时，要关闭debug模式，避免消耗不必要的资源
+		// 获取到EMChatOptions对象
+		EMChatOptions options = EMChatManager.getInstance().getChatOptions();
+		//设置notification点击listener
+		options.setOnNotificationClickListener(new OnNotificationClickListener() {
+		 
+			@Override
+			public Intent onNotificationClick(EMMessage message) {
+				Intent intent = new Intent(mContext, ChatActivity.class);
+				ChatType chatType = message.getChatType();
+				if(chatType == ChatType.Chat){ //单聊信息
+					intent.putExtra("userId", message.getFrom());
+					intent.putExtra("chatType", ChatActivity.CHATTYPE_SINGLE);
+				}else{ //群聊信息
+					//message.getTo()为群聊id
+					intent.putExtra("groupId", message.getTo());
+					intent.putExtra("chatType", ChatActivity.CHATTYPE_GROUP);
+				}
+				return intent;
+			}
+		});
+	
 	}
+	
+	
 	public static MyApplication getInstance() {
 		return instance;
 	}

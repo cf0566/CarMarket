@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/main_bg"
-     >
+    android:orientation="vertical" >
 
     <RelativeLayout
         android:id="@+id/relative"
@@ -21,126 +21,24 @@
             android:text="问答详情" />
     </RelativeLayout>
 
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:layout_below="@id/relative"
-        android:background="#FFF" >
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical" >
 
-        <LinearLayout
+        <ScrollView
+            android:id="@+id/scrollview"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical" >
+            android:layout_height="wrap_content"
+            android:layout_below="@id/relative"
+            android:layout_margin="10dp"
+            android:background="#FFF" >
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:padding="10dp" >
-
-                <TextView
-                    android:id="@+id/activity_answer_tv_content"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="我的汽车在行驶过程中？"
-                    android:textSize="15sp" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:orientation="horizontal" >
-
-                    <TextView
-                        android:id="@+id/activity_answer_tv_carname"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.7"
-                        android:drawableLeft="@drawable/qichexiaotu"
-                        android:drawablePadding="5dp"
-                        android:text="别克凯越"
-                        android:textColor="#76757F"
-                        android:textSize="12sp" />
-
-                    <TextView
-                        android:id="@+id/activity_answer_tv_ordertime"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="预约时间：2015-06-17"
-                        android:textColor="#76757F"
-                        android:textSize="12sp" />
-                </LinearLayout>
-
-                <TextView
-                    android:id="@+id/activity_answer_tv_check"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:drawableLeft="@drawable/weixiuxiangmu"
-                    android:drawablePadding="5dp"
-                    android:text="维修项目：底盘、发动机"
-                    android:textColor="#76757F"
-                    android:textSize="12sp" />
-
-                <LinearLayout
-                    android:id="@+id/activity_answer_ll"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:orientation="horizontal"
-                     >
-
-                    <ImageView
-                        android:id="@+id/activity_answer_iv_question01"
-                        android:layout_width="70dp"
-                        android:layout_height="70dp"
-                        android:src="@drawable/ic_launcher"
-                        android:visibility="invisible" />
-
-                    <ImageView
-                        android:id="@+id/activity_answer_iv_question02"
-                        android:layout_width="70dp"
-                        android:layout_height="70dp"
-                        android:src="@drawable/ic_launcher"
-                        android:visibility="invisible" />
-                </LinearLayout>
-            </LinearLayout>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="5dp"
-                android:background="#CBEFFC" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="15dp"
-                android:orientation="horizontal" >
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical" >
-
-                    <com.cpic.carmarket.view.CircleImageView
-                        android:id="@+id/activity_answer_iv_icon"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:layout_margin="10dp"
-                        android:src="@drawable/empty_photo" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="0dp"
-                        android:layout_weight="1" />
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/wodehuida_guaijiao" />
-                </LinearLayout>
+                android:orientation="vertical" >
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -149,103 +47,216 @@
                     android:padding="10dp" >
 
                     <TextView
-                        android:id="@+id/activity_answer_tv_company"
+                        android:id="@+id/activity_answer_tv_content"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="合肥市俊辉汽配"
+                        android:text="我的汽车在行驶过程中？"
                         android:textSize="15sp" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
+                        android:layout_marginTop="10dp"
                         android:orientation="horizontal" >
 
-                        <RatingBar
-                            android:id="@+id/activity_answer_rbar"
-                            style="@style/roomRatingBar"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:isIndicator="true"
-                            />
-
                         <TextView
-                            android:id="@+id/activity_answer_tv_score"
-                            android:layout_width="wrap_content"
+                            android:id="@+id/activity_answer_tv_carname"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
-                            android:text="4.5分"
-                            android:textColor="#FF3700"
+                            android:layout_weight="0.7"
+                            android:drawableLeft="@drawable/qichexiaotu"
+                            android:drawablePadding="5dp"
+                            android:text="别克凯越"
+                            android:textColor="#76757F"
                             android:textSize="12sp" />
 
                         <TextView
+                            android:id="@+id/activity_answer_tv_ordertime"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1" />
-
-                        <TextView
-                            android:id="@+id/activity_answer_tv_time"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="2小时前"
-                            android:textColor="#807E89"
+                            android:layout_weight="1"
+                            android:text="预约时间：2015-06-17"
+                            android:textColor="#76757F"
                             android:textSize="12sp" />
                     </LinearLayout>
 
                     <TextView
-                        android:id="@+id/activity_answer_tv_answer"
+                        android:id="@+id/activity_answer_tv_check"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="这是一个测试文本，专门用来测试"
-                        android:textColor="#807E89"
+                        android:layout_marginTop="10dp"
+                        android:drawableLeft="@drawable/weixiuxiangmu"
+                        android:drawablePadding="5dp"
+                        android:text="维修项目：底盘、发动机"
+                        android:textColor="#76757F"
                         android:textSize="12sp" />
 
-                    <com.cpic.carmarket.view.MyListView
-                        android:id="@+id/activity_answer_lv_question"
+                    <LinearLayout
+                        android:id="@+id/activity_answer_ll"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/last_ll"
-                        android:padding="10dp"
-                        android:gravity="left"
-                        />
+                        android:layout_marginTop="10dp"
+                        android:orientation="horizontal" >
+
+                        <ImageView
+                            android:id="@+id/activity_answer_iv_question01"
+                            android:layout_width="70dp"
+                            android:layout_height="70dp"
+                            android:src="@drawable/ic_launcher"
+                            android:visibility="invisible" />
+
+                        <ImageView
+                            android:id="@+id/activity_answer_iv_question02"
+                            android:layout_width="70dp"
+                            android:layout_height="70dp"
+                            android:src="@drawable/ic_launcher"
+                            android:visibility="invisible" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="5dp"
+                    android:background="#CBEFFC" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="15dp"
+                    android:orientation="horizontal" >
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical" >
+
+                        <com.cpic.carmarket.view.CircleImageView
+                            android:id="@+id/activity_answer_iv_icon"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:layout_margin="10dp"
+                            android:src="@drawable/empty_photo" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="0dp"
+                            android:layout_weight="1" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/wodehuida_guaijiao" />
+                    </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:orientation="horizontal" >
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:padding="10dp" >
 
                         <TextView
-                            android:layout_width="0dp"
+                            android:id="@+id/activity_answer_tv_company"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1" />
+                            android:text="合肥市俊辉汽配"
+                            android:textSize="15sp" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal" >
+
+                            <RatingBar
+                                android:id="@+id/activity_answer_rbar"
+                                style="@style/roomRatingBar"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:isIndicator="true" />
+
+                            <TextView
+                                android:id="@+id/activity_answer_tv_score"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="10dp"
+                                android:text="4.5分"
+                                android:textColor="#FF3700"
+                                android:textSize="12sp" />
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1" />
+
+                            <TextView
+                                android:id="@+id/activity_answer_tv_time"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="2小时前"
+                                android:textColor="#807E89"
+                                android:textSize="12sp" />
+                        </LinearLayout>
 
                         <TextView
-                            android:id="@+id/activity_answer_btn_answer"
-                            android:layout_width="wrap_content"
+                            android:id="@+id/activity_answer_tv_answer"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/liuyan"
-                            android:gravity="right|center_vertical"
-                            android:paddingRight="5dp"
-                            android:text="回复"
-                            android:textColor="#3699D6"
+                            android:text="这是一个测试文本，专门用来测试"
+                            android:textColor="#807E89"
                             android:textSize="12sp" />
+
+                        <com.cpic.carmarket.view.MyListView
+                            android:id="@+id/activity_answer_lv_question"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/last_ll"
+                            android:gravity="left"
+                            android:padding="10dp" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:orientation="horizontal" >
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1" />
+
+                            <TextView
+                                android:id="@+id/activity_answer_btn_answer"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/liuyan"
+                                android:gravity="right|center_vertical"
+                                android:paddingRight="5dp"
+                                android:text="回复"
+                                android:textColor="#3699D6"
+                                android:textSize="12sp" />
+                        </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
-        </LinearLayout>
-    </ScrollView>
+        </ScrollView>
+    </LinearLayout>
 
-
-    <Button
-        android:id="@+id/activity_answer_btn_online_talk"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:background="@drawable/online_answer"
-        android:layout_alignParentBottom="true"
-        android:text="在线问答"
-        android:textColor="#FFF" />
+        android:layout_height="wrap_content"
+        android:background="#FFF"
+        android:orientation="vertical"
+        android:padding="5dp" >
 
-</RelativeLayout>
+        <Button
+            android:id="@+id/activity_answer_btn_online_talk"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/online_answer"
+            android:text="在线问答"
+            android:textColor="#FFF" />
+    </LinearLayout>
+
+</LinearLayout>

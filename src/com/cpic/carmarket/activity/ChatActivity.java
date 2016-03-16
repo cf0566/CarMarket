@@ -21,7 +21,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -101,6 +100,7 @@ import com.easemob.chat.VideoMessageBody;
 import com.easemob.chat.VoiceMessageBody;
 import com.easemob.chatuidemo.DemoHXSDKHelper;
 import com.easemob.chatuidemo.domain.RobotUser;
+import com.easemob.chatuidemo.domain.User;
 import com.easemob.chatuidemo.widget.ExpandGridView;
 import com.easemob.chatuidemo.widget.PasteEditText;
 import com.easemob.exceptions.EaseMobException;
@@ -176,11 +176,12 @@ public class ChatActivity extends BaseActivity2 implements OnClickListener, EMEv
 	public static ChatActivity activityInstance = null;
 	// 给谁发送消息
 	private String toChatUsername;
+	private String userName;
 	private VoiceRecorder voiceRecorder;
 	private MessageAdapter adapter;
 	private File cameraFile;
 	static int resendPos;
-
+	private User user;
 	private GroupListener groupListener;
 
 	private ImageView iv_emoticons_normal;
@@ -193,6 +194,7 @@ public class ChatActivity extends BaseActivity2 implements OnClickListener, EMEv
 	private Button btnMore;
 	public String playMsgId;
 
+	private String img_url;
 	private SwipeRefreshLayout swipeRefreshLayout;
 
 	private Handler micImageHandler = new Handler() {
@@ -383,6 +385,7 @@ public class ChatActivity extends BaseActivity2 implements OnClickListener, EMEv
 
 		if (chatType == CHATTYPE_SINGLE) { // 单聊
 			toChatUsername = getIntent().getStringExtra("userId");
+			userName = getIntent().getStringExtra("name");
 			Map<String,RobotUser> robotMap=((DemoHXSDKHelper)HXSDKHelper.getInstance()).getRobotList();
 			if(robotMap!=null&&robotMap.containsKey(toChatUsername)){
 				isRobot = true;
@@ -393,9 +396,9 @@ public class ChatActivity extends BaseActivity2 implements OnClickListener, EMEv
 					((TextView) findViewById(R.id.name)).setText(toChatUsername);
 				}
 			}else{
-				TextView tv = (TextView) findViewById(R.id.name);
-				tv.setText(toChatUsername); 
-//				UserUtils.setUserNick(toChatUsername, (TextView) findViewById(R.id.name));
+//				TextView tv =  (TextView) findViewById(R.id.name);
+//				tv.setText(toChatUsername);
+				UserUtils.setUserNick(userName, (TextView) findViewById(R.id.name));
 			}
 		} else {
 			// 群聊
@@ -411,11 +414,9 @@ public class ChatActivity extends BaseActivity2 implements OnClickListener, EMEv
 			    onChatRoomViewCreation();
 			}
 		}
-        
 		// for chatroom type, we only init conversation and create view adapter on success
 		if(chatType != CHATTYPE_CHATROOM){
 		    onConversationInit();
-	        
 	        onListViewCreation();
 	        
 	        // show forward message if the message is not null
@@ -722,6 +723,7 @@ public class ChatActivity extends BaseActivity2 implements OnClickListener, EMEv
 			selectPicFromLocal(); // 点击图片图标
 		} else if (id == R.id.btn_location) { // 位置
 //			startActivityForResult(new Intent(this, BaiduMapActivity.class), REQUEST_CODE_MAP);
+			Toast.makeText(ChatActivity.this, "暂未开放", 0).show();
 		} else if (id == R.id.iv_emoticons_normal) { // 点击显示表情框
 			more.setVisibility(View.VISIBLE);
 			iv_emoticons_normal.setVisibility(View.INVISIBLE);
@@ -1419,7 +1421,7 @@ public class ChatActivity extends BaseActivity2 implements OnClickListener, EMEv
 
 						if (filename != "delete_expression") { // 不是删除键，显示表情
 							// 这里用的反射，所以混淆的时候不要混淆SmileUtils这个类
-							Class clz = Class.forName("com.easemob.chatuidemo.utils.SmileUtils");
+							Class clz = Class.forName("com.cpic.carmarket.utils.SmileUtils");
 							Field field = clz.getField(filename);
 							mEditTextContent.append(SmileUtils.getSmiledText(ChatActivity.this,
 									(String) field.get(null)));

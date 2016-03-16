@@ -58,7 +58,7 @@ public class AnswerDetailsActivity extends BaseActivity{
 	private Dialog dialog;
 	private RatingBar rBar;
 	
-	private String question_id ,iv_icon_url,name;
+	private String question_id ,iv_icon_url,name,ease_name,img_url;
 	
 	private Intent intent;
 	private BitmapDisplayConfig config;
@@ -66,6 +66,8 @@ public class AnswerDetailsActivity extends BaseActivity{
 	protected void getIntentData(Bundle savedInstanceState) {
 		question_id = getIntent().getStringExtra("id");
 		name = getIntent().getStringExtra("name");
+		ease_name = getIntent().getStringExtra("ease_name");
+		img_url = getIntent().getStringExtra("img_url");
 	}
 
 	@Override
@@ -103,11 +105,12 @@ public class AnswerDetailsActivity extends BaseActivity{
 			public void onClick(View v) {
 				intent = new Intent(AnswerDetailsActivity.this, ChatActivity.class);
 				intent.putExtra("chatType", 1);
-				intent.putExtra("userId", name);
+				intent.putExtra("userId", ease_name);
+				intent.putExtra("name", name);
+				intent.putExtra("img_url", img_url);
 				startActivity(intent);
 			}
 		});
-		
 	}
 	@Override
 	protected void initData() {
@@ -147,7 +150,6 @@ public class AnswerDetailsActivity extends BaseActivity{
 		config.setLoadFailedDrawable(getResources().getDrawable(R.drawable.empty_photo));
 		utils.display(ivQuestion2, img_url, config);
 	}
-
 	/**
 	 * 上一界面回来时，重新加载页面
 	 */
