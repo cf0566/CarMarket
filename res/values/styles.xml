@@ -108,13 +108,11 @@
 	<style name="black_title_tv_msg">
 	    <item name="android:layout_width">wrap_content</item>
 	    <item name="android:layout_height">wrap_content</item>
-	    <item name="android:layout_alignParentLeft">true</item>
-	    <item name="android:layout_centerVertical">true</item>
 	    <item name="android:text">消息</item>
 	    <item name="android:textSize">15sp</item>
 	    <item name="android:textColor">#FFF</item>
-	    <item name="android:paddingLeft">5dp</item>
-	    <item name="android:paddingRight">20dp</item>
+	    <item name="android:paddingLeft">10dp</item>
+	    <item name="android:paddingRight">10dp</item>
 	    <item name="android:paddingTop">3dp</item>
 	    <item name="android:paddingBottom">3dp</item>
 	</style>

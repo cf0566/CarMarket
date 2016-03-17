@@ -1,11 +1,20 @@
 package com.cpic.carmarket.base;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.http.params.HttpParams;
+
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 
+import com.alibaba.fastjson.JSONObject;
 import com.cpic.carmarket.activity.ChatActivity;
 import com.cpic.carmarket.activity.MainActivity;
+import com.cpic.carmarket.bean.EaseUser;
+import com.cpic.carmarket.bean.EaseUserInfo;
+import com.cpic.carmarket.utils.UrlUtils;
 import com.easemob.EMCallBack;
 import com.easemob.EMConnectionListener;
 import com.easemob.EMError;
@@ -17,13 +26,18 @@ import com.easemob.chat.EMMessage.ChatType;
 import com.easemob.chat.OnNotificationClickListener;
 import com.easemob.chatuidemo.DemoHXSDKHelper;
 import com.easemob.util.NetUtils;
+import com.lidroid.xutils.HttpUtils;
+import com.lidroid.xutils.exception.HttpException;
+import com.lidroid.xutils.http.RequestParams;
+import com.lidroid.xutils.http.ResponseInfo;
+import com.lidroid.xutils.http.callback.RequestCallBack;
+import com.lidroid.xutils.http.client.HttpRequest.HttpMethod;
 
 public class MyApplication extends Application{
 	/**
 	 * 日志的开关，false：不打印Log；true：打印Log
 	 */
 	public static final boolean isDebug = false;
-	
 	/**
 	 * 全局上下文
 	 */
@@ -48,6 +62,7 @@ public class MyApplication extends Application{
 	 */
 	public static int mDisplayHeight;
 	
+	private ArrayList<EaseUserInfo> datas;
 	@Override
 	public void onCreate() {
 		super.onCreate();
@@ -71,14 +86,36 @@ public class MyApplication extends Application{
 				Intent intent = new Intent(mContext, ChatActivity.class);
 				ChatType chatType = message.getChatType();
 				if(chatType == ChatType.Chat){ //单聊信息
-					intent.putExtra("userId", message.getFrom());
-					intent.putExtra("chatType", ChatActivity.CHATTYPE_SINGLE);
-				}else{ //群聊信息
-					//message.getTo()为群聊id
-					intent.putExtra("groupId", message.getTo());
-					intent.putExtra("chatType", ChatActivity.CHATTYPE_GROUP);
+					String user = message.getFrom();
+					loadInfo(user,intent);
 				}
 				return intent;
+			}
+
+			private void loadInfo(String user,final Intent intent) {
+				HttpUtils post = new HttpUtils();
+				RequestParams params = new RequestParams();
+				params.addBodyParameter("user", user);
+				String url = UrlUtils.postUrl+UrlUtils.path_getUserImg;
+				post.send(HttpMethod.POST, url, params, new RequestCallBack<String>() {
+
+					@Override
+					public void onFailure(HttpException arg0, String arg1) {
+					}
+
+					@Override
+					public void onSuccess(ResponseInfo<String> arg0) {
+						EaseUser user = JSONObject.parseObject(arg0.result, EaseUser.class);
+						int code = user.getCode();
+						if (code == 1) {
+							datas = user.getData();
+							intent.putExtra("userId", datas.get(0).getEase_user());
+							intent.putExtra("name", datas.get(0).getUser_name());
+							intent.putExtra("chatType", ChatActivity.CHATTYPE_SINGLE);
+						}else{
+						}
+					}
+				});
 			}
 		});
 	

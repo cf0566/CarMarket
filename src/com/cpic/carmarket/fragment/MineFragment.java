@@ -2,7 +2,6 @@ package com.cpic.carmarket.fragment;
 
 import java.io.File;
 
-import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.ContentResolver;
@@ -24,15 +23,15 @@ import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.WindowManager;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.LinearLayout;
+import android.widget.LinearLayout.LayoutParams;
 import android.widget.PopupWindow;
+import android.widget.PopupWindow.OnDismissListener;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.LinearLayout.LayoutParams;
-import android.widget.PopupWindow.OnDismissListener;
 
 import com.alibaba.fastjson.JSONObject;
 import com.cpic.carmarket.R;
@@ -45,6 +44,7 @@ import com.cpic.carmarket.activity.WashCarTypeActivity;
 import com.cpic.carmarket.utils.ProgressDialogHandle;
 import com.cpic.carmarket.utils.UrlUtils;
 import com.cpic.carmarket.view.CircleImageView;
+import com.easemob.chat.EMChatManager;
 import com.lidroid.xutils.BitmapUtils;
 import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.bitmap.BitmapDisplayConfig;
@@ -199,8 +199,8 @@ public class MineFragment extends Fragment {
 							@Override
 							public void onClick(DialogInterface dialog,
 									int which) {
-								Intent intent = new Intent(getActivity(),
-										LoginActivity.class);
+								EMChatManager.getInstance().logout();
+								Intent intent = new Intent(getActivity(),LoginActivity.class);
 								getActivity().finish();
 								startActivity(intent);
 								dialog.dismiss();

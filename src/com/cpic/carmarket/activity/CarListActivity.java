@@ -101,7 +101,6 @@ public class CarListActivity extends BaseActivity {
 				return false;
 			}
 		});
-		
 	}
 
 	@Override

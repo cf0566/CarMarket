@@ -181,7 +181,6 @@ public class ChatActivity extends BaseActivity2 implements OnClickListener, EMEv
 	private MessageAdapter adapter;
 	private File cameraFile;
 	static int resendPos;
-	private User user;
 	private GroupListener groupListener;
 
 	private ImageView iv_emoticons_normal;
@@ -318,7 +317,6 @@ public class ChatActivity extends BaseActivity2 implements OnClickListener, EMEv
 
 			@Override
 			public void afterTextChanged(Editable s) {
-
 			}
 		});
 
@@ -384,8 +382,9 @@ public class ChatActivity extends BaseActivity2 implements OnClickListener, EMEv
 		chatType = getIntent().getIntExtra("chatType", CHATTYPE_SINGLE);
 
 		if (chatType == CHATTYPE_SINGLE) { // 单聊
-			toChatUsername = getIntent().getStringExtra("userId");
 			userName = getIntent().getStringExtra("name");
+			toChatUsername = getIntent().getStringExtra("userId");
+			img_url = getIntent().getStringExtra("img_url");
 			Map<String,RobotUser> robotMap=((DemoHXSDKHelper)HXSDKHelper.getInstance()).getRobotList();
 			if(robotMap!=null&&robotMap.containsKey(toChatUsername)){
 				isRobot = true;
@@ -492,6 +491,7 @@ public class ChatActivity extends BaseActivity2 implements OnClickListener, EMEv
 	
 	protected void onListViewCreation(){
         adapter = new MessageAdapter(ChatActivity.this, toChatUsername, chatType);
+        adapter.setImageUrl(img_url);
         // 显示消息
         listView.setAdapter(adapter);
         

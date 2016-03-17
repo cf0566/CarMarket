@@ -30,11 +30,13 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.drawable.AnimationDrawable;
 import android.net.Uri;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.text.Spannable;
 import android.text.TextUtils;
 import android.util.Log;
@@ -86,6 +88,8 @@ import com.easemob.util.DensityUtil;
 import com.easemob.util.EMLog;
 import com.easemob.util.FileUtils;
 import com.easemob.util.TextFormater;
+import com.lidroid.xutils.BitmapUtils;
+import com.lidroid.xutils.bitmap.BitmapDisplayConfig;
 
 public class MessageAdapter extends BaseAdapter{
 
@@ -115,6 +119,7 @@ public class MessageAdapter extends BaseAdapter{
 	public static final String VIDEO_DIR = "chat/video";
 
 	private String username;
+	private String img_url;
 	private LayoutInflater inflater;
 	private Activity activity;
 	
@@ -136,6 +141,10 @@ public class MessageAdapter extends BaseAdapter{
 		inflater = LayoutInflater.from(context);
 		activity = (Activity) context;
 		this.conversation = EMChatManager.getInstance().getConversation(username);
+	}
+	
+	public void setImageUrl(String img_url){
+		this.img_url = img_url;
 	}
 	
 	Handler handler = new Handler() {
@@ -176,6 +185,10 @@ public class MessageAdapter extends BaseAdapter{
 			}
 		}
 	};
+
+	private BitmapDisplayConfig config;
+
+	private BitmapUtils utils;
 
 
 	/**
@@ -564,20 +577,31 @@ public class MessageAdapter extends BaseAdapter{
 	private void setUserAvatar(final EMMessage message, ImageView imageView){
 	    if(message.direct == Direct.SEND){
 	        //显示自己头像
-	        UserUtils.setCurrentUserAvatar(context, imageView);
+//	        UserUtils.setCurrentUserAvatar(context, imageView);
+	    	SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
+	    	String img = sp.getString("logo", "");
+	    	loadIvIcon(img, imageView);
 	    }else{
-	        UserUtils.setUserAvatar(context, message.getFrom(), imageView);
+//	        UserUtils.setUserAvatar(context, message.getFrom(), imageView);
+	    	loadIvIcon(img_url, imageView);
 	    }
-	    imageView.setOnClickListener(new View.OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				Intent intent = new Intent();
-				intent.setClass(context, UserProfileActivity.class);
-				intent.putExtra("username", message.getFrom());
-				context.startActivity(intent);
-			}
-		});
+//	    imageView.setOnClickListener(new View.OnClickListener() {
+//			
+//			@Override
+//			public void onClick(View v) {
+//				Intent intent = new Intent();
+//				intent.setClass(context, UserProfileActivity.class);
+//				intent.putExtra("username", message.getFrom());
+//				context.startActivity(intent);
+//			}
+//		});
+	}
+	private void loadIvIcon(String img_url,ImageView imageView) {
+		config = new BitmapDisplayConfig();
+		utils = new BitmapUtils(context);
+		config.setLoadingDrawable(context.getResources().getDrawable(R.drawable.empty_photo));
+		config.setLoadFailedDrawable(context.getResources().getDrawable(R.drawable.empty_photo));
+		utils.display(imageView, img_url, config);
 	}
 	/**
 	 * 文本消息

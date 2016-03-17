@@ -3,26 +3,41 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
-     <RelativeLayout
+
+    <RelativeLayout
         style="@style/black_title_style"
         android:gravity="center_vertical" >
 
-          <TextView
-            android:id="@+id/fragment_answer_msg_tv"
-           style="@style/black_title_tv_msg"
-            />
-          
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true" >
+
+            <TextView
+                android:id="@+id/fragment_answer_msg_tv"
+                style="@style/black_title_tv_msg" />
+            
+            <ImageView 
+                android:id="@+id/fragment_answer_msg_iv_tis"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/shape_tis"
+                android:visibility="invisible"
+                android:layout_gravity="top|right"
+                />
+        </FrameLayout>
+
         <TextView
             android:id="@+id/fragment_answer_tv"
             style="@style/black_title_tv_center"
             android:text="我的问答" />
-
     </RelativeLayout>
+
     <com.handmark.pulltorefresh.library.PullToRefreshListView
         android:id="@+id/fragment_answer_plv"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
+        android:layout_height="match_parent" >
     </com.handmark.pulltorefresh.library.PullToRefreshListView>
 
 </LinearLayout>

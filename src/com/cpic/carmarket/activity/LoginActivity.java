@@ -244,20 +244,18 @@ public class LoginActivity extends BaseActivity {
 									showShortToast("环信接入失败");
 								}
 							});
-					editor.putString("token", res.getData().getToken());
-					editor.putString("on_time", res.getData().getOn_time());
-					editor.putString("logo", res.getData().getLogo());
-					editor.putString("store_img", res.getData().getStore_img());
-					editor.putString("company_name", res.getData().getCompany_name());
-					editor.putString("merchant_id", res.getData().getMerchant_id());
-					editor.putString("tel", res.getData().getTel());
-					editor.putString("user_id", res.getData().getUser_id());
-					editor.putString("is_approve", res.getData().getIs_approve());
-					editor.apply();
-					finish();
-					
 				}
-				
+				editor.putString("token", res.getData().getToken());
+				editor.putString("on_time", res.getData().getOn_time());
+				editor.putString("logo", res.getData().getLogo());
+				editor.putString("store_img", res.getData().getStore_img());
+				editor.putString("company_name", res.getData().getCompany_name());
+				editor.putString("merchant_id", res.getData().getMerchant_id());
+				editor.putString("tel", res.getData().getTel());
+				editor.putString("user_id", res.getData().getUser_id());
+				editor.putString("is_approve", res.getData().getIs_approve());
+				editor.apply();
+				finish();
 			}
 		});
 	}

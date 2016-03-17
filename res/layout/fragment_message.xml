@@ -12,12 +12,14 @@
         <TextView
             android:id="@+id/fragment_massage_msg_tv"
             style="@style/black_title_tv_msg" 
+             android:visibility="invisible"
             />
 
         <TextView
             android:id="@+id/fragment_msg_tv"
             style="@style/black_title_tv_center"
-            android:text="消息" />
+            android:text="消息" 
+           />
     </RelativeLayout>
     
      <com.handmark.pulltorefresh.library.PullToRefreshListView

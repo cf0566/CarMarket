@@ -11,7 +11,8 @@
 
         <TextView
             android:id="@+id/fragment_form_msg_tv"
-            style="@style/black_title_tv_msg" />
+            style="@style/black_title_tv_msg" 
+             android:visibility="invisible"/>
 
         <TextView
             android:id="@+id/fragment_form_tv"
