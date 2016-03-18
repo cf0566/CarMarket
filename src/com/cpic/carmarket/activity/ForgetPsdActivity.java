@@ -103,11 +103,10 @@ public class ForgetPsdActivity extends BaseActivity {
 			@Override
 			public void onClick(View v) {
 				if ("".equals(etMobile.getText().toString())
-						|| "".equals(etCheck.getText().toString())) {
+						||"".equals(etCheck.getText().toString())) {
 					showLongToast("手机号码或验证码不得为空");
 				} else {
-					intent = new Intent(ForgetPsdActivity.this,
-							SetPsdActivity.class);
+					intent = new Intent(ForgetPsdActivity.this,SetPsdActivity.class);
 					intent.putExtra("checknum", checknum);
 					intent.putExtra("mobile", mobile);
 					startActivity(intent);
@@ -146,7 +145,6 @@ public class ForgetPsdActivity extends BaseActivity {
 						}
 						JSONObject obj = JSONObject.parseObject(arg0.result);
 						int code = obj.getIntValue("code");
-						Log.i("oye", code + "");
 						if (code == 1) {
 							time.start();
 							showShortToast("获取成功，请注意查收信息");

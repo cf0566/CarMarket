@@ -36,8 +36,8 @@
 
                 <com.cpic.carmarket.view.CircleImageView
                     android:id="@+id/fragment_mine_iv_icon"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
                     android:src="@drawable/touxiang" />
 
                 <TextView

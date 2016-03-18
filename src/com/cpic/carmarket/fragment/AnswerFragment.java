@@ -153,10 +153,8 @@ public class AnswerFragment extends Fragment {
 
 			@Override
 			public void onPullUpToRefresh(PullToRefreshBase refreshView) {
-				
 			}
 		});
-		
 	}
 
 	private void initData() {
@@ -169,10 +167,12 @@ public class AnswerFragment extends Fragment {
 			conversationList.clear();
 		}
 		conversationList.addAll(loadConversationsWithRecentChat());
-		if (conversationList.get(0).getUnreadMsgCount() != 0) {
-			ivTis.setVisibility(View.VISIBLE);
-		}else{
-			ivTis.setVisibility(View.INVISIBLE);
+		if (conversationList.size() != 0) {
+			if (conversationList.get(0).getUnreadMsgCount() != 0) {
+				ivTis.setVisibility(View.VISIBLE);
+			}else{
+				ivTis.setVisibility(View.INVISIBLE);
+			}
 		}
 	}
 
@@ -320,7 +320,6 @@ public class AnswerFragment extends Fragment {
 			config.setLoadingDrawable(getResources().getDrawable(R.drawable.empty_photo));
 			config.setLoadFailedDrawable(getResources().getDrawable(R.drawable.empty_photo));
 			utils.display(holder.ivIcon, ivUrl, config);
-			
 		}
 
 		class ViewHolder {

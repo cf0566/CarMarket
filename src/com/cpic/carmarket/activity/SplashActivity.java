@@ -46,13 +46,10 @@ public class SplashActivity extends BaseActivity2 {
 					Thread.sleep(sleepTime);
 				} catch (InterruptedException e) {
 				}
-				startActivity(new Intent(SplashActivity.this,
-						LoginActivity.class));
+				startActivity(new Intent(SplashActivity.this,LoginActivity.class));
 				finish();
-
 			}
 		}).start();
-
 	}
 
 	/**

@@ -2,34 +2,33 @@
 
     <!--
         Base application theme, dependent on API level. This theme is replaced
-        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
+        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
     -->
     <style name="AppBaseTheme" parent="android:Theme.Light">
         <!--
             Theme customizations available in newer API levels can go in
             res/values-vXX/styles.xml, while customizations related to
-            backward-compatibility can go here.
+            backward-compatibility can go here.
         -->
     </style>
 
-    <!-- Application theme. -->
-    <style name="AppTheme" parent="AppBaseTheme">
-        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
-    </style>
-      <style name="title_style">
+
+    <style name="title_style">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:background">#FFFFFF</item>
         <item name="android:gravity">center_vertical</item>
         <item name="android:padding">10dp</item>
     </style>
-      <style name="title_loading_style">
+
+    <style name="title_loading_style">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:background">#0B83CE</item>
         <item name="android:gravity">center_vertical</item>
         <item name="android:padding">10dp</item>
     </style>
+
     <style name="black_title_style">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
@@ -37,25 +36,28 @@
         <item name="android:gravity">center_vertical</item>
         <item name="android:padding">10dp</item>
     </style>
-      <style name="my_divide_line">
+
+    <style name="my_divide_line">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">0.2dp</item>
         <item name="android:background">#DADADA</item>
     </style>
-      <style name="my_divide_boild_line">
+
+    <style name="my_divide_boild_line">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">5dp</item>
         <item name="android:background">#DADADA</item>
     </style>
-      <style name="my_check_box">
+
+    <style name="my_check_box">
         <item name="android:layout_width">90dp</item>
         <item name="android:layout_height">55dp</item>
         <item name="android:gravity">center</item>
         <item name="android:background">@drawable/cbox_checked_select</item>
         <item name="android:button">@null</item>
     </style>
-    
-      <style name="mine_layout">
+
+    <style name="mine_layout">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:drawableRight">@drawable/cllick_jinru</item>
@@ -67,11 +69,13 @@
         <item name="android:background">#FFF</item>
         <item name="android:textSize">15sp</item>
     </style>
-     <style name="pw_anim_style">
+
+    <style name="pw_anim_style">
         <item name="android:windowEnterAnimation">@anim/show_pw</item>
         <item name="android:windowExitAnimation">@anim/hide_pw</item>
     </style>
-      <style name="title_iv_back">
+
+    <style name="title_iv_back">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_alignParentLeft">true</item>
@@ -80,96 +84,101 @@
         <item name="android:paddingRight">5dp</item>
         <item name="android:src">@drawable/dingbu_fanhui2</item>
     </style>
-	<style name="title_tv_center">
-	     <item name="android:layout_width">wrap_content</item>
+
+    <style name="title_tv_center">
+        <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_centerHorizontal">true</item>
         <item name="android:layout_centerVertical">true</item>
         <item name="android:textColor">@color/tv_title_color</item>
         <item name="android:textSize">20sp</item>
-	</style> 
-	<style name="title_tv_right">
-	     <item name="android:layout_width">wrap_content</item>
+    </style>
+
+    <style name="title_tv_right">
+        <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_centerVertical">true</item>
         <item name="android:layout_alignParentRight">true</item>
         <item name="android:textColor">@color/tv_title_color</item>
         <item name="android:textSize">17sp</item>
-	</style>
-	<style name="black_title_tv_center">
-	     <item name="android:layout_width">wrap_content</item>
+    </style>
+
+    <style name="black_title_tv_center">
+        <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_centerHorizontal">true</item>
         <item name="android:layout_centerVertical">true</item>
         <item name="android:textSize">20sp</item>
         <item name="android:textColor">#FFF</item>
-	</style>
-	  
-	<style name="black_title_tv_msg">
-	    <item name="android:layout_width">wrap_content</item>
-	    <item name="android:layout_height">wrap_content</item>
-	    <item name="android:text">消息</item>
-	    <item name="android:textSize">15sp</item>
-	    <item name="android:textColor">#FFF</item>
-	    <item name="android:paddingLeft">10dp</item>
-	    <item name="android:paddingRight">10dp</item>
-	    <item name="android:paddingTop">3dp</item>
-	    <item name="android:paddingBottom">3dp</item>
-	</style>
-	<style name="black_title_iv_back">
-	    <item name="android:layout_width">wrap_content</item>
-	    <item name="android:layout_height">wrap_content</item>
-	    <item name="android:layout_alignParentLeft">true</item>
-	     <item name="android:layout_centerVertical">true</item>
-	     <item name="android:paddingRight">20dp</item>
-	     <item name="android:paddingLeft">5dp</item>
-	     <item name="android:paddingTop">3dp</item>
-	     <item name="android:paddingBottom">3dp</item>
-	</style>
-	
-	<style name="form_tv_service">
-	     <item name="android:layout_width">wrap_content</item>
-	    <item name="android:layout_height">wrap_content</item>
-	     <item name="android:background">@drawable/massage_to_answer</item> 
-	     <item name="android:textColor">#CD2E2D</item> 
-	     <item name="android:textSize">13sp</item> 
-	     <item name="android:layout_marginTop">5dp</item> 
-	     <item name="android:layout_marginBottom">5dp</item> 
-	     <item name="android:layout_marginRight">20dp</item> 
-	</style>
-	<style name="form_tv_not_agree">
-	     <item name="android:layout_width">wrap_content</item>
-	    <item name="android:layout_height">wrap_content</item>
-	     <item name="android:background">@drawable/not_agree</item> 
-	     <item name="android:textColor">#636363</item> 
-	     <item name="android:textSize">13sp</item> 
-	     <item name="android:layout_marginTop">5dp</item> 
-	     <item name="android:layout_marginBottom">5dp</item> 
-	     <item name="android:layout_marginRight">20dp</item> 
-	</style>
-	
-	<style name="form_rbtn">
-	    <item name="android:layout_width">wrap_content</item>
-	    <item name="android:layout_height">wrap_content</item>
-	     <item name="android:textSize">18sp</item>
-	     <item name="android:textColor">@drawable/form_select</item>
-	     <item name="android:button">@null</item>
-	     <item name="android:paddingTop">10dp</item>
-	     <item name="android:paddingRight">13dp</item>
-	     <item name="android:paddingLeft">13dp</item>
-	     <item name="android:paddingBottom">10dp</item>
-	     <item name="android:background">@drawable/tab_bg</item>
-	     <item name="android:gravity">center</item>
-	</style>
-	
-	<style name="roomRatingBar" parent="@android:style/Widget.RatingBar">
+    </style>
+
+    <style name="black_title_tv_msg">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:text">消息</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">#FFF</item>
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:paddingRight">10dp</item>
+        <item name="android:paddingTop">3dp</item>
+        <item name="android:paddingBottom">3dp</item>
+    </style>
+
+    <style name="black_title_iv_back">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_alignParentLeft">true</item>
+        <item name="android:layout_centerVertical">true</item>
+        <item name="android:paddingRight">20dp</item>
+        <item name="android:paddingLeft">5dp</item>
+        <item name="android:paddingTop">3dp</item>
+        <item name="android:paddingBottom">3dp</item>
+    </style>
+
+    <style name="form_tv_service">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/massage_to_answer</item>
+        <item name="android:textColor">#CD2E2D</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:layout_marginTop">5dp</item>
+        <item name="android:layout_marginBottom">5dp</item>
+        <item name="android:layout_marginRight">20dp</item>
+    </style>
+
+    <style name="form_tv_not_agree">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/not_agree</item>
+        <item name="android:textColor">#636363</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:layout_marginTop">5dp</item>
+        <item name="android:layout_marginBottom">5dp</item>
+        <item name="android:layout_marginRight">20dp</item>
+    </style>
+
+    <style name="form_rbtn">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@drawable/form_select</item>
+        <item name="android:button">@null</item>
+        <item name="android:paddingTop">10dp</item>
+        <item name="android:paddingRight">13dp</item>
+        <item name="android:paddingLeft">13dp</item>
+        <item name="android:paddingBottom">10dp</item>
+        <item name="android:background">@drawable/tab_bg</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="roomRatingBar" parent="@android:style/Widget.RatingBar">
         <item name="android:progressDrawable">@drawable/room_rating_bar</item>
         <item name="android:minHeight">16dp</item>
         <item name="android:maxHeight">16dp</item>
         <item name="android:numStars">5</item>
     </style>
-	
-	<style name="progress_dialog" parent="@android:style/Theme.Dialog">
+
+    <style name="progress_dialog" parent="@android:style/Theme.Dialog">
         <item name="android:windowIsFloating">true</item>
         <!-- 设置未浮动窗口 -->
         <item name="android:windowFrame">@null</item>
@@ -181,7 +190,7 @@
         <item name="android:backgroundDimEnabled">true</item>
         <!-- 设置屏幕变暗 -->
     </style>
-	
+
     <style name="main_activity_radiogroup">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
@@ -193,9 +202,9 @@
         <item name="android:layout_marginTop">3dp</item>
         <item name="android:layout_marginBottom">3dp</item>
     </style>
-    
+
     <!-- 分隔线 -->
-      <style name="chat_content_date_style">
+    <style name="chat_content_date_style">
         <item name="android:minHeight">50dp</item>
         <item name="android:gravity">center</item>
         <item name="android:textColor">#000000</item>
@@ -211,7 +220,7 @@
         <item name="android:textSize">15sp</item>
         <item name="android:gravity">center</item>
     </style>
-    
+
     <style name="chat_text_date_style">
         <item name="android:padding">2dp</item>
         <item name="android:paddingTop">2dip</item>
@@ -267,16 +276,14 @@
     <style name="horizontal_slide" parent="android:Theme.NoTitleBar">
         <item name="android:windowAnimationStyle">@style/AnimFade2</item>
     </style>
-    
+
     <style name="nornal_style" parent="android:Theme.NoTitleBar"></style>
 
     <!--
     <style name="horizontal_slide2" parent="android:style/Theme.Holo.Light.NoActionBar">
         <item name="android:windowAnimationStyle">@style/AnimFade2</item>
-    </style>
+    </style>
     -->
-
-
 
     <style name="MyDialogStyle">
         <item name="android:windowBackground">@android:color/transparent</item>
@@ -343,15 +350,13 @@
         <!-- 模糊 -->
     </style>
 
-
     <style name="devide_line_eee">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">1.5dp</item>
         <item name="android:background">#eee</item>
     </style>
 
-
- <style name="bottom_line_edit_text_style" parent="@android:style/Widget.EditText">
+    <style name="bottom_line_edit_text_style" parent="@android:style/Widget.EditText">
         <item name="android:gravity">center_vertical</item>
         <item name="android:paddingLeft">6.0dip</item>
         <item name="android:paddingTop">6.0dip</item>
@@ -359,6 +364,19 @@
         <item name="android:paddingBottom">6.0dip</item>
         <item name="android:includeFontPadding">false</item>
         <item name="android:background">@drawable/edit_text_bg</item>
+    </style>
+
+    <!-- 默认跳转动画 -->
+    <style name="default_animation" mce_bogus="1" parent="@android:style/Animation.Activity">
+        <item name="android:activityOpenEnterAnimation">@anim/default_anim_in</item>
+        <item name="android:activityOpenExitAnimation">@anim/anim_stay</item>
+        <item name="android:activityCloseEnterAnimation">@anim/anim_stay</item>
+        <item name="android:activityCloseExitAnimation">@anim/default_anim_out</item>
+    </style>
+
+    <style name="AppTheme" mce_bogus="1" parent="AppBaseTheme">
+        <item name="android:windowAnimationStyle">@style/default_animation</item>
+        <item name="android:windowNoTitle">true</item>
     </style>
 
 </resources>

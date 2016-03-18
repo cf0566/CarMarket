@@ -56,6 +56,7 @@ public class LoginActivity extends BaseActivity {
 	private RequestParams params;
 	private Dialog dialog;
 	private Intent intent;
+	private LoginResult res;
 
 	@Override
 	protected void getIntentData(Bundle savedInstanceState) {
@@ -193,7 +194,7 @@ public class LoginActivity extends BaseActivity {
 				if (dialog != null) {
 					dialog.dismiss();
 				}
-				final LoginResult res = JSONObject.parseObject(arg0.result,LoginResult.class);
+				res = JSONObject.parseObject(arg0.result,LoginResult.class);
 				int code = res.getCode();
 				if (code == 0) {
 					showLongToast("用户不存在或密码错误");
@@ -245,21 +246,28 @@ public class LoginActivity extends BaseActivity {
 								}
 							});
 				}
-				editor.putString("token", res.getData().getToken());
-				editor.putString("on_time", res.getData().getOn_time());
-				editor.putString("logo", res.getData().getLogo());
-				editor.putString("store_img", res.getData().getStore_img());
-				editor.putString("company_name", res.getData().getCompany_name());
-				editor.putString("merchant_id", res.getData().getMerchant_id());
-				editor.putString("tel", res.getData().getTel());
-				editor.putString("user_id", res.getData().getUser_id());
-				editor.putString("is_approve", res.getData().getIs_approve());
-				editor.apply();
-				finish();
 			}
 		});
 	}
-	
+	@Override
+	protected void onStop() {
+		super.onStop();
+		if (res != null) {
+			final SharedPreferences sharedPref=PreferenceManager.getDefaultSharedPreferences(LoginActivity.this);
+			SharedPreferences.Editor editor=sharedPref.edit();
+			editor.putString("token", res.getData().getToken());
+			editor.putString("on_time", res.getData().getOn_time());
+			editor.putString("logo", res.getData().getLogo());
+			editor.putString("store_img", res.getData().getStore_img());
+			editor.putString("company_name", res.getData().getCompany_name());
+			editor.putString("merchant_id", res.getData().getMerchant_id());
+			editor.putString("tel", res.getData().getTel());
+			editor.putString("user_id", res.getData().getUser_id());
+			editor.putString("is_approve", res.getData().getIs_approve());
+			editor.apply();
+			finish();
+		}
+	}
 	
 	private void initializeContacts() {
 		Map<String, User> userlist = new HashMap<String, User>();
@@ -268,7 +276,7 @@ public class LoginActivity extends BaseActivity {
 		newFriends.setUsername(Constant.NEW_FRIENDS_USERNAME);
 		String strChat = getResources().getString(R.string.Application_and_notify);
 		newFriends.setNick(strChat);
-
+		
 		userlist.put(Constant.NEW_FRIENDS_USERNAME, newFriends);
 		// 添加"群聊"
 		User groupUser = new User();

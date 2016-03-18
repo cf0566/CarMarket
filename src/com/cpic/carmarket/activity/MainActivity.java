@@ -148,7 +148,6 @@ public class MainActivity extends BaseActivity {
 		@Override
 		public void onDisconnected(final int error) {
 			runOnUiThread(new Runnable() {
-
 				@Override
 				public void run() {
 					if (error == EMError.USER_REMOVED) {
@@ -159,13 +158,18 @@ public class MainActivity extends BaseActivity {
 						EMChatManager.getInstance().logout();
 						Intent intent = new Intent(MainActivity.this,LoginActivity.class);
 						startActivity(intent);
-						finish();
+						System.exit(0);
 					} else {
 						// "连接不到聊天服务器"
 					}
 				}
 			});
 		}
+	}
+	@Override
+	protected void onSaveInstanceState(Bundle outState) {
+		// TODO Auto-generated method stub
+//		super.onSaveInstanceState(outState);
 	}
 	@Override
 	protected void onDestroy() {
