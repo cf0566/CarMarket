@@ -1,14 +1,10 @@
 package com.cpic.carmarket.activity;
 
-import java.util.Timer;
-import java.util.TimerTask;
-
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;

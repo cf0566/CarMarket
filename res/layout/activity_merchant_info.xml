@@ -129,7 +129,7 @@
                         android:layout_height="wrap_content"
                         android:background="@null"
                         android:gravity="right"
-                        android:hint="18119607268"
+                        android:hint="请输入修改的手机号"
                         android:textSize="15sp"
                         android:textColor="#AEAEAE"
                         android:numeric="integer"

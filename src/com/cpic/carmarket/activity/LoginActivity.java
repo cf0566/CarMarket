@@ -199,7 +199,18 @@ public class LoginActivity extends BaseActivity {
 				if (code == 0) {
 					showLongToast("用户不存在或密码错误");
 				}else if (code == 1) {
-					showLongToast("登录成功");
+					final SharedPreferences sharedPref=PreferenceManager.getDefaultSharedPreferences(LoginActivity.this);
+					SharedPreferences.Editor editor=sharedPref.edit();
+					editor.putString("token", res.getData().getToken());
+					editor.putString("on_time", res.getData().getOn_time());
+					editor.putString("logo", res.getData().getLogo());
+					editor.putString("store_img", res.getData().getStore_img());
+					editor.putString("company_name", res.getData().getCompany_name());
+					editor.putString("merchant_id", res.getData().getMerchant_id());
+					editor.putString("tel", res.getData().getTel());
+					editor.putString("user_id", res.getData().getUser_id());
+					editor.putString("is_approve", res.getData().getIs_approve());
+					editor.apply();
 					EMChat.getInstance().setAutoLogin(false);
 					EMChatManager.getInstance().login(res.getData().getEase_user(), res.getData().getEase_pwd(), new EMCallBack() {
 								
@@ -228,11 +239,13 @@ public class LoginActivity extends BaseActivity {
 											MyApplication.currentUserNick.trim());
 									if (!updatenick) {
 									}
+									
 									if (!LoginActivity.this.isFinishing() && dialog.isShowing()) {
 										dialog.dismiss();
 									}
 									// 进入主页面
 									Intent intent = new Intent(LoginActivity.this,MainActivity.class);
+									finish();
 									startActivity(intent);
 								}
 								
@@ -252,21 +265,6 @@ public class LoginActivity extends BaseActivity {
 	@Override
 	protected void onStop() {
 		super.onStop();
-		if (res != null) {
-			final SharedPreferences sharedPref=PreferenceManager.getDefaultSharedPreferences(LoginActivity.this);
-			SharedPreferences.Editor editor=sharedPref.edit();
-			editor.putString("token", res.getData().getToken());
-			editor.putString("on_time", res.getData().getOn_time());
-			editor.putString("logo", res.getData().getLogo());
-			editor.putString("store_img", res.getData().getStore_img());
-			editor.putString("company_name", res.getData().getCompany_name());
-			editor.putString("merchant_id", res.getData().getMerchant_id());
-			editor.putString("tel", res.getData().getTel());
-			editor.putString("user_id", res.getData().getUser_id());
-			editor.putString("is_approve", res.getData().getIs_approve());
-			editor.apply();
-			finish();
-		}
 	}
 	
 	private void initializeContacts() {

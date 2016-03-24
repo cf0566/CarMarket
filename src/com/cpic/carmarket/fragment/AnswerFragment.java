@@ -38,6 +38,7 @@ import com.cpic.carmarket.bean.AnswerData;
 import com.cpic.carmarket.bean.AnswerResult;
 import com.cpic.carmarket.utils.ProgressDialogHandle;
 import com.cpic.carmarket.utils.UrlUtils;
+import com.cpic.carmarket.view.CircleImageView;
 import com.easemob.chat.EMChatManager;
 import com.easemob.chat.EMConversation;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
@@ -65,7 +66,7 @@ public class AnswerFragment extends Fragment {
 	private Dialog dialog;
 	private ArrayList<EMConversation> conversationList = new ArrayList<EMConversation>();
 	private ImageView ivTis;
-	
+
 	private Intent intent;
 
 	@Override
@@ -82,12 +83,15 @@ public class AnswerFragment extends Fragment {
 		plv.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
-			public void onItemClick(AdapterView<?> parent, View view,int position, long id) {
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
 				intent = new Intent(getActivity(), AnswerDetailsActivity.class);
 				intent.putExtra("id", datas.get(position - 1).getQuestion_id());
-				intent.putExtra("name", datas.get(position-1).getUser_name());
-				intent.putExtra("ease_name", datas.get(position-1).getEase_name());
-				intent.putExtra("img_url", datas.get(position-1).getUser_img());
+				intent.putExtra("name", datas.get(position - 1).getUser_name());
+				intent.putExtra("ease_name", datas.get(position - 1)
+						.getEase_name());
+				intent.putExtra("img_url", datas.get(position - 1)
+						.getUser_img());
 				startActivity(intent);
 			}
 		});
@@ -98,18 +102,18 @@ public class AnswerFragment extends Fragment {
 				startActivity(intent);
 			}
 		});
-		
 		plv.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2() {
-
 			@Override
 			public void onPullDownToRefresh(PullToRefreshBase refreshView) {
-				sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
+				sp = PreferenceManager
+						.getDefaultSharedPreferences(getActivity());
 				String token = sp.getString("token", "");
 				post = new HttpUtils();
 				params = new RequestParams();
 				params.addBodyParameter("token", token);
-				post.send(HttpMethod.POST, UrlUtils.postUrl + UrlUtils.path_answerList,
-						params, new RequestCallBack<String>() {
+				post.send(HttpMethod.POST, UrlUtils.postUrl
+						+ UrlUtils.path_answerList, params,
+						new RequestCallBack<String>() {
 
 							@Override
 							public void onStart() {
@@ -119,10 +123,12 @@ public class AnswerFragment extends Fragment {
 									dialog.show();
 								}
 							}
+
 							@Override
-							public void onFailure(HttpException arg0, String arg1) {
-								Toast.makeText(getActivity(), "数据获取失败，请检查网络连接", 0)
-										.show();
+							public void onFailure(HttpException arg0,
+									String arg1) {
+								Toast.makeText(getActivity(), "数据获取失败，请检查网络连接",
+										0).show();
 								if (dialog != null) {
 									dialog.dismiss();
 								}
@@ -135,17 +141,19 @@ public class AnswerFragment extends Fragment {
 								if (dialog != null) {
 									dialog.dismiss();
 								}
-								AnswerResult res = JSONObject.parseObject(arg0.result,
-										AnswerResult.class);
+								AnswerResult res = JSONObject.parseObject(
+										arg0.result, AnswerResult.class);
 								int code = res.getCode();
 								if (code == 0) {
-									Toast.makeText(getActivity(), "数据获取失败", 0).show();
+									Toast.makeText(getActivity(), "数据获取失败", 0)
+											.show();
 								} else if (code == 1) {
 									datas = res.getData();
 									adapter = new AnswerAdapter(getActivity());
 									adapter.setDatas(datas);
 									plv.setAdapter(adapter);
-									Toast.makeText(getActivity(), "更新完成", 0).show();
+									Toast.makeText(getActivity(), "更新完成", 0)
+											.show();
 								}
 							}
 						});
@@ -160,6 +168,7 @@ public class AnswerFragment extends Fragment {
 	private void initData() {
 		loadDatas();
 	}
+
 	@Override
 	public void onResume() {
 		super.onResume();
@@ -170,7 +179,7 @@ public class AnswerFragment extends Fragment {
 		if (conversationList.size() != 0) {
 			if (conversationList.get(0).getUnreadMsgCount() != 0) {
 				ivTis.setVisibility(View.VISIBLE);
-			}else{
+			} else {
 				ivTis.setVisibility(View.INVISIBLE);
 			}
 		}
@@ -193,6 +202,7 @@ public class AnswerFragment extends Fragment {
 							dialog.show();
 						}
 					}
+
 					@Override
 					public void onFailure(HttpException arg0, String arg1) {
 						Toast.makeText(getActivity(), "数据获取失败，请检查网络连接", 0)
@@ -208,6 +218,7 @@ public class AnswerFragment extends Fragment {
 						if (dialog != null) {
 							dialog.dismiss();
 						}
+						// Log.i("oye", arg0.result);
 						AnswerResult res = JSONObject.parseObject(arg0.result,
 								AnswerResult.class);
 						int code = res.getCode();
@@ -232,6 +243,7 @@ public class AnswerFragment extends Fragment {
 
 	/**
 	 * 列表适配器
+	 * 
 	 * @author MBENBEN
 	 *
 	 */
@@ -269,7 +281,8 @@ public class AnswerFragment extends Fragment {
 		public View getView(int position, View convertView, ViewGroup parent) {
 			ViewHolder holder = null;
 			if (convertView == null) {
-				convertView = View.inflate(context, R.layout.item_answer_list,null);
+				convertView = View.inflate(context, R.layout.item_answer_list,
+						null);
 				holder = new ViewHolder();
 				holder.tvUserName = (TextView) convertView
 						.findViewById(R.id.item_answer_tv_user_name);
@@ -281,7 +294,7 @@ public class AnswerFragment extends Fragment {
 						.findViewById(R.id.item_answer_tv_newmsg);
 				holder.tvRepair = (TextView) convertView
 						.findViewById(R.id.item_answer_tv_repair_type);
-				holder.ivIcon = (ImageView) convertView
+				holder.ivIcon = (CircleImageView) convertView
 						.findViewById(R.id.item_answer_iv_icon);
 				convertView.setTag(holder);
 			} else {
@@ -292,64 +305,64 @@ public class AnswerFragment extends Fragment {
 			holder.tvQuestion.setText(datas.get(position).getContent());
 			holder.tvRepair.setText(datas.get(position).getDim_name());
 			for (int i = 0; i < conversationList.size(); i++) {
-				if (datas.get(position).getEase_name().equals(conversationList.get(i).getUserName())) {
+				if (datas.get(position).getEase_name()
+						.equals(conversationList.get(i).getUserName())) {
 					int count = conversationList.get(i).getUnreadMsgCount();
 					if (count != 0) {
-						holder.tvMessage.setText("新消息("+count+")");
+						holder.tvMessage.setText("新消息(" + count + ")");
 						holder.tvMessage.setVisibility(View.VISIBLE);
-					}else{
+					} else {
 						holder.tvMessage.setVisibility(View.INVISIBLE);
 					}
 				}
 			}
-			
 			String ivUrl = datas.get(position).getUser_img();
 			/**
 			 * 下载用户头像
-			 * 
 			 * @param img_url
 			 */
-			loadBitmap(holder,ivUrl);
+			loadBitmap(holder, ivUrl);
 
 			return convertView;
 		}
 
-		private void loadBitmap(final ViewHolder holder ,String ivUrl) {
+		private void loadBitmap(final ViewHolder holder, String ivUrl) {
 			config = new BitmapDisplayConfig();
-			 utils = new BitmapUtils(context);
+			utils = new BitmapUtils(context);
 			config.setLoadingDrawable(getResources().getDrawable(R.drawable.empty_photo));
 			config.setLoadFailedDrawable(getResources().getDrawable(R.drawable.empty_photo));
 			utils.display(holder.ivIcon, ivUrl, config);
 		}
-
+		
 		class ViewHolder {
 			TextView tvUserName, tvCarType, tvQuestion, tvMessage, tvRepair;
-			ImageView ivIcon;
+			CircleImageView ivIcon;
 		}
 	}
 	/**
 	 * 获取所有会话
 	 * 
 	 * @param context
-	 * @return
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        +	 */
+	 * @return +
+	 */
 	private List<EMConversation> loadConversationsWithRecentChat() {
 		// 获取所有会话，包括陌生人
-		Hashtable<String, EMConversation> conversations = EMChatManager.getInstance().getAllConversations();
+		Hashtable<String, EMConversation> conversations = EMChatManager
+				.getInstance().getAllConversations();
 		// 过滤掉messages size为0的conversation
 		/**
-		 * 如果在排序过程中有新消息收到，lastMsgTime会发生变化
-		 * 影响排序过程，Collection.sort会产生异常
-		 * 保证Conversation在Sort过程中最后一条消息的时间不变 
-		 * 避免并发问题
+		 * 如果在排序过程中有新消息收到，lastMsgTime会发生变化 影响排序过程，Collection.sort会产生异常
+		 * 保证Conversation在Sort过程中最后一条消息的时间不变 避免并发问题
 		 */
 		List<Pair<Long, EMConversation>> sortList = new ArrayList<Pair<Long, EMConversation>>();
 		synchronized (conversations) {
 			for (EMConversation conversation : conversations.values()) {
 				if (conversation.getAllMessages().size() != 0) {
-					//if(conversation.getType() != EMConversationType.ChatRoom){
-						sortList.add(new Pair<Long, EMConversation>(conversation.getLastMessage().getMsgTime(), conversation));
-					//}
+					// if(conversation.getType() !=
+					// EMConversationType.ChatRoom){
+					sortList.add(new Pair<Long, EMConversation>(conversation
+							.getLastMessage().getMsgTime(), conversation));
+					// }
 				}
 			}
 		}
@@ -365,26 +378,29 @@ public class AnswerFragment extends Fragment {
 		}
 		return list;
 	}
-	
+
 	/**
 	 * 根据最后一条消息的时间排序
 	 * 
 	 * @param usernames
 	 */
-	private void sortConversationByLastChatTime(List<Pair<Long, EMConversation>> conversationList) {
-		Collections.sort(conversationList, new Comparator<Pair<Long, EMConversation>>() {
-			@Override
-			public int compare(final Pair<Long, EMConversation> con1, final Pair<Long, EMConversation> con2) {
+	private void sortConversationByLastChatTime(
+			List<Pair<Long, EMConversation>> conversationList) {
+		Collections.sort(conversationList,
+				new Comparator<Pair<Long, EMConversation>>() {
+					@Override
+					public int compare(final Pair<Long, EMConversation> con1,
+							final Pair<Long, EMConversation> con2) {
 
-				if (con1.first == con2.first) {
-					return 0;
-				} else if (con2.first > con1.first) {
-					return 1;
-				} else {
-					return -1;
-				}
-			}
+						if (con1.first == con2.first) {
+							return 0;
+						} else if (con2.first > con1.first) {
+							return 1;
+						} else {
+							return -1;
+						}
+					}
 
-		});
+				});
 	}
 }

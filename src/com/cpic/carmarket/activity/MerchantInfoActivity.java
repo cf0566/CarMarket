@@ -212,7 +212,7 @@ public class MerchantInfoActivity extends BaseActivity {
 		params.addBodyParameter("lat", Latitude);
 		params.addBodyParameter("lng", Longitude);
 		params.addBodyParameter("company_desc", etContent.getText().toString());
-		params.addBodyParameter("contact_mobile", etTel.getText().toString());
+		params.addBodyParameter("tel", etTel.getText().toString());
 		params.addBodyParameter("on_time", tvTime.getText().toString());
 		params.addBodyParameter("business", TasktoJson(datas));
 		Log.i("oye", TasktoJson(datas));

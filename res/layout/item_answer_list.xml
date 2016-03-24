@@ -44,7 +44,7 @@
                 android:id="@+id/item_answer_tv_user_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="15sp"
+                android:textSize="16sp"
                 android:text="李某某" />
 
             <TextView
@@ -70,6 +70,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="奥迪A6L"
+            android:singleLine="true"
             android:drawableLeft="@drawable/qichexiaotu"
             android:drawablePadding="5dp"
             android:textColor="#B4B4B4"

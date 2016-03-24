@@ -111,7 +111,7 @@ public class DetailAddressActivity extends BaseActivity {
 		}
 		// 监视地理位置变化
 		locationManager.requestLocationUpdates(locationProvider, 3000, 1,locationListener);
-
+		loadData();
 	}
 
 	/**
@@ -124,7 +124,7 @@ public class DetailAddressActivity extends BaseActivity {
 		et.setText(locationStr);
 		Latitude = location.getLatitude()+"";
 		Longitude = location.getLongitude()+"";
-		loadData();
+		
 	}
 	
 	/**

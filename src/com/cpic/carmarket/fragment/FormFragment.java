@@ -31,7 +31,7 @@ public class FormFragment  extends Fragment{
 	private void initDatas() {
 		fm = getChildFragmentManager();
 		trans = fm.beginTransaction();
-		trans.replace(R.id.form_framlayout, new FormWaitServiceFragment());
+		trans.replace(R.id.form_framlayout,new FormWaitServiceFragment());
 		trans.commit();
 	}
 	private void registerListener() {

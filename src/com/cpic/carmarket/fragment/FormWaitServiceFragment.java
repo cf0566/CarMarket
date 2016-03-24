@@ -215,7 +215,6 @@ public class FormWaitServiceFragment extends Fragment{
 		public long getItemId(int position) {
 			return position;
 		}
-
 		@Override
 		public View getView(final int position, View convertView, ViewGroup parent) {
 			ViewHolder holder = null;

@@ -43,7 +43,7 @@
                 android:id="@+id/item_massage_tv_user_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="15sp"
+                android:textSize="16sp"
                 android:text="李某某" />
 
             <TextView
@@ -68,18 +68,21 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="奥迪A6L"
+            android:singleLine="true"
             android:drawableLeft="@drawable/qichexiaotu"
             android:drawablePadding="5dp"
             android:textColor="#B4B4B4"
-            android:textSize="12sp" />
+            android:textSize="13sp" />
 
         <TextView
             android:id="@+id/item_massage_tv_reason"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
             android:text="我的汽车在行驶过程中突然熄火，大方向也不起作用"
-            android:textSize="12sp" />
+            android:lines="2"
+            android:ellipsize="end"
+            android:textSize="13sp" />
     </LinearLayout>
 
 </LinearLayout>

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
@@ -180,7 +181,6 @@ public class FormCloseActivity extends BaseActivity {
 			}
 		}
 	}
-	
 	private void loadUserIcon(String ivUrl) {
 		config = new BitmapDisplayConfig();
 		 utils = new BitmapUtils(FormCloseActivity.this);

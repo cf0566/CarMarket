@@ -232,16 +232,11 @@ public class MessageFragment extends Fragment {
 			if (convertView == null) {
 				convertView = View.inflate(context,R.layout.item_fragment_massage_list, null);
 				holder = new ViewHolder();
-				holder.tvUserName = (TextView) convertView
-						.findViewById(R.id.item_massage_tv_user_name);
-				holder.tvCarType = (TextView) convertView
-						.findViewById(R.id.item_massage_tv_car_type);
-				holder.tvQuestion = (TextView) convertView
-						.findViewById(R.id.item_massage_tv_reason);
-				holder.tvRepair = (TextView) convertView
-						.findViewById(R.id.item_massage_tv_check);
-				holder.ivIcon = (ImageView) convertView
-						.findViewById(R.id.item_massage_iv_icon);
+				holder.tvUserName = (TextView) convertView.findViewById(R.id.item_massage_tv_user_name);
+				holder.tvCarType = (TextView) convertView.findViewById(R.id.item_massage_tv_car_type);
+				holder.tvQuestion = (TextView) convertView.findViewById(R.id.item_massage_tv_reason);
+				holder.tvRepair = (TextView) convertView.findViewById(R.id.item_massage_tv_check);
+				holder.ivIcon = (ImageView) convertView.findViewById(R.id.item_massage_iv_icon);
 				convertView.setTag(holder);
 			} else {
 				holder = (ViewHolder) convertView.getTag();
@@ -258,7 +253,6 @@ public class MessageFragment extends Fragment {
 			 * @param img_url
 			 */
 			loadBitmap(holder, ivUrl);
-
 			return convertView;
 		}
 

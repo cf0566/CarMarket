@@ -292,6 +292,7 @@ public class MineFragment extends Fragment {
 				pw.dismiss();
 			}
 		});
+		
 		tvPhoto.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
