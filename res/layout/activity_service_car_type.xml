@@ -55,7 +55,9 @@
                     android:ellipsize="end"
                     android:singleLine="true"
                     android:drawableRight="@drawable/cllick_jinru"
-                    android:text="" />
+                    android:text="请选择车型" 
+                    android:textColor="#B3B3B3"
+                    android:textSize="13sp"/>
             </LinearLayout>
 
             <TextView style="@style/my_divide_line" />
@@ -78,7 +80,9 @@
                     android:ellipsize="end"
                     android:singleLine="true"
                     android:drawableRight="@drawable/cllick_jinru"
-                    android:text="" />
+                     android:text="请选择车型" 
+                    android:textColor="#B3B3B3"
+                    android:textSize="13sp" />
             </LinearLayout>
 
             <TextView style="@style/my_divide_line" />
@@ -101,7 +105,9 @@
                     android:ellipsize="end"
                     android:singleLine="true"
                     android:drawableRight="@drawable/cllick_jinru"
-                    android:text="" />
+                     android:text="请选择车型" 
+                    android:textColor="#B3B3B3"
+                    android:textSize="13sp" />
             </LinearLayout>
 
             <TextView style="@style/my_divide_line" />
@@ -124,7 +130,9 @@
                     android:ellipsize="end"
                     android:singleLine="true"
                     android:drawableRight="@drawable/cllick_jinru"
-                    android:text="" />
+                     android:text="请选择车型" 
+                    android:textColor="#B3B3B3"
+                    android:textSize="13sp"/>
             </LinearLayout>
 
             <TextView style="@style/my_divide_line" />
@@ -147,7 +155,9 @@
                     android:ellipsize="end"
                     android:singleLine="true"
                     android:drawableRight="@drawable/cllick_jinru"
-                    android:text="" />
+                     android:text="请选择车型" 
+                    android:textColor="#B3B3B3"
+                    android:textSize="13sp"/>
             </LinearLayout>
 
             <TextView style="@style/my_divide_line" />
@@ -170,7 +180,9 @@
                      android:gravity="center_vertical|right"
                     android:ellipsize="end"
                     android:singleLine="true"
-                    android:text="" />
+                    android:text="请选择车型" 
+                    android:textColor="#B3B3B3"
+                    android:textSize="13sp"/>
             </LinearLayout>
 
             <TextView style="@style/my_divide_line" />

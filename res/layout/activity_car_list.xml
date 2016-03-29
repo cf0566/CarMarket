@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#6000"
+    android:background="#D4D4D4"
     android:orientation="vertical" >
 
     <RelativeLayout
@@ -25,14 +25,23 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:background="@drawable/et_backgroud" >
+        android:background="@drawable/remark_backgroud" 
+        android:gravity="center"
+        android:orientation="horizontal">
 
+        
+        <ImageView 
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:src="@drawable/tilku_shousuo"
+            />
         <EditText
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@null"
-            android:hint="请输入你要搜索的车型"
+            android:hint="请搜索品牌"
             android:padding="5dp"
+            android:gravity="center"
             android:textColorHint="#9E9E9E"
             android:textSize="12sp" />
     </LinearLayout>

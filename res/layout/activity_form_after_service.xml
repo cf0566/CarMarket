@@ -10,8 +10,7 @@
 
         <ImageView
             android:id="@+id/activity_form_after_service_iv_back"
-            style="@style/black_title_iv_back"
-            android:src="@drawable/back" />
+            style="@style/black_title_iv_back" />
 
         <TextView
             android:id="@+id/activity_form_after_service_tv_title"
@@ -21,7 +20,8 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="0dp"
+        android:layout_weight="1" >
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -51,10 +51,14 @@
                     android:textSize="15sp" />
             </LinearLayout>
 
+            <TextView style="@style/my_divide_line02" />
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="5dp"
                 android:background="@color/main_bg" />
+
+            <TextView style="@style/my_divide_line02" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -133,10 +137,14 @@
                     android:textSize="15sp" />
             </LinearLayout>
 
+            <TextView style="@style/my_divide_line02" />
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="5dp"
                 android:background="@color/main_bg" />
+
+            <TextView style="@style/my_divide_line02" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -196,10 +204,14 @@
                     android:textSize="15sp" />
             </LinearLayout>
 
+            <TextView style="@style/my_divide_line02" />
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="5dp"
                 android:background="@color/main_bg" />
+
+            <TextView style="@style/my_divide_line02" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -274,34 +286,39 @@
                     android:textSize="15sp" />
             </LinearLayout>
 
+            <TextView style="@style/my_divide_line02" />
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="5dp"
                 android:background="@color/main_bg" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:padding="10dp" >
-                <TextView 
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    />
-                <TextView 
-                    android:id="@+id/activity_form_after_service_tv_notagree"
-                    style="@style/form_tv_not_agree"
-                    android:text="不同意退款"
-                    />
-                <TextView 
-                    android:id="@+id/activity_form_after_service_tv_agree"
-                    style="@style/form_tv_service"
-                    android:text="同意退款"
-                    />
-            </LinearLayout>
-            <TextView style="@style/my_divide_line" />
-            
+            <TextView style="@style/my_divide_line02" />
         </LinearLayout>
     </ScrollView>
+
+    <TextView style="@style/my_divide_line" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="10dp" >
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <TextView
+            android:id="@+id/activity_form_after_service_tv_notagree"
+            style="@style/form_tv_not_agree"
+            android:text="不同意退款" />
+
+        <TextView
+            android:id="@+id/activity_form_after_service_tv_agree"
+            style="@style/form_tv_service"
+            android:text="同意退款" />
+    </LinearLayout>
+
 </LinearLayout>

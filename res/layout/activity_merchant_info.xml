@@ -96,6 +96,7 @@
             <TextView style="@style/my_divide_line" />
 
             <LinearLayout
+                android:id="@+id/activity_merchant_ll_mobile"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="#FFF"
@@ -109,32 +110,17 @@
                     android:layout_marginRight="50dp"
                     android:text="电话"
                     android:textSize="15sp" />
-
-                <TextView
-                    android:layout_width="0dp"
+                
+				 <TextView
+                    android:id="@+id/activity_merchant_tv_mobile"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1" />
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingLeft="15dp"
-                    android:paddingRight="5dp"
-                    android:background="@drawable/et_backgroud"
-                    android:orientation="horizontal" >
-
-                    <EditText
-                        android:id="@+id/activity_merchant_et_tel"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@null"
-                        android:gravity="right"
-                        android:hint="请输入修改的手机号"
-                        android:textSize="15sp"
-                        android:textColor="#AEAEAE"
-                        android:numeric="integer"
-                        android:padding="2dp" />
-                </LinearLayout>
+                    android:drawableRight="@drawable/cllick_jinru"
+                    android:text="18119607268"
+                     android:gravity="right|center_vertical"
+                    android:textSize="15sp"
+                    android:textColor="#AEAEAE" />
+                
             </LinearLayout>
 
             <TextView style="@style/my_divide_line" />
@@ -232,10 +218,12 @@
                     android:textColor="#AEAEAE"
                     android:textSize="15sp" />
             </LinearLayout>
+             <TextView style="@style/my_divide_line" />
             <com.cpic.carmarket.view.MyListView 
                android:id="@+id/activity_merchant_mlv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="#F9F9F9"
                 ></com.cpic.carmarket.view.MyListView>
 
             <TextView style="@style/my_divide_line" />

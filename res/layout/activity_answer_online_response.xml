@@ -12,7 +12,7 @@
         <TextView
             android:id="@+id/activity_answer_online_response_tv"
             style="@style/title_tv_center"
-            android:text="在线留言" />
+            android:text="我来解答" />
 
         <ImageView
             android:id="@+id/activity_answer_online_response_iv_back"
@@ -27,7 +27,7 @@
         <EditText
             android:id="@+id/activity_answer_online_response_et_content"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:background="@null"

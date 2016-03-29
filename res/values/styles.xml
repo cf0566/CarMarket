@@ -41,6 +41,16 @@
         <item name="android:layout_height">0.2dp</item>
         <item name="android:background">#DADADA</item>
     </style>
+    <style name="my_divide_line03">
+        <item name="android:layout_width">0.2dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">#DADADA</item>
+    </style>
+    <style name="my_divide_line02">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">0.2dp</item>
+        <item name="android:background">#4000</item>
+    </style>
 
     <style name="my_divide_boild_line">
         <item name="android:layout_width">match_parent</item>
@@ -49,11 +59,12 @@
     </style>
 
     <style name="my_check_box">
-        <item name="android:layout_width">90dp</item>
-        <item name="android:layout_height">55dp</item>
+        <item name="android:layout_width">80dp</item>
+        <item name="android:layout_height">45dp</item>
         <item name="android:gravity">center</item>
         <item name="android:background">@drawable/cbox_checked_select</item>
         <item name="android:button">@null</item>
+        <item name="android:textSize">13sp</item>
     </style>
 
     <style name="mine_layout">
@@ -132,6 +143,7 @@
         <item name="android:paddingLeft">5dp</item>
         <item name="android:paddingTop">3dp</item>
         <item name="android:paddingBottom">3dp</item>
+        <item name="android:src">@drawable/dingbu_fanhui</item>
     </style>
 
     <style name="form_tv_service">
@@ -139,7 +151,7 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:background">@drawable/massage_to_answer</item>
         <item name="android:textColor">#CD2E2D</item>
-        <item name="android:textSize">13sp</item>
+        <item name="android:textSize">15sp</item>
         <item name="android:layout_marginTop">8dp</item>
         <item name="android:layout_marginBottom">8dp</item>
         <item name="android:layout_marginRight">20dp</item>
@@ -154,7 +166,7 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:background">@drawable/not_agree</item>
         <item name="android:textColor">#636363</item>
-        <item name="android:textSize">13sp</item>
+        <item name="android:textSize">15sp</item>
         <item name="android:layout_marginTop">8dp</item>
         <item name="android:layout_marginBottom">8dp</item>
         <item name="android:layout_marginRight">20dp</item>
@@ -205,7 +217,7 @@
         <item name="android:button">@null</item>
         <item name="android:textColor">#FFF</item>
         <item name="android:gravity">center</item>
-        <item name="android:textSize">13sp</item>
+        <item name="android:textSize">10sp</item>
         <item name="android:layout_marginTop">3dp</item>
         <item name="android:layout_marginBottom">3dp</item>
     </style>

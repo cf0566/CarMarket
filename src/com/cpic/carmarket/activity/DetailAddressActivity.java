@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.alibaba.fastjson.JSONObject;
@@ -49,6 +50,8 @@ public class DetailAddressActivity extends BaseActivity {
 	private AddressDetailsResults data;
 	private Intent intent;
 	
+	private ImageView ivBack;
+	
 	private Button btnSubmit;
 	
 	@Override
@@ -66,6 +69,7 @@ public class DetailAddressActivity extends BaseActivity {
 		et = (EditText) findViewById(R.id.activity_details_address_et);
 		dialog = ProgressDialogHandle.getProgressDialog(DetailAddressActivity.this, null);
 		btnSubmit = (Button) findViewById(R.id.activity_details_address_btn_submit);
+		ivBack = (ImageView) findViewById(R.id.activity_address_iv_back);
 	}
 
 	@Override
@@ -83,6 +87,13 @@ public class DetailAddressActivity extends BaseActivity {
 				intent.putExtra("Longitude", Longitude);
 				setResult(RESULT_OK,intent);
 				finish();
+			}
+		});
+		ivBack.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				onBackPressed();
 			}
 		});
 	}
@@ -120,11 +131,8 @@ public class DetailAddressActivity extends BaseActivity {
 	 * @param location
 	 */
 	private void showLocation(Location location) {
-		String locationStr = "维度：" + location.getLatitude() + "\n" + "经度："+ location.getLongitude();
-		et.setText(locationStr);
 		Latitude = location.getLatitude()+"";
 		Longitude = location.getLongitude()+"";
-		
 	}
 	
 	/**

@@ -120,7 +120,6 @@ public class NotAgreeActivity extends BaseActivity {
 				isDelete = true;
 				ivDelete.setVisibility(View.GONE);
 				ivPic.setVisibility(View.GONE);
-				cameraPic.delete();
 			}
 		});
 		

@@ -98,8 +98,7 @@ public class MainActivity extends BaseActivity {
 				mTrans = mManager.beginTransaction();
 
 				if (mFragment == null) {
-					mTrans.add(R.id.activity_main_framlayout,
-							mFragList.get(index), "" + index);
+					mTrans.add(R.id.activity_main_framlayout,mFragList.get(index), "" + index);
 				}
 				// 设置界面隐藏与显示，避免一次性加载所有界面
 				mTrans.show(mFragList.get(index));

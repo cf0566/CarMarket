@@ -12,7 +12,6 @@
          <ImageView
             android:id="@+id/activity_message_details_iv_back"
            style="@style/black_title_iv_back"
-           android:src="@drawable/back"
             />
         <TextView
             android:id="@+id/activity_message_tv_title"

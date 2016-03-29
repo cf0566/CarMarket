@@ -20,7 +20,7 @@
 		<RadioButton 
 		    android:id="@+id/activity_main_rbtn_answer"
 		    style="@style/main_activity_radiogroup"
-		    android:text="问答"
+		    android:text="我的问答"
 		    android:textColor="@drawable/answer_text_change"
 		    android:checked="true"
 		    android:tag="0"
@@ -29,7 +29,7 @@
 		<RadioButton 
 		    android:id="@+id/activity_main_rbtn_msg"
 		    style="@style/main_activity_radiogroup"
-		    android:text="消息"
+		    android:text="我的消息"
 		     android:tag="1"
 		    android:textColor="@drawable/answer_text_change"
 		    android:drawableTop="@drawable/message_rgroup"
@@ -37,7 +37,7 @@
 		<RadioButton 
 		    android:id="@+id/activity_main_rbtn_form"
 		    style="@style/main_activity_radiogroup"
-		    android:text="订单"
+		    android:text="我的订单"
 		     android:tag="2"
 		    android:textColor="@drawable/answer_text_change"
 		    android:drawableTop="@drawable/form_rgroup"
@@ -45,7 +45,7 @@
 		<RadioButton 
 		    android:id="@+id/activity_main_rbtn_mine"
 		    style="@style/main_activity_radiogroup"
-		    android:text="我的"
+		    android:text="个人中心"
 		     android:tag="3"
 		    android:textColor="@drawable/answer_text_change"
 		    android:drawableTop="@drawable/mine_rgroup"

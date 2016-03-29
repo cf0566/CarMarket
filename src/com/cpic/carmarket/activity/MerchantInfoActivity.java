@@ -66,11 +66,11 @@ public class MerchantInfoActivity extends BaseActivity {
 	private MyListView mlv;
 
 	private ImageView ivBack;
-	private LinearLayout llIcon, llAddress, llTime, llChange;
+	private LinearLayout llIcon, llAddress, llTime, llChange,llMobile;
 
-	private EditText etTel,etContent;
+	private EditText etContent;
 
-	private TextView tvAddress, tvTime, tvname;
+	private TextView tvAddress, tvTime, tvname,tvMobile;
 	private Button btnSubmit;
 
 	private ArrayList<MerchantInfoDataInfo> datas;
@@ -96,7 +96,7 @@ public class MerchantInfoActivity extends BaseActivity {
 	private Uri cameraUri;
 	private File cameraPic;
 	private Intent intent;
-	private PopupWindow pw;
+	private PopupWindow pw,pwMobile;
 	private int screenWidth;
 	private String path;// 图片路径
 
@@ -124,6 +124,7 @@ public class MerchantInfoActivity extends BaseActivity {
 		llIcon = (LinearLayout) findViewById(R.id.activity_merchant_ll_icon);
 		llAddress = (LinearLayout) findViewById(R.id.activity_merchant_ll_address);
 		llTime = (LinearLayout) findViewById(R.id.activity_merchant_ll_time);
+		llMobile = (LinearLayout) findViewById(R.id.activity_merchant_ll_mobile);
 		ivIcon = (CircleImageView) findViewById(R.id.activity_merchant_iv_icon);
 		ivBack = (ImageView) findViewById(R.id.activity_merchant_iv_back);
 		llChange = (LinearLayout) findViewById(R.id.activity_merchant_ll_change);
@@ -131,7 +132,7 @@ public class MerchantInfoActivity extends BaseActivity {
 		tvAddress = (TextView) findViewById(R.id.activity_merchant_tv_address);
 		tvTime = (TextView) findViewById(R.id.activity_merchant_tv_time);
 		tvname = (TextView) findViewById(R.id.activity_merchant_tv_name);
-		etTel = (EditText) findViewById(R.id.activity_merchant_et_tel);
+		tvMobile = (TextView) findViewById(R.id.activity_merchant_tv_mobile);
 		dialog = ProgressDialogHandle.getProgressDialog(this, null);
 		etContent = (EditText) findViewById(R.id.activity_merchant_et_store_intro);
 		btnSubmit = (Button) findViewById(R.id.activity_merchant_btn_submit);
@@ -187,6 +188,18 @@ public class MerchantInfoActivity extends BaseActivity {
 			}
 		});
 		
+		/**
+		 * 更改手机号码
+		 */
+		llMobile.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				showMobilePop(v);
+			}
+
+		});
+		
 		btnSubmit.setOnClickListener(new OnClickListener() {
 			
 			@Override
@@ -212,7 +225,7 @@ public class MerchantInfoActivity extends BaseActivity {
 		params.addBodyParameter("lat", Latitude);
 		params.addBodyParameter("lng", Longitude);
 		params.addBodyParameter("company_desc", etContent.getText().toString());
-		params.addBodyParameter("tel", etTel.getText().toString());
+		params.addBodyParameter("tel", tvMobile.getText().toString());
 		params.addBodyParameter("on_time", tvTime.getText().toString());
 		params.addBodyParameter("business", TasktoJson(datas));
 		Log.i("oye", TasktoJson(datas));
@@ -252,8 +265,7 @@ public class MerchantInfoActivity extends BaseActivity {
 	}
 	
 	private void showRegisterSuccess(){
-		Toast toast = Toast.makeText(MerchantInfoActivity.this , "提交成功，等待平台审核",
-				Toast.LENGTH_SHORT);
+		Toast toast = Toast.makeText(MerchantInfoActivity.this , "提交成功，等待平台审核",Toast.LENGTH_SHORT);
 		toast.setGravity(Gravity.CENTER, 0, -100);
 		LinearLayout layout = (LinearLayout) toast.getView();
 		ImageView image = new ImageView(MerchantInfoActivity.this );
@@ -282,6 +294,56 @@ public class MerchantInfoActivity extends BaseActivity {
 		jsonresult = array.toString();
 		return jsonresult;
 	}
+	
+	/**
+	 * 修改号码的淡出匡
+	 */
+	private void showMobilePop(View v) {
+		View view = View.inflate(MerchantInfoActivity.this,R.layout.popup_mobile, null);
+		final EditText et = (EditText) view.findViewById(R.id.popup_mobile_et);
+		Button btnDel = (Button) view.findViewById(R.id.popup_mobile_btn_del);
+		Button btnEn = (Button) view.findViewById(R.id.popup_mobile_btn_ensure);
+		
+		pwMobile = new PopupWindow(view, screenWidth*4/5, LayoutParams.WRAP_CONTENT);
+		pwMobile.setFocusable(true);
+		WindowManager.LayoutParams params = MerchantInfoActivity.this
+				.getWindow().getAttributes();
+		params.alpha = 0.7f;
+		MerchantInfoActivity.this.getWindow().setAttributes(params);
+
+		pwMobile.setBackgroundDrawable(new ColorDrawable());
+		pwMobile.setOutsideTouchable(true);
+
+
+		pwMobile.showAtLocation(v, Gravity.CENTER, 0, 0);
+		
+		btnDel.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				pwMobile.dismiss();
+			}
+		});
+		
+		btnEn.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				tvMobile.setText(et.getText().toString());
+				pwMobile.dismiss();
+			}
+		});
+		pwMobile.setOnDismissListener(new OnDismissListener() {
+
+			@Override
+			public void onDismiss() {
+				WindowManager.LayoutParams params = MerchantInfoActivity.this.getWindow().getAttributes();
+				params.alpha = 1f;
+				MerchantInfoActivity.this.getWindow().setAttributes(params);
+			}
+		});
+		
+	}
 
 	private void showTimePop(View v) {
 		View view = View.inflate(MerchantInfoActivity.this,R.layout.popupwindow_time_pick, null);
@@ -306,10 +368,38 @@ public class MerchantInfoActivity extends BaseActivity {
 					}
 				}
 				StringBuilder sb = new StringBuilder();
-				sb.append(tpAm.getCurrentHour() + ":");
-				sb.append(tpAm.getCurrentMinute() + "~");
-				sb.append(tpPm.getCurrentHour() + ":");
-				sb.append(tpPm.getCurrentMinute());
+				String strAmH = "";
+				String strAmM = "";
+				String strPmH = "";
+				String strPmM = "";
+				
+				if (tpAm.getCurrentHour().toString().length() == 1) {
+					strAmH = "0"+tpAm.getCurrentHour().toString();
+				}else{
+					strAmH = tpAm.getCurrentHour().toString();
+				}
+				if (tpAm.getCurrentMinute().toString().length() == 1) {
+					strAmM = "0"+tpAm.getCurrentMinute().toString();
+				}else{
+					strAmM = tpAm.getCurrentMinute().toString();
+				}
+				if (tpPm.getCurrentHour().toString().length() == 1) {
+					strPmH = "0"+tpPm.getCurrentHour().toString();
+				}else{
+					strPmH = tpPm.getCurrentHour().toString();
+				}
+				if (tpPm.getCurrentMinute().toString().length() == 1) {
+					strPmM = "0"+tpPm.getCurrentMinute().toString();
+				}else{
+					strPmM = tpPm.getCurrentMinute().toString();
+				}
+				
+				
+				
+				sb.append(strAmH + ":");
+				sb.append(strAmM + "~");
+				sb.append(strPmH + ":");
+				sb.append(strPmM);
 				tvTime.setText(sb.toString());
 				pw.dismiss();
 			}
@@ -387,7 +477,7 @@ public class MerchantInfoActivity extends BaseActivity {
 					mlv.setAdapter(adapter);
 					tvAddress.setText(info.getData().getAddress());
 					tvname.setText(info.getData().getCompany_name());
-					etTel.setText(info.getData().getTel());
+					tvMobile.setText(info.getData().getTel());
 					tvTime.setText(info.getData().getOn_time());
 					etContent.setText(info.getData().getCompany_desc());
 					String img_url = info.getData().getStore_img();

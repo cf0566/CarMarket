@@ -83,19 +83,17 @@ public class AnswerDetailsActivity extends BaseActivity {
 
 			@Override
 			public void onClick(View v) {
-				intent = new Intent(AnswerDetailsActivity.this,
-						AnswerOnlineResponseActivity.class);
+				intent = new Intent(AnswerDetailsActivity.this,AnswerOnlineResponseActivity.class);
 				intent.putExtra("question_id", question_id);
 				if (data.getAnswer().getList().size() == 0) {
 					intent.putExtra("pre_id", data.getAnswer().getAnswer_id());
 				} else {
-					intent.putExtra(
-							"pre_id",
-							data.getAnswer().getList()
+					intent.putExtra("pre_id",data.getAnswer().getList()
 									.get(data.getAnswer().getList().size() - 1)
 									.getId());
 				}
 				startActivity(intent);
+				finish();
 			}
 		});
 
@@ -110,13 +108,13 @@ public class AnswerDetailsActivity extends BaseActivity {
 
 			@Override
 			public void onClick(View v) {
-				intent = new Intent(AnswerDetailsActivity.this,
-						ChatActivity.class);
+				intent = new Intent(AnswerDetailsActivity.this,ChatActivity.class);
 				intent.putExtra("chatType", 1);
 				intent.putExtra("userId", ease_name);
 				intent.putExtra("name", name);
 				intent.putExtra("img_url", img_url);
 				startActivity(intent);
+				finish();
 			}
 		});
 	}
@@ -178,12 +176,10 @@ public class AnswerDetailsActivity extends BaseActivity {
 	@Override
 	protected void onResume() {
 		super.onResume();
-		loadDatas();
 	}
 
 	private void loadDatas() {
-		sp = PreferenceManager
-				.getDefaultSharedPreferences(AnswerDetailsActivity.this);
+		sp = PreferenceManager.getDefaultSharedPreferences(AnswerDetailsActivity.this);
 		String token = sp.getString("token", "");
 		post = new HttpUtils();
 		params = new RequestParams();
@@ -205,7 +201,6 @@ public class AnswerDetailsActivity extends BaseActivity {
 					public void onFailure(HttpException arg0, String arg1) {
 						if (dialog != null) {
 							dialog.dismiss();
-							;
 						}
 					}
 
