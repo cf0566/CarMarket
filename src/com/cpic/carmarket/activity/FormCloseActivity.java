@@ -175,7 +175,7 @@ public class FormCloseActivity extends BaseActivity {
 			tvIsAgree.setText("商家不同意退款原因");
 			tvNotAgreeTime.setText(data.getBack().getMerchant_time());
 			tvReason.setText(data.getBack().getMerchant_reason());
-			if (!"".equals(data.getBack().getMerchant_img().get(0))) {
+			if (data.getBack().getBack_img().size()!=0) {
 				url = data.getBack().getMerchant_img().get(0);
 				loadUserIcon(url);
 			}

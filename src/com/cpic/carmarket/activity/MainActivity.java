@@ -157,7 +157,7 @@ public class MainActivity extends BaseActivity {
 						EMChatManager.getInstance().logout();
 						Intent intent = new Intent(MainActivity.this,LoginActivity.class);
 						startActivity(intent);
-						System.exit(0);
+						finish();
 					} else {
 						// "连接不到聊天服务器"
 					}

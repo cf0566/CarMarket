@@ -27,7 +27,8 @@
         <EditText
             android:id="@+id/activity_details_address_et"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="top"
             android:background="@null" 
             android:hint="请您输入详细地址"
             android:textSize="15dp"

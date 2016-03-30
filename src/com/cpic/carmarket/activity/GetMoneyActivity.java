@@ -159,7 +159,7 @@ public class GetMoneyActivity extends BaseActivity{
 				JSONObject obj = JSONObject.parseObject(arg0.result);
 				int code = obj.getIntValue("code");
 				if (code == 1) {
-					showShortToast("提现成功");
+					showShortToast("已确认提现，我们会尽快审核");
 					finish();
 				}else{
 					showShortToast("提现失败");

@@ -93,7 +93,6 @@ public class AnswerDetailsActivity extends BaseActivity {
 									.getId());
 				}
 				startActivity(intent);
-				finish();
 			}
 		});
 
@@ -114,7 +113,6 @@ public class AnswerDetailsActivity extends BaseActivity {
 				intent.putExtra("name", name);
 				intent.putExtra("img_url", img_url);
 				startActivity(intent);
-				finish();
 			}
 		});
 	}
@@ -176,6 +174,7 @@ public class AnswerDetailsActivity extends BaseActivity {
 	@Override
 	protected void onResume() {
 		super.onResume();
+		loadDatas();
 	}
 
 	private void loadDatas() {
@@ -239,10 +238,14 @@ public class AnswerDetailsActivity extends BaseActivity {
 								ll.setVisibility(View.GONE);
 							}
 							ivListener();
-							questionData = data.getAnswer().getList();
-							adapter = new MyAdapter(AnswerDetailsActivity.this);
-							adapter.setDatas(questionData);
-							mlv.setAdapter(adapter);
+							if (data.getAnswer().getList().size()!=0) {
+								questionData = data.getAnswer().getList();
+								adapter = new MyAdapter(AnswerDetailsActivity.this);
+								adapter.setDatas(questionData);
+								mlv.setAdapter(adapter);
+							}else{
+								mlv.setVisibility(View.INVISIBLE);
+							}
 						}
 					}
 				});

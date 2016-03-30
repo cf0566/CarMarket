@@ -1,6 +1,7 @@
 package com.cpic.carmarket.activity;
 
 import java.io.File;
+import java.util.ArrayList;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -21,15 +22,18 @@ import android.provider.MediaStore;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.View;
-import android.view.WindowManager;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.PopupWindow;
-import android.widget.TextView;
 import android.widget.LinearLayout.LayoutParams;
+import android.widget.PopupWindow;
 import android.widget.PopupWindow.OnDismissListener;
+import android.widget.TextView;
 
 import com.alibaba.fastjson.JSONObject;
 import com.cpic.carmarket.R;
@@ -55,6 +59,10 @@ public class AdviceActivity extends BaseActivity {
 	private RequestParams params;
 	private SharedPreferences sp;
 	private Dialog dialog;
+	
+	private GridView gv;
+	private GridAdapter adapter;
+	private ArrayList<String> img_url = new ArrayList<String>();
 
 	private static final int CAMERA = 1;
 	private static final int PHOTO = 0;
@@ -85,13 +93,12 @@ public class AdviceActivity extends BaseActivity {
 		this.getWindowManager().getDefaultDisplay().getMetrics(metrics);
 		screenWidth = metrics.widthPixels;
 		ivAdd = (ImageView) findViewById(R.id.activity_advice_iv_add);
-		ivPic = (ImageView) findViewById(R.id.activity_advice_iv_pic);
-		ivDelete = (ImageView) findViewById(R.id.activity_advice_iv_delete);
 		dialog = ProgressDialogHandle.getProgressDialog(this, null);
 		etContent = (EditText) findViewById(R.id.activity_advice_et_content);
 		btnSubmit = (Button) findViewById(R.id.activity_advice_btn_submit);
 		ivBack = (ImageView) findViewById(R.id.activity_advice_iv_back);
 		tvTel = (TextView) findViewById(R.id.activity_advice_tv_tel);
+		gv = (GridView) findViewById(R.id.activity_advice_iv_gv);
 	}
 
 	@Override
@@ -110,16 +117,6 @@ public class AdviceActivity extends BaseActivity {
 			@Override
 			public void onClick(View v) {
 				onBackPressed();
-			}
-		});
-
-		ivDelete.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				isDelete = true;
-				ivDelete.setVisibility(View.GONE);
-				ivPic.setVisibility(View.GONE);
 			}
 		});
 
@@ -162,9 +159,11 @@ public class AdviceActivity extends BaseActivity {
 		String token = sp.getString("token", "");
 		params.addBodyParameter("token", token);
 		params.addBodyParameter("content", etContent.getText().toString());
-		if (!isDelete) {
-			params.addBodyParameter("count", "1");
-			params.addBodyParameter("poster0", new File(path));
+		if (img_url.size()!=0) {
+			params.addBodyParameter("count", img_url.size()+"");
+			for (int i = 0; i < img_url.size(); i++) {
+				params.addBodyParameter("poster"+i, new File(img_url.get(i)));
+			}
 		}
 		String url = UrlUtils.postUrl+ UrlUtils.path_advise;
 		post.send(HttpMethod.POST, url , params, new RequestCallBack<String>() {
@@ -195,6 +194,8 @@ public class AdviceActivity extends BaseActivity {
 				}else if (code == 1) {
 					showShortToast("提交成功");
 					finish();
+				}else{
+					showShortToast("提交失败,请重试");
 				}
 			}
 		});
@@ -202,6 +203,9 @@ public class AdviceActivity extends BaseActivity {
 
 	@Override
 	protected void initData() {
+		adapter = new GridAdapter();
+		adapter.SetDatas(img_url);
+		gv.setAdapter(adapter);
 
 	}
 
@@ -264,7 +268,7 @@ public class AdviceActivity extends BaseActivity {
 	private void getFromCamera() {
 		// 通过Intent调用系统相机
 		intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-		cameraPic = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/advice.jpg");
+		cameraPic = new File(Environment.getExternalStorageDirectory().getAbsolutePath() +"/"+ System.currentTimeMillis() + ".jpg");
 		cameraUri = Uri.fromFile(cameraPic);
 		// 指定照片拍摄后的存储位置
 		intent.putExtra(MediaStore.EXTRA_OUTPUT, cameraUri);
@@ -282,14 +286,9 @@ public class AdviceActivity extends BaseActivity {
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
 		if (requestCode == CAMERA) {
-			path = Environment.getExternalStorageDirectory().getAbsolutePath()
-					+ "/advice.jpg";
-			Bitmap temp = BitmapFactory.decodeFile(cameraUri.getPath());
-			Bitmap bitmap = big(temp, 60, 60);
-			ivPic.setImageBitmap(bitmap);
-			ivPic.setVisibility(View.VISIBLE);
-			ivDelete.setVisibility(View.VISIBLE);
-			isDelete = false;
+			img_url.add(cameraUri.getPath());
+			adapter.SetDatas(img_url);
+			adapter.notifyDataSetChanged();
 			// upLoadUserIcon(new File(Environment.getExternalStorageDirectory()
 			// .getAbsolutePath() + "/usericon.PNG"));
 		} else if (requestCode == PHOTO) {
@@ -303,10 +302,6 @@ public class AdviceActivity extends BaseActivity {
 					Bitmap b = MediaStore.Images.Media.getBitmap(cr, uri);
 					Bitmap bitmap = big(b, 60, 60);
 					bitmap.getByteCount();
-					ivPic.setImageBitmap(bitmap);
-					ivPic.setVisibility(View.VISIBLE);
-					ivDelete.setVisibility(View.VISIBLE);
-					isDelete = false;
 					// 这里开始的第二部分，获取图片的路径：
 					String[] proj = { MediaStore.Images.Media.DATA };
 					// 好像是android多媒体数据库的封装接口，具体的看Android文档
@@ -321,6 +316,9 @@ public class AdviceActivity extends BaseActivity {
 					// Log.i("oye", path);
 					// 上传头像
 					// upLoadUserIcon(new File(path));
+					img_url.add(path);
+					adapter.SetDatas(img_url);
+					adapter.notifyDataSetChanged();
 
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -338,6 +336,74 @@ public class AdviceActivity extends BaseActivity {
 		matrix.postScale(sx, sy); // 长和宽放大缩小的比例
 		Bitmap resizeBmp = Bitmap.createBitmap(b, 0, 0, w, h, matrix, true);
 		return resizeBmp;
+	}
+	
+	
+	
+	public class GridAdapter extends BaseAdapter {
+
+		private ArrayList<String> img_url;
+
+		public void SetDatas(ArrayList<String> img_url) {
+			this.img_url = img_url;
+		}
+
+		@Override
+		public int getCount() {
+			// TODO Auto-generated method stub
+			return img_url == null ? 0 : img_url.size();
+		}
+
+		@Override
+		public Object getItem(int position) {
+			// TODO Auto-generated method stub
+			return img_url.get(position);
+		}
+
+		@Override
+		public long getItemId(int position) {
+			// TODO Auto-generated method stub
+			return position;
+		}
+
+		@Override
+		public View getView(final int position, View convertView,
+				ViewGroup parent) {
+
+			ViewHolder holder = null;
+
+			if (convertView == null) {
+				holder = new ViewHolder();
+				convertView = View.inflate(AdviceActivity.this,
+						R.layout.item_select_photo_list, null);
+				holder.ivIcon = (ImageView) convertView
+						.findViewById(R.id.item_photo_iv_icon);
+				holder.ivDel = (ImageView) convertView
+						.findViewById(R.id.item_photo_iv_del);
+				convertView.setTag(holder);
+
+			} else {
+				holder = (ViewHolder) convertView.getTag();
+			}
+
+			if (img_url.size() <= 9) {
+				Bitmap bit = BitmapFactory.decodeFile(img_url.get(position));
+				holder.ivIcon.setImageBitmap(big(bit, 50, 50));
+			}
+			holder.ivDel.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					img_url.remove(position);
+					adapter.notifyDataSetChanged();
+				}
+			});
+			
+			return convertView;
+		}
+		class ViewHolder {
+			ImageView ivIcon,ivDel;
+		}
 	}
 
 }

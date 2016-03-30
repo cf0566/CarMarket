@@ -29,7 +29,7 @@
 		<RadioButton 
 		    android:id="@+id/activity_main_rbtn_msg"
 		    style="@style/main_activity_radiogroup"
-		    android:text="我的消息"
+		    android:text="我来解答"
 		     android:tag="1"
 		    android:textColor="@drawable/answer_text_change"
 		    android:drawableTop="@drawable/message_rgroup"

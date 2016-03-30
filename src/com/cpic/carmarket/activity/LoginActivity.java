@@ -243,10 +243,7 @@ public class LoginActivity extends BaseActivity {
 									if (!LoginActivity.this.isFinishing() && dialog.isShowing()) {
 										dialog.dismiss();
 									}
-									// 进入主页面
-									Intent intent = new Intent(LoginActivity.this,MainActivity.class);
-									finish();
-									startActivity(intent);
+									
 								}
 								
 								@Override
@@ -258,6 +255,12 @@ public class LoginActivity extends BaseActivity {
 									showShortToast("环信接入失败");
 								}
 							});
+					
+					// 进入主页面
+					Intent intent = new Intent(LoginActivity.this,MainActivity.class);
+					finish();
+					startActivity(intent);
+					
 				}
 			}
 		});
