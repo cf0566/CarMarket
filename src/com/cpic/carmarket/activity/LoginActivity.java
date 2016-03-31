@@ -211,6 +211,10 @@ public class LoginActivity extends BaseActivity {
 					editor.putString("user_id", res.getData().getUser_id());
 					editor.putString("is_approve", res.getData().getIs_approve());
 					editor.apply();
+					// 进入主页面
+					Intent intent = new Intent(LoginActivity.this,MainActivity.class);
+					finish();
+					startActivity(intent);
 					EMChat.getInstance().setAutoLogin(false);
 					EMChatManager.getInstance().login(res.getData().getEase_user(), res.getData().getEase_pwd(), new EMCallBack() {
 								
@@ -255,11 +259,6 @@ public class LoginActivity extends BaseActivity {
 									showShortToast("环信接入失败");
 								}
 							});
-					
-					// 进入主页面
-					Intent intent = new Intent(LoginActivity.this,MainActivity.class);
-					finish();
-					startActivity(intent);
 					
 				}
 			}

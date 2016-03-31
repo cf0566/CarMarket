@@ -1,5 +1,7 @@
 package com.cpic.carmarket.activity;
 
+import java.util.ArrayList;
+
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -8,21 +10,23 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.BaseAdapter;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.alibaba.fastjson.JSONObject;
 import com.cpic.carmarket.R;
 import com.cpic.carmarket.base.BaseActivity;
 import com.cpic.carmarket.bean.FormCloseData;
 import com.cpic.carmarket.bean.FormCloseDataInfo;
-import com.cpic.carmarket.bean.FormData2;
-import com.cpic.carmarket.bean.FormDataInfo2;
-import com.cpic.carmarket.fragment.FormWaitServiceFragment.WaitAdapter;
 import com.cpic.carmarket.utils.ProgressDialogHandle;
 import com.cpic.carmarket.utils.UrlUtils;
+import com.cpic.carmarket.view.MyGridView;
 import com.lidroid.xutils.BitmapUtils;
 import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.bitmap.BitmapDisplayConfig;
@@ -36,6 +40,11 @@ public class FormCloseActivity extends BaseActivity {
 
 	private TextView tvCar, tvUser, tvPhone, tvAddress, tvType, tvPrice,
 			tvTime, tvPay, tvNum, tvCreat,tvBackTime,tvNotAgreeTime,tvReason,tvIsAgree;
+	
+	
+	private MyGridView gv;
+	private MyAdapter adapter;
+	private ArrayList<String> img_url ;
 	
 	private LinearLayout ll;
 	
@@ -77,19 +86,19 @@ public class FormCloseActivity extends BaseActivity {
 		tvPay = (TextView) findViewById(R.id.activity_form_close_tv_pay);
 		tvNum = (TextView) findViewById(R.id.activity_form_close_tv_num);
 		tvCreat = (TextView) findViewById(R.id.activity_form_close_tv_creat_time);
-		
+		gv = (MyGridView) findViewById(R.id.activity_form_close_gv);
 		tvBackTime = (TextView) findViewById(R.id.activity_form_close_tv_back_time);
 		tvNotAgreeTime = (TextView) findViewById(R.id.activity_form_close_tv_not_agree_time);
 		tvReason = (TextView) findViewById(R.id.activity_form_close_tv_reason);
 		tvIsAgree =  (TextView) findViewById(R.id.activity_form_close_tv_isagree);
 		ll = (LinearLayout) findViewById(R.id.activity_form_close_ll);
-		ivReason = (ImageView) findViewById(R.id.activity_form_close_iv_reason);
 		ivBack = (ImageView) findViewById(R.id.activity_form_close_iv_back);
 		dialog = ProgressDialogHandle.getProgressDialog(this, null);
 	}
 
 	@Override
 	protected void registerListener() {
+		
 		ivBack.setOnClickListener(new OnClickListener() {
 			
 			@Override
@@ -98,15 +107,17 @@ public class FormCloseActivity extends BaseActivity {
 			}
 		});
 		
-		ivReason.setOnClickListener(new OnClickListener() {
-			
+		gv.setOnItemClickListener(new OnItemClickListener() {
+
 			@Override
-			public void onClick(View v) {
-				intent = new Intent(FormCloseActivity.this, PicturePreviewActivity.class);
-				intent.putExtra("url", url);
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				Intent intent = new Intent(FormCloseActivity.this, PicturePreviewActivity.class);
+				intent.putExtra("url", img_url.get(position));
 				startActivity(intent);
 			}
 		});
+		
 	}
 	
 	@Override
@@ -175,19 +186,65 @@ public class FormCloseActivity extends BaseActivity {
 			tvIsAgree.setText("商家不同意退款原因");
 			tvNotAgreeTime.setText(data.getBack().getMerchant_time());
 			tvReason.setText(data.getBack().getMerchant_reason());
-			if (data.getBack().getBack_img().size()!=0) {
-				url = data.getBack().getMerchant_img().get(0);
-				loadUserIcon(url);
+			if (data.getBack().getMerchant_img().size()!=0) {
+				img_url = data.getBack().getMerchant_img();
+				adapter = new MyAdapter();
+				adapter.steDatas(img_url);
+				gv.setAdapter(adapter);
 			}
 		}
 	}
-	private void loadUserIcon(String ivUrl) {
-		config = new BitmapDisplayConfig();
-		 utils = new BitmapUtils(FormCloseActivity.this);
-		config.setLoadingDrawable(getResources().getDrawable(R.drawable.empty_photo));
-		config.setLoadFailedDrawable(getResources().getDrawable(R.drawable.empty_photo));
-		utils.display(ivReason, ivUrl, config);
+	
+	public class MyAdapter extends BaseAdapter{
+
+		private ArrayList<String> img_url;
 		
+		public void steDatas(ArrayList<String> img_url){
+			this.img_url = img_url;
+		}
+		
+		@Override
+		public int getCount() {
+			return img_url == null ? 0 :img_url.size();
+		}
+
+		@Override
+		public Object getItem(int position) {
+			return img_url.get(position);
+		}
+
+		@Override
+		public long getItemId(int position) {
+			return position;
+		}
+
+		@Override
+		public View getView(int position, View convertView, ViewGroup parent) {
+			ViewHolder holder ;
+			if (convertView == null) {
+				holder = new ViewHolder();
+				convertView = View.inflate(FormCloseActivity.this, R.layout.item_select_photo_list, null);
+				holder.ivIcon = (ImageView) convertView.findViewById(R.id.item_photo_iv_icon);
+				holder.ivDel = (ImageView) convertView.findViewById(R.id.item_photo_iv_del);
+				convertView.setTag(holder);
+			}else{
+				holder = (ViewHolder) convertView.getTag();
+			}
+			holder.ivDel.setVisibility(View.INVISIBLE);
+			loadUserIcon(img_url.get(position), holder);
+			return convertView;
+		}
+		private void loadUserIcon(String ivUrl,ViewHolder holder) {
+			config = new BitmapDisplayConfig();
+			 utils = new BitmapUtils(FormCloseActivity.this);
+			config.setLoadingDrawable(getResources().getDrawable(R.drawable.empty_photo));
+			config.setLoadFailedDrawable(getResources().getDrawable(R.drawable.empty_photo));
+			utils.display(holder.ivIcon, ivUrl, config);
+		}
+		
+		class ViewHolder{
+			ImageView ivIcon,ivDel;
+		}
 	}
 
 }

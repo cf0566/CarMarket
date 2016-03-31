@@ -1,19 +1,13 @@
 package com.cpic.carmarket.activity;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Hashtable;
 import java.util.List;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
-import android.util.Pair;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
@@ -28,7 +22,6 @@ import com.cpic.carmarket.fragment.MineFragment;
 import com.easemob.EMConnectionListener;
 import com.easemob.EMError;
 import com.easemob.chat.EMChatManager;
-import com.easemob.chat.EMConversation;
 
 public class MainActivity extends BaseActivity {
 
@@ -71,7 +64,6 @@ public class MainActivity extends BaseActivity {
 	protected void initData() {
 		initFragment();
 		// 注册一个监听连接状态的listener
-
 		connectionListener = new MyConnectionListener();
 		EMChatManager.getInstance().addConnectionListener(connectionListener);
 		
@@ -155,9 +147,9 @@ public class MainActivity extends BaseActivity {
 						// 显示帐号在其他设备登陆
 						Toast.makeText(MainActivity.this, "已在其他设备登录", 0).show();
 						EMChatManager.getInstance().logout();
-						Intent intent = new Intent(MainActivity.this,LoginActivity.class);
+						Intent intent = new Intent(MainActivity.this, LoginActivity.class);
 						startActivity(intent);
-						finish();
+						android.os.Process.killProcess(android.os.Process.myPid());  
 					} else {
 						// "连接不到聊天服务器"
 					}
@@ -165,11 +157,7 @@ public class MainActivity extends BaseActivity {
 			});
 		}
 	}
-	@Override
-	protected void onSaveInstanceState(Bundle outState) {
-		// TODO Auto-generated method stub
-//		super.onSaveInstanceState(outState);
-	}
+	
 	@Override
 	protected void onDestroy() {
 		// TODO Auto-generated method stub
@@ -179,4 +167,9 @@ public class MainActivity extends BaseActivity {
 		}
 	}
 
+	@Override
+	protected void onSaveInstanceState(Bundle outState) {
+		// TODO Auto-generated method stub
+//		super.onSaveInstanceState(outState);
+	}
 }

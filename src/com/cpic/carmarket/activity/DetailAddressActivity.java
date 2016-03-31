@@ -148,11 +148,11 @@ public class DetailAddressActivity extends BaseActivity {
 	            }     
 	        }  
 		  
-		if ("".equals(latitude+"")||"".equals(longitude+"")) {
+		if ("0.0".equals(latitude+"")||"0.0".equals(longitude+"")) {
 			  showShortToast("定位失败，请检查GPS是否打开");
 			  latitude = 0;
 			  longitude = 0;
-		}else{
+		}else if (latitude!=0.0 ||longitude !=0.0 ) {
 			loadData();
 		}
 	}

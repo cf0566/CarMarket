@@ -11,6 +11,8 @@ import android.preference.PreferenceManager;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -20,12 +22,15 @@ import android.widget.TextView;
 
 import com.alibaba.fastjson.JSONObject;
 import com.cpic.carmarket.R;
+import com.cpic.carmarket.activity.FormCloseActivity.MyAdapter;
+import com.cpic.carmarket.activity.FormCloseActivity.MyAdapter.ViewHolder;
 import com.cpic.carmarket.base.BaseActivity;
 import com.cpic.carmarket.bean.AnswerDetails;
 import com.cpic.carmarket.bean.AnswerDetailsData;
 import com.cpic.carmarket.bean.AnswerDetailsListInfo;
 import com.cpic.carmarket.utils.ProgressDialogHandle;
 import com.cpic.carmarket.utils.UrlUtils;
+import com.cpic.carmarket.view.MyGridView;
 import com.cpic.carmarket.view.MyListView;
 import com.lidroid.xutils.BitmapUtils;
 import com.lidroid.xutils.HttpUtils;
@@ -41,14 +46,13 @@ public class AnswerDetailsActivity extends BaseActivity {
 	private AnswerDetails details;
 	private TextView tvContent, tvCar, tvOrderTime, tvCheck, tvCompany,
 			tvScore, tvTime, tvAnswer, tvLiuyan;
-	private ImageView ivQuestion1, ivQuestion2, ivIcon, ivBack;
+	private ImageView  ivIcon, ivBack;
 	private MyListView mlv;
 	private Button btnOnline;
 
 	private ArrayList<AnswerDetailsListInfo> questionData;
 	private AnswerDetailsData data;
 
-	private LinearLayout ll;
 
 	private MyAdapter adapter;
 	private HttpUtils post;
@@ -64,6 +68,10 @@ public class AnswerDetailsActivity extends BaseActivity {
 	private Intent intent;
 	private BitmapDisplayConfig config;
 
+	
+	private MyGridView gv;
+	private ArrayList<String> img_urls ;
+	private MyAdapter2 adapter2;
 	@Override
 	protected void getIntentData(Bundle savedInstanceState) {
 		question_id = getIntent().getStringExtra("id");
@@ -115,6 +123,19 @@ public class AnswerDetailsActivity extends BaseActivity {
 				startActivity(intent);
 			}
 		});
+		
+		gv.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				Intent intent = new Intent(AnswerDetailsActivity.this, PicturePreviewActivity.class);
+				intent.putExtra("url", img_urls.get(position));
+				startActivity(intent);
+			}
+		});
+		
+		
 	}
 
 	@Override
@@ -138,35 +159,7 @@ public class AnswerDetailsActivity extends BaseActivity {
 
 	}
 
-	/**
-	 * 下载问题1
-	 * 
-	 * @param img_url
-	 */
-	private void loadQuestion1(String img_url) {
-		config = new BitmapDisplayConfig();
-		utils = new BitmapUtils(AnswerDetailsActivity.this);
-		config.setLoadingDrawable(getResources().getDrawable(
-				R.drawable.empty_photo));
-		config.setLoadFailedDrawable(getResources().getDrawable(
-				R.drawable.empty_photo));
-		utils.display(ivQuestion1, img_url, config);
-	}
 
-	/**
-	 * 下载问题2
-	 * 
-	 * @param img_url
-	 */
-	private void loadQuestion2(String img_url) {
-		config = new BitmapDisplayConfig();
-		utils = new BitmapUtils(AnswerDetailsActivity.this);
-		config.setLoadingDrawable(getResources().getDrawable(
-				R.drawable.empty_photo));
-		config.setLoadFailedDrawable(getResources().getDrawable(
-				R.drawable.empty_photo));
-		utils.display(ivQuestion2, img_url, config);
-	}
 
 	/**
 	 * 上一界面回来时，重新加载页面
@@ -224,20 +217,12 @@ public class AnswerDetailsActivity extends BaseActivity {
 							rBar.setRating((float) data.getAnswer().getScore());
 							iv_icon_url = data.getAnswer().getLogo();
 							loadUserIcon(iv_icon_url);
-							if (data.getImg().size() == 1) {
-								ll.setVisibility(View.VISIBLE);
-								ivQuestion1.setVisibility(View.VISIBLE);
-								loadQuestion1(data.getQuestion_img().get(0));
-							} else if (data.getImg().size() >= 2) {
-								ll.setVisibility(View.VISIBLE);
-								ivQuestion1.setVisibility(View.VISIBLE);
-								ivQuestion2.setVisibility(View.VISIBLE);
-								loadQuestion1(data.getQuestion_img().get(0));
-								loadQuestion2(data.getQuestion_img().get(1));
-							} else {
-								ll.setVisibility(View.GONE);
+							if (data.getQuestion_img().size()!= 0) {
+								img_urls = data.getQuestion_img();
+								adapter2 = new MyAdapter2();
+								adapter2.steDatas(img_urls);
+								gv.setAdapter(adapter2);
 							}
-							ivListener();
 							if (data.getAnswer().getList().size()!=0) {
 								questionData = data.getAnswer().getList();
 								adapter = new MyAdapter(AnswerDetailsActivity.this);
@@ -251,41 +236,6 @@ public class AnswerDetailsActivity extends BaseActivity {
 				});
 	}
 
-	private void ivListener() {
-		if (data.getImg().size() == 1) {
-			ivQuestion1.setOnClickListener(new OnClickListener() {
-
-				@Override
-				public void onClick(View v) {
-					intent = new Intent(AnswerDetailsActivity.this,
-							PicturePreviewActivity.class);
-					intent.putExtra("url", data.getQuestion_img().get(0));
-					startActivity(intent);
-				}
-			});
-		} else if (data.getImg().size() >= 2) {
-			ivQuestion1.setOnClickListener(new OnClickListener() {
-				@Override
-				public void onClick(View v) {
-					intent = new Intent(AnswerDetailsActivity.this,
-							PicturePreviewActivity.class);
-					intent.putExtra("url", data.getQuestion_img().get(0));
-					startActivity(intent);
-				}
-			});
-			
-			ivQuestion2.setOnClickListener(new OnClickListener() {
-
-				@Override
-				public void onClick(View v) {
-					intent = new Intent(AnswerDetailsActivity.this,
-							PicturePreviewActivity.class);
-					intent.putExtra("url", data.getQuestion_img().get(1));
-					startActivity(intent);
-				}
-			});
-		}
-	}
 
 	@Override
 	protected void initView() {
@@ -297,8 +247,6 @@ public class AnswerDetailsActivity extends BaseActivity {
 		tvScore = (TextView) findViewById(R.id.activity_answer_tv_score);
 		tvTime = (TextView) findViewById(R.id.activity_answer_tv_time);
 		tvAnswer = (TextView) findViewById(R.id.activity_answer_tv_answer);
-		ivQuestion1 = (ImageView) findViewById(R.id.activity_answer_iv_question01);
-		ivQuestion2 = (ImageView) findViewById(R.id.activity_answer_iv_question02);
 		ivIcon = (ImageView) findViewById(R.id.activity_answer_iv_icon);
 		mlv = (MyListView) findViewById(R.id.activity_answer_lv_question);
 		tvLiuyan = (TextView) findViewById(R.id.activity_answer_btn_answer);
@@ -306,8 +254,7 @@ public class AnswerDetailsActivity extends BaseActivity {
 		dialog = ProgressDialogHandle.getProgressDialog(this, null);
 		rBar = (RatingBar) findViewById(R.id.activity_answer_rbar);
 		ivBack = (ImageView) findViewById(R.id.activity_answer_details_iv_back);
-
-		ll = (LinearLayout) findViewById(R.id.activity_answer_ll);
+		gv = (MyGridView) findViewById(R.id.activity_answer_gv);
 	}
 
 	public class MyAdapter extends BaseAdapter {
@@ -391,4 +338,67 @@ public class AnswerDetailsActivity extends BaseActivity {
 			TextView tvAnswer, tvQuestion;
 		}
 	}
+	
+	/**
+	 * 图片加载
+	 * @author MBENBEN
+	 *
+	 */
+	public class MyAdapter2 extends BaseAdapter{
+
+		private ArrayList<String> img_urls;
+		
+		public void steDatas(ArrayList<String> img_urls){
+			this.img_urls = img_urls;
+		}
+		
+		@Override
+		public int getCount() {
+			return img_urls == null ? 0 :img_urls.size();
+		}
+
+		@Override
+		public Object getItem(int position) {
+			return img_urls.get(position);
+		}
+
+		@Override
+		public long getItemId(int position) {
+			return position;
+		}
+
+		@Override
+		public View getView(int position, View convertView, ViewGroup parent) {
+			ViewHolder holder ;
+			if (convertView == null) {
+				holder = new ViewHolder();
+				convertView = View.inflate(AnswerDetailsActivity.this, R.layout.item_select_photo_list, null);
+				holder.ivIcon = (ImageView) convertView.findViewById(R.id.item_photo_iv_icon);
+				holder.ivDel = (ImageView) convertView.findViewById(R.id.item_photo_iv_del);
+				convertView.setTag(holder);
+			}else{
+				holder = (ViewHolder) convertView.getTag();
+			}
+			holder.ivDel.setVisibility(View.INVISIBLE);
+			loadUserIcon(img_urls.get(position), holder);
+			return convertView;
+		}
+		private void loadUserIcon(String ivUrl,ViewHolder holder) {
+			config = new BitmapDisplayConfig();
+			 utils = new BitmapUtils(AnswerDetailsActivity.this);
+			config.setLoadingDrawable(getResources().getDrawable(R.drawable.empty_photo));
+			config.setLoadFailedDrawable(getResources().getDrawable(R.drawable.empty_photo));
+			utils.display(holder.ivIcon, ivUrl, config);
+		}
+		
+		class ViewHolder{
+			ImageView ivIcon,ivDel;
+		}
+	}
+	
+	
+	
+	
+	
+	
 }

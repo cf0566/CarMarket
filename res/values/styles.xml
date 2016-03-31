@@ -84,6 +84,9 @@
         <item name="android:windowEnterAnimation">@anim/show_pw</item>
         <item name="android:windowExitAnimation">@anim/hide_pw</item>
     </style>
+    <style name="pw_anim_style1">
+        <item name="android:windowEnterAnimation">@anim/show_pw</item>
+    </style>
 
     <style name="title_iv_back">
         <item name="android:layout_width">wrap_content</item>

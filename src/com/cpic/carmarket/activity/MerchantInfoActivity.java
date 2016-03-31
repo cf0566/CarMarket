@@ -20,6 +20,8 @@ import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
+import android.os.Message;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.util.DisplayMetrics;
@@ -66,11 +68,11 @@ public class MerchantInfoActivity extends BaseActivity {
 	private MyListView mlv;
 
 	private ImageView ivBack;
-	private LinearLayout llIcon, llAddress, llTime, llChange,llMobile;
+	private LinearLayout llIcon, llAddress, llTime, llChange, llMobile;
 
 	private EditText etContent;
 
-	private TextView tvAddress, tvTime, tvname,tvMobile;
+	private TextView tvAddress, tvTime, tvname, tvMobile;
 	private Button btnSubmit;
 
 	private ArrayList<MerchantInfoDataInfo> datas;
@@ -96,7 +98,7 @@ public class MerchantInfoActivity extends BaseActivity {
 	private Uri cameraUri;
 	private File cameraPic;
 	private Intent intent;
-	private PopupWindow pw,pwMobile;
+	private PopupWindow pw, pwMobile;
 	private int screenWidth;
 	private String path;// 图片路径
 
@@ -104,8 +106,8 @@ public class MerchantInfoActivity extends BaseActivity {
 
 	private TimePicker tpAm, tpPm;
 	private Button submitTime;
-	
-	private String Latitude,Longitude;//上个页面返回的经纬度
+
+	private String Latitude, Longitude;// 上个页面返回的经纬度
 
 	@Override
 	protected void getIntentData(Bundle savedInstanceState) {
@@ -140,7 +142,7 @@ public class MerchantInfoActivity extends BaseActivity {
 
 	@Override
 	protected void registerListener() {
-		
+
 		ivBack.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -183,43 +185,46 @@ public class MerchantInfoActivity extends BaseActivity {
 
 			@Override
 			public void onClick(View v) {
-				intent = new Intent(MerchantInfoActivity.this,ServiceCarTypeActivity.class);
+				intent = new Intent(MerchantInfoActivity.this,
+						ServiceCarTypeActivity.class);
 				startActivityForResult(intent, CAR_LIST);
 			}
 		});
-		
+
 		/**
 		 * 更改手机号码
 		 */
 		llMobile.setOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
 				showMobilePop(v);
 			}
 
 		});
-		
+
 		btnSubmit.setOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
 				submitDatas();
 			}
 		});
 	}
+
 	private void submitDatas() {
-		
+
 		post = new HttpUtils();
 		params = new RequestParams();
 		params.addBodyParameter("address", tvAddress.getText().toString());
-		if (Latitude == null ) {
+		if (Latitude == null) {
 			Latitude = "0";
 		}
 		if (Longitude == null) {
 			Longitude = "0";
 		}
-		sp = PreferenceManager.getDefaultSharedPreferences(MerchantInfoActivity.this);
+		sp = PreferenceManager
+				.getDefaultSharedPreferences(MerchantInfoActivity.this);
 		String token = sp.getString("token", "");
 		params.addBodyParameter("token", token);
 		params.addBodyParameter("lat", Latitude);
@@ -229,8 +234,10 @@ public class MerchantInfoActivity extends BaseActivity {
 		params.addBodyParameter("on_time", tvTime.getText().toString());
 		params.addBodyParameter("business", TasktoJson(datas));
 		Log.i("oye", TasktoJson(datas));
-		String url = UrlUtils.postUrl+UrlUtils.path_modifyInfo;
+		String url = UrlUtils.postUrl + UrlUtils.path_modifyInfo;
 		post.send(HttpMethod.POST, url, params, new RequestCallBack<String>() {
+
+			private Handler handler;
 
 			@Override
 			public void onStart() {
@@ -238,8 +245,9 @@ public class MerchantInfoActivity extends BaseActivity {
 				if (dialog != null) {
 					dialog.show();
 				}
-				
+
 			}
+
 			@Override
 			public void onFailure(HttpException arg0, String arg1) {
 				if (dialog != null) {
@@ -256,24 +264,46 @@ public class MerchantInfoActivity extends BaseActivity {
 				int code = obj.getIntValue("code");
 				if (code == 1) {
 					showRegisterSuccess();
-					finish();
+					new Handler().postDelayed(new Runnable(){   
+
+					    public void run() {   
+					    	MerchantInfoActivity.this.finish();
+					    }   
+
+					 }, 500);   
 				}
 			}
 		});
-		
-		
 	}
-	
-	private void showRegisterSuccess(){
-		Toast toast = Toast.makeText(MerchantInfoActivity.this , "提交成功，等待平台审核",Toast.LENGTH_SHORT);
-		toast.setGravity(Gravity.CENTER, 0, -100);
-		LinearLayout layout = (LinearLayout) toast.getView();
-		ImageView image = new ImageView(MerchantInfoActivity.this );
-		image.setImageResource(R.drawable.dengdaipingtai);
-		TextView tv = new TextView(MerchantInfoActivity.this );
-		layout.addView(image, 0);
-		toast.show();
+
+
+	private void showRegisterSuccess() {
+		View view = View.inflate(MerchantInfoActivity.this,
+				R.layout.pop_wait_submit, null);
+		pwMobile = new PopupWindow(view, screenWidth * 3 / 5,
+				LayoutParams.WRAP_CONTENT);
+		pwMobile.setFocusable(true);
+		WindowManager.LayoutParams params = MerchantInfoActivity.this
+				.getWindow().getAttributes();
+		params.alpha = 0.7f;
+		MerchantInfoActivity.this.getWindow().setAttributes(params);
+		pwMobile.setAnimationStyle(R.style.pw_anim_style1);
+		pwMobile.setBackgroundDrawable(new ColorDrawable());
+		pwMobile.setOutsideTouchable(true);
+
+		pwMobile.showAtLocation(view, Gravity.TOP, 0, 350);
+		pwMobile.setOnDismissListener(new OnDismissListener() {
+
+			@Override
+			public void onDismiss() {
+				WindowManager.LayoutParams params = MerchantInfoActivity.this
+						.getWindow().getAttributes();
+				params.alpha = 1f;
+				MerchantInfoActivity.this.getWindow().setAttributes(params);
+			}
+		});
 	}
+
 	/**
 	 * 将数组转化成json字符串
 	 */
@@ -284,8 +314,8 @@ public class MerchantInfoActivity extends BaseActivity {
 			org.json.JSONObject petobj = new org.json.JSONObject();
 			try {
 				petobj.put("dim_name", data.get(i).getDim_name());
-				petobj.put("car_category",data.get(i).getCar_category());
-				petobj.put("category_name",data.get(i).getCategory_name());
+				petobj.put("car_category", data.get(i).getCar_category());
+				petobj.put("category_name", data.get(i).getCategory_name());
 				array.put(petobj);
 			} catch (JSONException e) {
 				e.printStackTrace();
@@ -294,17 +324,19 @@ public class MerchantInfoActivity extends BaseActivity {
 		jsonresult = array.toString();
 		return jsonresult;
 	}
-	
+
 	/**
 	 * 修改号码的淡出匡
 	 */
 	private void showMobilePop(View v) {
-		View view = View.inflate(MerchantInfoActivity.this,R.layout.popup_mobile, null);
+		View view = View.inflate(MerchantInfoActivity.this,
+				R.layout.popup_mobile, null);
 		final EditText et = (EditText) view.findViewById(R.id.popup_mobile_et);
 		Button btnDel = (Button) view.findViewById(R.id.popup_mobile_btn_del);
 		Button btnEn = (Button) view.findViewById(R.id.popup_mobile_btn_ensure);
-		
-		pwMobile = new PopupWindow(view, screenWidth*4/5, LayoutParams.WRAP_CONTENT);
+
+		pwMobile = new PopupWindow(view, screenWidth * 4 / 5,
+				LayoutParams.WRAP_CONTENT);
 		pwMobile.setFocusable(true);
 		WindowManager.LayoutParams params = MerchantInfoActivity.this
 				.getWindow().getAttributes();
@@ -314,19 +346,18 @@ public class MerchantInfoActivity extends BaseActivity {
 		pwMobile.setBackgroundDrawable(new ColorDrawable());
 		pwMobile.setOutsideTouchable(true);
 
-
 		pwMobile.showAtLocation(v, Gravity.CENTER, 0, 0);
-		
+
 		btnDel.setOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
 				pwMobile.dismiss();
 			}
 		});
-		
+
 		btnEn.setOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
 				tvMobile.setText(et.getText().toString());
@@ -337,19 +368,22 @@ public class MerchantInfoActivity extends BaseActivity {
 
 			@Override
 			public void onDismiss() {
-				WindowManager.LayoutParams params = MerchantInfoActivity.this.getWindow().getAttributes();
+				WindowManager.LayoutParams params = MerchantInfoActivity.this
+						.getWindow().getAttributes();
 				params.alpha = 1f;
 				MerchantInfoActivity.this.getWindow().setAttributes(params);
 			}
 		});
-		
+
 	}
 
 	private void showTimePop(View v) {
-		View view = View.inflate(MerchantInfoActivity.this,R.layout.popupwindow_time_pick, null);
+		View view = View.inflate(MerchantInfoActivity.this,
+				R.layout.popupwindow_time_pick, null);
 		tpAm = (TimePicker) view.findViewById(R.id.popupwindow_time_am);
 		tpPm = (TimePicker) view.findViewById(R.id.popupwindow_time_pm);
-		submitTime = (Button) view.findViewById(R.id.popupwindow_time_btn_ensure);
+		submitTime = (Button) view
+				.findViewById(R.id.popupwindow_time_btn_ensure);
 		tpAm.setIs24HourView(true);
 		tpPm.setIs24HourView(true);
 
@@ -372,30 +406,28 @@ public class MerchantInfoActivity extends BaseActivity {
 				String strAmM = "";
 				String strPmH = "";
 				String strPmM = "";
-				
+
 				if (tpAm.getCurrentHour().toString().length() == 1) {
-					strAmH = "0"+tpAm.getCurrentHour().toString();
-				}else{
+					strAmH = "0" + tpAm.getCurrentHour().toString();
+				} else {
 					strAmH = tpAm.getCurrentHour().toString();
 				}
 				if (tpAm.getCurrentMinute().toString().length() == 1) {
-					strAmM = "0"+tpAm.getCurrentMinute().toString();
-				}else{
+					strAmM = "0" + tpAm.getCurrentMinute().toString();
+				} else {
 					strAmM = tpAm.getCurrentMinute().toString();
 				}
 				if (tpPm.getCurrentHour().toString().length() == 1) {
-					strPmH = "0"+tpPm.getCurrentHour().toString();
-				}else{
+					strPmH = "0" + tpPm.getCurrentHour().toString();
+				} else {
 					strPmH = tpPm.getCurrentHour().toString();
 				}
 				if (tpPm.getCurrentMinute().toString().length() == 1) {
-					strPmM = "0"+tpPm.getCurrentMinute().toString();
-				}else{
+					strPmM = "0" + tpPm.getCurrentMinute().toString();
+				} else {
 					strPmM = tpPm.getCurrentMinute().toString();
 				}
-				
-				
-				
+
 				sb.append(strAmH + ":");
 				sb.append(strAmM + "~");
 				sb.append(strPmH + ":");
@@ -423,7 +455,8 @@ public class MerchantInfoActivity extends BaseActivity {
 
 			@Override
 			public void onDismiss() {
-				WindowManager.LayoutParams params = MerchantInfoActivity.this.getWindow().getAttributes();
+				WindowManager.LayoutParams params = MerchantInfoActivity.this
+						.getWindow().getAttributes();
 				params.alpha = 1f;
 				MerchantInfoActivity.this.getWindow().setAttributes(params);
 			}
