@@ -6,6 +6,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
@@ -21,6 +22,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alibaba.fastjson.JSONObject;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.SimpleTarget;
 import com.cpic.carmarket.R;
 import com.cpic.carmarket.activity.MessageDetailsActivity;
 import com.cpic.carmarket.activity.NewMessageActivity;
@@ -252,17 +256,19 @@ public class MessageFragment extends Fragment {
 			 * 
 			 * @param img_url
 			 */
-			loadBitmap(holder, ivUrl);
+//			loadBitmap(holder, ivUrl);
+			Glide.with(context).load(ivUrl).placeholder(R.drawable.empty_photo).into(holder.ivIcon);
+			holder.ivIcon.setTag(R.id.image_tag, position);
 			return convertView;
 		}
 
-		private void loadBitmap(final ViewHolder holder, String ivUrl) {
-			config = new BitmapDisplayConfig();
-			utils = new BitmapUtils(context);
-			config.setLoadingDrawable(getResources().getDrawable(R.drawable.empty_photo));
-			config.setLoadFailedDrawable(getResources().getDrawable(R.drawable.empty_photo));
-			utils.display(holder.ivIcon, ivUrl, config);
-		}
+//		private void loadBitmap(final ViewHolder holder, String ivUrl) {
+//			config = new BitmapDisplayConfig();
+//			utils = new BitmapUtils(context);
+//			config.setLoadingDrawable(getResources().getDrawable(R.drawable.empty_photo));
+//			config.setLoadFailedDrawable(getResources().getDrawable(R.drawable.empty_photo));
+//			utils.display(holder.ivIcon, ivUrl, config);
+//		}
 		class ViewHolder {
 			TextView tvUserName, tvCarType, tvQuestion, tvRepair;
 			ImageView ivIcon;

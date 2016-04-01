@@ -15,7 +15,7 @@
             android:id="@+id/item_answer_iv_icon"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:src="@drawable/touxiang" />
+            android:src="@drawable/empty_photo" />
 
         <TextView
             android:id="@+id/item_answer_tv_newmsg"

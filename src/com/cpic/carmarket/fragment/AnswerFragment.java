@@ -30,6 +30,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alibaba.fastjson.JSONObject;
+import com.bumptech.glide.Glide;
 import com.cpic.carmarket.R;
 import com.cpic.carmarket.activity.AnswerDetailsActivity;
 import com.cpic.carmarket.activity.ChatActivity;
@@ -53,6 +54,9 @@ import com.lidroid.xutils.http.RequestParams;
 import com.lidroid.xutils.http.ResponseInfo;
 import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest.HttpMethod;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 
 public class AnswerFragment extends Fragment {
 
@@ -235,7 +239,8 @@ public class AnswerFragment extends Fragment {
 	}
 
 	private void initView(View view) {
-		plv = (PullToRefreshListView) view.findViewById(R.id.fragment_answer_plv);
+		plv = (PullToRefreshListView) view
+				.findViewById(R.id.fragment_answer_plv);
 		tvMsg = (TextView) view.findViewById(R.id.fragment_answer_msg_tv);
 		dialog = ProgressDialogHandle.getProgressDialog(getActivity(), null);
 		ivTis = (ImageView) view.findViewById(R.id.fragment_answer_msg_iv_tis);
@@ -319,26 +324,32 @@ public class AnswerFragment extends Fragment {
 			String ivUrl = datas.get(position).getUser_img();
 			/**
 			 * 下载用户头像
+			 * 
 			 * @param img_url
 			 */
-			loadBitmap(holder, ivUrl);
-
+//			loadBitmap(holder, ivUrl);
+			Glide.with(context).load(ivUrl).placeholder(R.drawable.empty_photo).fitCenter().into(holder.ivIcon);
+			holder.ivIcon.setTag(R.id.image_tag, position);
+			
 			return convertView;
 		}
 
-		private void loadBitmap(final ViewHolder holder, String ivUrl) {
-			config = new BitmapDisplayConfig();
-			utils = new BitmapUtils(context);
-			config.setLoadingDrawable(getResources().getDrawable(R.drawable.empty_photo));
-			config.setLoadFailedDrawable(getResources().getDrawable(R.drawable.empty_photo));
-			utils.display(holder.ivIcon, ivUrl, config);
-		}
-		
+//		private void loadBitmap(final ViewHolder holder, String ivUrl) {
+//			config = new BitmapDisplayConfig();
+//			utils = new BitmapUtils(context);
+//			config.setLoadingDrawable(getResources().getDrawable(
+//					R.drawable.empty_photo));
+//			config.setLoadFailedDrawable(getResources().getDrawable(
+//					R.drawable.empty_photo));
+//			utils.display(holder.ivIcon, ivUrl, config);
+//		}
+
 		class ViewHolder {
 			TextView tvUserName, tvCarType, tvQuestion, tvMessage, tvRepair;
 			CircleImageView ivIcon;
 		}
 	}
+
 	/**
 	 * 获取所有会话
 	 * 
