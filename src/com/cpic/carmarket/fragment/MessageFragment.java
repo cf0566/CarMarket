@@ -257,7 +257,7 @@ public class MessageFragment extends Fragment {
 			 * @param img_url
 			 */
 //			loadBitmap(holder, ivUrl);
-			Glide.with(context).load(ivUrl).placeholder(R.drawable.empty_photo).into(holder.ivIcon);
+			Glide.with(context).load(ivUrl).dontAnimate().placeholder(R.drawable.empty_photo).into(holder.ivIcon);
 			holder.ivIcon.setTag(R.id.image_tag, position);
 			return convertView;
 		}

@@ -55,6 +55,7 @@ import android.widget.TextView;
 import android.widget.TextView.BufferType;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.cpic.carmarket.R;
 import com.cpic.carmarket.activity.ChatActivity;
 import com.cpic.carmarket.activity.ShowBigImage;
@@ -580,10 +581,12 @@ public class MessageAdapter extends BaseAdapter{
 //	        UserUtils.setCurrentUserAvatar(context, imageView);
 	    	SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
 	    	String img = sp.getString("logo", "");
-	    	loadIvIcon(img, imageView);
+//	    	loadIvIcon(img, imageView);
+	    	Glide.with(context).load(img).placeholder(R.drawable.empty_photo).fitCenter().into(imageView);
 	    }else{
 //	        UserUtils.setUserAvatar(context, message.getFrom(), imageView);
-	    	loadIvIcon(img_url, imageView);
+//	    	loadIvIcon(img_url, imageView);
+	    	Glide.with(context).load(img_url).placeholder(R.drawable.empty_photo).fitCenter().into(imageView);
 	    }
 //	    imageView.setOnClickListener(new View.OnClickListener() {
 //			
@@ -596,13 +599,13 @@ public class MessageAdapter extends BaseAdapter{
 //			}
 //		});
 	}
-	private void loadIvIcon(String img_url,ImageView imageView) {
-		config = new BitmapDisplayConfig();
-		utils = new BitmapUtils(context);
-		config.setLoadingDrawable(context.getResources().getDrawable(R.drawable.empty_photo));
-		config.setLoadFailedDrawable(context.getResources().getDrawable(R.drawable.empty_photo));
-		utils.display(imageView, img_url, config);
-	}
+//	private void loadIvIcon(String img_url,ImageView imageView) {
+//		config = new BitmapDisplayConfig();
+//		utils = new BitmapUtils(context);
+//		config.setLoadingDrawable(context.getResources().getDrawable(R.drawable.empty_photo));
+//		config.setLoadFailedDrawable(context.getResources().getDrawable(R.drawable.empty_photo));
+//		utils.display(imageView, img_url, config);
+//	}
 	/**
 	 * 文本消息
 	 * 

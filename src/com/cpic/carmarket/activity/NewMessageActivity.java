@@ -22,6 +22,7 @@ import android.widget.TextView;
 import android.widget.TextView.BufferType;
 
 import com.alibaba.fastjson.JSONObject;
+import com.bumptech.glide.Glide;
 import com.cpic.carmarket.R;
 import com.cpic.carmarket.base.BaseActivity;
 import com.cpic.carmarket.bean.EaseUser;
@@ -218,19 +219,20 @@ public class NewMessageActivity extends BaseActivity{
 						info = user.getData();
 						if (info.size()!=0) {
 							holder.tvName.setText(info.get(0).getUser_name());
-							loadIvIcon(info.get(0).getImg(), holder);
+//							loadIvIcon(info.get(0).getImg(), holder);
+							Glide.with(getApplicationContext()).load(info.get(0).getImg()).placeholder(R.drawable.empty_photo).fitCenter().into(holder.ivIcon);
 						}
 					}
 				}
 			});
 		}
-		private void loadIvIcon(String img_url,ViewHolder holder) {
-			config = new BitmapDisplayConfig();
-			utils = new BitmapUtils(NewMessageActivity.this);
-			config.setLoadingDrawable(getResources().getDrawable(R.drawable.empty_photo));
-			config.setLoadFailedDrawable(getResources().getDrawable(R.drawable.empty_photo));
-			utils.display(holder.ivIcon, img_url, config);
-		}
+//		private void loadIvIcon(String img_url,ViewHolder holder) {
+//			config = new BitmapDisplayConfig();
+//			utils = new BitmapUtils(NewMessageActivity.this);
+//			config.setLoadingDrawable(getResources().getDrawable(R.drawable.empty_photo));
+//			config.setLoadFailedDrawable(getResources().getDrawable(R.drawable.empty_photo));
+//			utils.display(holder.ivIcon, img_url, config);
+//		}
 		class ViewHolder{
 			TextView tvName,tvTime,tvLastTalk,tvTis;
 			CircleImageView ivIcon;

@@ -11,6 +11,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSONObject;
+import com.bumptech.glide.Glide;
 import com.cpic.carmarket.R;
 import com.cpic.carmarket.base.BaseActivity;
 import com.cpic.carmarket.bean.FormData4;
@@ -156,7 +157,8 @@ public class FormAfterQueryActivity extends BaseActivity {
 		rBar.setRating((float)score);
 		
 		String url = data.getUser_img();
-		loadUserIcon(url);
+//		loadUserIcon(url);
+		Glide.with(FormAfterQueryActivity.this).load(url).dontAnimate().placeholder(R.drawable.empty_photo).fitCenter().into(ivUserIcon);
 	}
 	private void loadUserIcon(String ivUrl) {
 		config = new BitmapDisplayConfig();
