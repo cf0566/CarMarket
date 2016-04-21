@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
@@ -19,8 +20,11 @@ import com.cpic.carmarket.fragment.AnswerFragment;
 import com.cpic.carmarket.fragment.FormFragment;
 import com.cpic.carmarket.fragment.MessageFragment;
 import com.cpic.carmarket.fragment.MineFragment;
+import com.easemob.EMCallBack;
 import com.easemob.EMConnectionListener;
 import com.easemob.EMError;
+import com.easemob.EMEventListener;
+import com.easemob.EMNotifierEvent;
 import com.easemob.chat.EMChatManager;
 
 public class MainActivity extends BaseActivity {
@@ -41,9 +45,6 @@ public class MainActivity extends BaseActivity {
 	public String curFragmentTag = "";
 
 	private MyConnectionListener connectionListener = null;
-	
-	
-	
 
 	@Override
 	protected void getIntentData(Bundle savedInstanceState) {
@@ -64,10 +65,6 @@ public class MainActivity extends BaseActivity {
 	protected void initData() {
 		initFragment();
 		// 注册一个监听连接状态的listener
-		connectionListener = new MyConnectionListener();
-		EMChatManager.getInstance().addConnectionListener(connectionListener);
-		
-	
 	}
 
 	@Override
@@ -90,7 +87,8 @@ public class MainActivity extends BaseActivity {
 				mTrans = mManager.beginTransaction();
 
 				if (mFragment == null) {
-					mTrans.add(R.id.activity_main_framlayout,mFragList.get(index), "" + index);
+					mTrans.add(R.id.activity_main_framlayout,
+							mFragList.get(index), "" + index);
 				}
 				// 设置界面隐藏与显示，避免一次性加载所有界面
 				mTrans.show(mFragList.get(index));
@@ -102,7 +100,13 @@ public class MainActivity extends BaseActivity {
 		});
 	}
 
-	
+	@Override
+	protected void onResume() {
+		super.onResume();
+		connectionListener = new MyConnectionListener();
+		EMChatManager.getInstance().addConnectionListener(connectionListener);
+	}
+
 	private void initFragment() {
 		// TODO Auto-generated method stub
 		mFragList = new ArrayList<Fragment>();
@@ -146,10 +150,12 @@ public class MainActivity extends BaseActivity {
 					} else if (error == EMError.CONNECTION_CONFLICT) {
 						// 显示帐号在其他设备登陆
 						Toast.makeText(MainActivity.this, "已在其他设备登录", 0).show();
-						EMChatManager.getInstance().logout();
-						Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+						EMChatManager.getInstance().logout();//此方法为同步方法
+						finish();
+						Intent intent = new Intent(MainActivity.this,LoginActivity.class);
 						startActivity(intent);
-						android.os.Process.killProcess(android.os.Process.myPid());  
+						
+
 					} else {
 						// "连接不到聊天服务器"
 					}
@@ -157,19 +163,20 @@ public class MainActivity extends BaseActivity {
 			});
 		}
 	}
-	
+
 	@Override
 	protected void onDestroy() {
 		// TODO Auto-generated method stub
 		super.onDestroy();
-		if(connectionListener != null){
-		    EMChatManager.getInstance().removeConnectionListener(connectionListener);
+		if (connectionListener != null) {
+			EMChatManager.getInstance().removeConnectionListener(
+					connectionListener);
 		}
 	}
 
 	@Override
 	protected void onSaveInstanceState(Bundle outState) {
 		// TODO Auto-generated method stub
-//		super.onSaveInstanceState(outState);
+		// super.onSaveInstanceState(outState);
 	}
 }

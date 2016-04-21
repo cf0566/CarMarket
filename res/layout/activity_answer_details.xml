@@ -195,8 +195,8 @@
                             android:id="@+id/activity_answer_lv_question"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:listSelector="#00000000"
                             android:background="@drawable/last_ll"
-                            android:gravity="left"
                             android:padding="10dp" />
 
                         <LinearLayout

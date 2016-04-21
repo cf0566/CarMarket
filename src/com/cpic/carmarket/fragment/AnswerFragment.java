@@ -10,10 +10,9 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.Bitmap.Config;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -33,30 +32,24 @@ import com.alibaba.fastjson.JSONObject;
 import com.bumptech.glide.Glide;
 import com.cpic.carmarket.R;
 import com.cpic.carmarket.activity.AnswerDetailsActivity;
-import com.cpic.carmarket.activity.ChatActivity;
 import com.cpic.carmarket.activity.NewMessageActivity;
 import com.cpic.carmarket.bean.AnswerData;
 import com.cpic.carmarket.bean.AnswerResult;
 import com.cpic.carmarket.utils.ProgressDialogHandle;
 import com.cpic.carmarket.utils.UrlUtils;
 import com.cpic.carmarket.view.CircleImageView;
+import com.easemob.EMEventListener;
+import com.easemob.EMNotifierEvent;
 import com.easemob.chat.EMChatManager;
 import com.easemob.chat.EMConversation;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
-import com.lidroid.xutils.BitmapUtils;
 import com.lidroid.xutils.HttpUtils;
-import com.lidroid.xutils.bitmap.BitmapDisplayConfig;
-import com.lidroid.xutils.bitmap.callback.BitmapLoadCallBack;
-import com.lidroid.xutils.bitmap.callback.BitmapLoadFrom;
 import com.lidroid.xutils.exception.HttpException;
 import com.lidroid.xutils.http.RequestParams;
 import com.lidroid.xutils.http.ResponseInfo;
 import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest.HttpMethod;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 
 public class AnswerFragment extends Fragment {
 
@@ -70,22 +63,56 @@ public class AnswerFragment extends Fragment {
 	private Dialog dialog;
 	private ArrayList<EMConversation> conversationList = new ArrayList<EMConversation>();
 	private ImageView ivTis;
-
 	private Intent intent;
+	private final static int SETVISI = 0;
 
+	private Handler handler = new Handler() {
+
+		// 处理消息
+		public void handleMessage(Message msg) {
+			switch (msg.what) {
+			case SETVISI: // 奇数
+				ivTis.setVisibility(View.VISIBLE);
+				break;
+			
+			default:
+				break;
+			}
+		}
+
+	};
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		View view = inflater.inflate(R.layout.fragment_answer, null);
-		initView(view);
-		initData();
-		registerListener();
+		
 		return view;
+	}
+
+	@Override
+	public void onViewCreated(final View view, final Bundle savedInstanceState) {
+		super.onViewCreated(view, savedInstanceState);
+
+		
+		
+		EMChatManager.getInstance().registerEventListener(
+				new EMEventListener() {
+
+					@Override
+					public void onEvent(EMNotifierEvent event) {
+						Message msg = Message.obtain();
+						// msg.obj 任意类型的对象数据
+						msg.what = SETVISI;
+						handler.sendMessage(msg);
+					}
+			});
+		
+		initView(view);
+		registerListener();
 	}
 
 	private void registerListener() {
 		plv.setOnItemClickListener(new OnItemClickListener() {
-
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
@@ -99,6 +126,7 @@ public class AnswerFragment extends Fragment {
 				startActivity(intent);
 			}
 		});
+
 		tvMsg.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -106,6 +134,7 @@ public class AnswerFragment extends Fragment {
 				startActivity(intent);
 			}
 		});
+
 		plv.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2() {
 			@Override
 			public void onPullDownToRefresh(PullToRefreshBase refreshView) {
@@ -165,20 +194,28 @@ public class AnswerFragment extends Fragment {
 
 			@Override
 			public void onPullUpToRefresh(PullToRefreshBase refreshView) {
+				
 			}
 		});
 	}
-
-	private void initData() {
-		loadDatas();
+	@Override
+	public void onHiddenChanged(boolean hidden) {
+		// TODO Auto-generated method stub
+		super.onHiddenChanged(hidden);
 	}
 
 	@Override
 	public void onResume() {
 		super.onResume();
+		/**
+		 * 加载数据
+		 */
+		loadDatas();
+
 		if (conversationList.size() != 0) {
 			conversationList.clear();
 		}
+
 		conversationList.addAll(loadConversationsWithRecentChat());
 		if (conversationList.size() != 0) {
 			if (conversationList.get(0).getUnreadMsgCount() != 0) {
@@ -256,8 +293,6 @@ public class AnswerFragment extends Fragment {
 
 		private Context context;
 		private ArrayList<AnswerData> datas;
-		private BitmapUtils utils;
-		private BitmapDisplayConfig config;
 
 		@Override
 		public int getCount() {
@@ -309,17 +344,23 @@ public class AnswerFragment extends Fragment {
 			holder.tvCarType.setText(datas.get(position).getCar_name());
 			holder.tvQuestion.setText(datas.get(position).getContent());
 			holder.tvRepair.setText(datas.get(position).getDim_name());
-			for (int i = 0; i < conversationList.size(); i++) {
-				if (datas.get(position).getEase_name()
-						.equals(conversationList.get(i).getUserName())) {
-					int count = conversationList.get(i).getUnreadMsgCount();
-					if (count != 0) {
-						holder.tvMessage.setText("新消息(" + count + ")");
-						holder.tvMessage.setVisibility(View.VISIBLE);
-					} else {
-						holder.tvMessage.setVisibility(View.INVISIBLE);
-					}
-				}
+			// for (int i = 0; i < conversationList.size(); i++) {
+			// if (datas.get(position).getEase_name()
+			// .equals(conversationList.get(i).getUserName())) {
+			// int count = conversationList.get(i).getUnreadMsgCount();
+			// if (count != 0) {
+			// holder.tvMessage.setText("新消息(" + count + ")");
+			// holder.tvMessage.setVisibility(View.VISIBLE);
+			// } else {
+			// holder.tvMessage.setVisibility(View.INVISIBLE);
+			// }
+			// }
+			// }
+			if ("1".equals(datas.get(position).getNews())) {
+				holder.tvMessage.setText("新消息");
+				holder.tvMessage.setVisibility(View.VISIBLE);
+			} else {
+				holder.tvMessage.setVisibility(View.INVISIBLE);
 			}
 			String ivUrl = datas.get(position).getUser_img();
 			/**
@@ -327,22 +368,14 @@ public class AnswerFragment extends Fragment {
 			 * 
 			 * @param img_url
 			 */
-//			loadBitmap(holder, ivUrl);
-			Glide.with(context).load(ivUrl).dontAnimate().placeholder(R.drawable.empty_photo).fitCenter().into(holder.ivIcon);
+			// loadBitmap(holder, ivUrl);
+			Glide.with(context).load(ivUrl).dontAnimate()
+					.placeholder(R.drawable.empty_photo).fitCenter()
+					.into(holder.ivIcon);
 			holder.ivIcon.setTag(R.id.image_tag, position);
-			
+
 			return convertView;
 		}
-
-//		private void loadBitmap(final ViewHolder holder, String ivUrl) {
-//			config = new BitmapDisplayConfig();
-//			utils = new BitmapUtils(context);
-//			config.setLoadingDrawable(getResources().getDrawable(
-//					R.drawable.empty_photo));
-//			config.setLoadFailedDrawable(getResources().getDrawable(
-//					R.drawable.empty_photo));
-//			utils.display(holder.ivIcon, ivUrl, config);
-//		}
 
 		class ViewHolder {
 			TextView tvUserName, tvCarType, tvQuestion, tvMessage, tvRepair;

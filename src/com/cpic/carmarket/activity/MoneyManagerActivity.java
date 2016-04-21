@@ -172,6 +172,7 @@ public class MoneyManagerActivity extends BaseActivity{
 				holder.tvTime = (TextView) convertView.findViewById(R.id.item_manager_tv_time);
 				holder.tvType = (TextView) convertView.findViewById(R.id.item_manager_tv_type);
 				holder.tvtrade = (TextView) convertView.findViewById(R.id.item_manager_tv_trade);
+				holder.tvShenhe = (TextView) convertView.findViewById(R.id.item_manager_tv_shenhe);
 				convertView.setTag(holder);
 			}else{
 				holder = (ViewHolder) convertView.getTag();
@@ -184,12 +185,18 @@ public class MoneyManagerActivity extends BaseActivity{
 				holder.tvType.setText("转入");
 				holder.tvtrade.setText("+"+datas.get(position).getMoney());
 			}
-			
+			if ("0".equals(datas.get(position).getResult())) {
+				holder.tvShenhe.setText("审核中");
+			}else if ("1".equals(datas.get(position).getResult())) {
+				holder.tvShenhe.setText("已通过");
+			}else if ("2".equals(datas.get(position).getResult())) {
+				holder.tvShenhe.setText("未通过");
+			}
 			return convertView;
 		}
 		
 		class ViewHolder{
-			TextView tvType,tvTime,tvtrade;
+			TextView tvType,tvTime,tvtrade,tvShenhe;
 		}
 	}
 }

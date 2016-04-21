@@ -27,6 +27,7 @@ import com.cpic.carmarket.R;
 import com.cpic.carmarket.base.BaseActivity;
 import com.cpic.carmarket.base.MyApplication;
 import com.cpic.carmarket.bean.LoginResult;
+import com.cpic.carmarket.utils.MD5Utils;
 import com.cpic.carmarket.utils.ProgressDialogHandle;
 import com.cpic.carmarket.utils.UrlUtils;
 import com.easemob.EMCallBack;
@@ -171,7 +172,7 @@ public class LoginActivity extends BaseActivity {
 		post = new HttpUtils();
 		params = new RequestParams();
 		params.addBodyParameter("mobile", acount);
-		params.addBodyParameter("pwd", psd);
+		params.addBodyParameter("pwd", new MD5Utils().getMD5(psd));
 		post.send(HttpMethod.POST, UrlUtils.postUrl+UrlUtils.path_login, params, new RequestCallBack<String>() {
 
 			@Override
@@ -212,11 +213,10 @@ public class LoginActivity extends BaseActivity {
 					editor.putString("is_approve", res.getData().getIs_approve());
 					editor.apply();
 					// 进入主页面
-					Intent intent = new Intent(LoginActivity.this,MainActivity.class);
-					finish();
-					startActivity(intent);
+					
 					EMChat.getInstance().setAutoLogin(false);
-					EMChatManager.getInstance().login(res.getData().getEase_user(), res.getData().getEase_pwd(), new EMCallBack() {
+					EMChatManager.getInstance().login(res.getData().getEase_user(), res.getData().getEase_pwd(), 
+							new EMCallBack() {
 								
 								@Override
 								public void onSuccess() {
@@ -227,6 +227,9 @@ public class LoginActivity extends BaseActivity {
 										EMChatManager.getInstance().loadAllConversations();
 										// 处理好友和群组
 										initializeContacts();
+										Intent intent = new Intent(LoginActivity.this,MainActivity.class);
+										startActivity(intent);
+										finish();
 									} catch (Exception e) {
 										e.printStackTrace();
 										// 取好友或者群聊失败，不让进入主页面
@@ -256,10 +259,9 @@ public class LoginActivity extends BaseActivity {
 								
 								@Override
 								public void onError(int arg0, String arg1) {
-									showShortToast("环信接入失败");
+									Log.i("oye", "环信登录失败");
 								}
 							});
-					
 				}
 			}
 		});

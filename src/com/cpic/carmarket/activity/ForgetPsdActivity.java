@@ -103,8 +103,9 @@ public class ForgetPsdActivity extends BaseActivity {
 					showLongToast("手机号码或验证码不得为空");
 				} else {
 					intent = new Intent(ForgetPsdActivity.this,SetPsdActivity.class);
-					intent.putExtra("checknum", checknum);
-					intent.putExtra("mobile", mobile);
+					intent.putExtra("checknum", etCheck.getText().toString());
+					intent.putExtra("mobile", etMobile.getText().toString());
+					
 					startActivity(intent);
 				}
 			}

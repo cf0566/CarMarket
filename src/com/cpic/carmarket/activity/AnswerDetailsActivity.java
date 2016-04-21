@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -96,6 +97,9 @@ public class AnswerDetailsActivity extends BaseActivity {
 				if (data.getAnswer().getList().size() == 0) {
 					intent.putExtra("pre_id", data.getAnswer().getAnswer_id());
 				} else {
+//					Log.i("oye", data.getAnswer().getList()
+//									.get(data.getAnswer().getList().size() - 1)
+//									.getId());
 					intent.putExtra("pre_id",data.getAnswer().getList()
 									.get(data.getAnswer().getList().size() - 1)
 									.getId());
@@ -134,8 +138,6 @@ public class AnswerDetailsActivity extends BaseActivity {
 				startActivity(intent);
 			}
 		});
-		
-		
 	}
 
 	@Override
@@ -156,10 +158,7 @@ public class AnswerDetailsActivity extends BaseActivity {
 		config.setLoadFailedDrawable(getResources().getDrawable(
 				R.drawable.empty_photo));
 		utils.display(ivIcon, ivUrl, config);
-
 	}
-
-
 
 	/**
 	 * 上一界面回来时，重新加载页面
@@ -395,10 +394,4 @@ public class AnswerDetailsActivity extends BaseActivity {
 			ImageView ivIcon,ivDel;
 		}
 	}
-	
-	
-	
-	
-	
-	
 }

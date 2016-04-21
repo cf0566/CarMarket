@@ -1,9 +1,12 @@
 package com.cpic.carmarket.activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -13,6 +16,7 @@ import android.widget.ImageView;
 import com.alibaba.fastjson.JSONObject;
 import com.cpic.carmarket.R;
 import com.cpic.carmarket.base.BaseActivity;
+import com.cpic.carmarket.utils.MD5Utils;
 import com.cpic.carmarket.utils.UrlUtils;
 import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.exception.HttpException;
@@ -111,7 +115,7 @@ public class SetPsdActivity extends BaseActivity{
 					params = new RequestParams();
 					post = new HttpUtils();
 					params.addBodyParameter("mobile", mobile);
-					params.addBodyParameter("pwd", second);
+					params.addBodyParameter("pwd", new MD5Utils().getMD5(second));
 					params.addBodyParameter("code", checknum);
 					post.send(HttpMethod.POST, UrlUtils.postUrl+UrlUtils.path_updatePwd, params, new RequestCallBack<String>() {
 
@@ -123,10 +127,16 @@ public class SetPsdActivity extends BaseActivity{
 						@Override
 						public void onSuccess(ResponseInfo<String> arg0) {
 							JSONObject obj = JSONObject.parseObject(arg0.result);
-							int code = obj.getInteger("code");
+							int code = obj.getIntValue("code");
 							if (code == 1) {
 								showShortToast("修改密码成功");
-								intent = new Intent(SetPsdActivity.this, MainActivity.class);
+								SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(SetPsdActivity.this);
+								final SharedPreferences.Editor editor=sp.edit();
+								editor.putString("acount", mobile);
+								editor.putString("psd", second);
+								editor.commit();
+								intent = new Intent(SetPsdActivity.this, LoginActivity.class);
+								intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); 
 								startActivity(intent);
 								finish();
 							}else{

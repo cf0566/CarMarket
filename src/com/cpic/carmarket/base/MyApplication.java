@@ -1,23 +1,22 @@
 package com.cpic.carmarket.base;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
-import org.apache.http.params.HttpParams;
-
+import android.app.ActivityManager;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.util.Log;
 
 import com.alibaba.fastjson.JSONObject;
 import com.cpic.carmarket.activity.ChatActivity;
-import com.cpic.carmarket.activity.MainActivity;
 import com.cpic.carmarket.bean.EaseUser;
 import com.cpic.carmarket.bean.EaseUserInfo;
 import com.cpic.carmarket.utils.UrlUtils;
 import com.easemob.EMCallBack;
-import com.easemob.EMConnectionListener;
-import com.easemob.EMError;
 import com.easemob.chat.EMChat;
 import com.easemob.chat.EMChatManager;
 import com.easemob.chat.EMChatOptions;
@@ -25,17 +24,12 @@ import com.easemob.chat.EMMessage;
 import com.easemob.chat.EMMessage.ChatType;
 import com.easemob.chat.OnNotificationClickListener;
 import com.easemob.chatuidemo.DemoHXSDKHelper;
-import com.easemob.util.NetUtils;
 import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.exception.HttpException;
 import com.lidroid.xutils.http.RequestParams;
 import com.lidroid.xutils.http.ResponseInfo;
 import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest.HttpMethod;
-import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
-import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 
 public class MyApplication extends Application{
 	/**
@@ -122,11 +116,48 @@ public class MyApplication extends Application{
 				});
 			}
 		});
-
-	
+		
+		
+		int pid = android.os.Process.myPid();
+		String processAppName = getAppName(pid);
+		// 如果app启用了远程的service，此application:onCreate会被调用2次
+		// 为了防止环信SDK被初始化2次，加此判断会保证SDK被初始化1次
+		// 默认的app会在以包名为默认的process name下运行，如果查到的process name不是app的process name就立即返回
+		 
+		if (processAppName == null ||!processAppName.equalsIgnoreCase("com.cpic.carmarket")) {
+		    Log.e("oye", "enter the service process!");
+		    //"com.easemob.chatuidemo"为demo的包名，换到自己项目中要改成自己包名
+		 
+		    // 则此application::onCreate 是被service 调用的，直接返回
+		    return;
+		}
+		
+		
 	}
 	
-	
+	private String getAppName(int pID) {
+		String processName = null;
+		ActivityManager am = (ActivityManager)this.getSystemService(ACTIVITY_SERVICE);
+		List l = am.getRunningAppProcesses();
+		Iterator i = l.iterator();
+		PackageManager pm = this.getPackageManager();
+		while (i.hasNext()) {
+			ActivityManager.RunningAppProcessInfo info = (ActivityManager.RunningAppProcessInfo) (i.next());
+			try {
+				if (info.pid == pID) {
+					CharSequence c = pm.getApplicationLabel(pm.getApplicationInfo(info.processName, PackageManager.GET_META_DATA));
+					// Log.d("Process", "Id: "+ info.pid +" ProcessName: "+
+					// info.processName +"  Label: "+c.toString());
+					// processName = c.toString();
+					processName = info.processName;
+					return processName;
+				}
+			} catch (Exception e) {
+				// Log.d("Process", "Error>> :"+ e.toString());
+			}
+		}
+		return processName;
+	}
 	public static MyApplication getInstance() {
 		return instance;
 	}

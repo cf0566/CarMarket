@@ -11,6 +11,29 @@ public class AnswerData {
 	private String user_name;
 	private String user_img;
 	private String ease_name;
+	private String news;
+	public AnswerData(String question_id, String dim_id, String dim_name,
+			String car_id, String car_name, String car_logo, String user_name,
+			String user_img, String ease_name, String news, String content) {
+		super();
+		this.question_id = question_id;
+		this.dim_id = dim_id;
+		this.dim_name = dim_name;
+		this.car_id = car_id;
+		this.car_name = car_name;
+		this.car_logo = car_logo;
+		this.user_name = user_name;
+		this.user_img = user_img;
+		this.ease_name = ease_name;
+		this.news = news;
+		this.content = content;
+	}
+	public String getNews() {
+		return news;
+	}
+	public void setNews(String news) {
+		this.news = news;
+	}
 	private String content;
 	public String getQuestion_id() {
 		return question_id;
@@ -78,7 +101,8 @@ public class AnswerData {
 				+ ", dim_name=" + dim_name + ", car_id=" + car_id
 				+ ", car_name=" + car_name + ", car_logo=" + car_logo
 				+ ", user_name=" + user_name + ", user_img=" + user_img
-				+ ", ease_name=" + ease_name + ", content=" + content + "]";
+				+ ", ease_name=" + ease_name + ", news=" + news + ", content="
+				+ content + "]";
 	}
 	public AnswerData() {
 		super();
